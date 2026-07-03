@@ -151,7 +151,7 @@
   /* heritage cinematic */
   .heritage{position:relative;min-height:64svh;display:grid;place-items:center;color:#fff;text-align:center;overflow:hidden;
     background:linear-gradient(160deg,var(--verdigris-deep),#0d3d38 70%,#08302c)}
-  .heritage .seal{position:absolute;right:-6vw;bottom:-4vw;width:44vw;max-width:520px;color:#fff;opacity:.08;z-index:1}
+  .heritage .seal{position:absolute;right:-6vw;bottom:-4vw;width:44vw;max-width:520px;opacity:.08;z-index:1;filter:brightness(0) invert(1)}
   .heritage .wrap{position:relative;z-index:2;max-width:820px}
   .heritage .label{color:#a9dcd5;background:none;padding:0}
   .heritage .line-th{font-family:'Noto Sans Thai';font-weight:700;font-size:clamp(1.6rem,3.2vw,2.4rem);line-height:1.4;margin:14px 0}
@@ -195,10 +195,14 @@
   .ncard h3{font-size:18px;margin:6px 0}
   .ncard p{font-size:15px;color:#555}
   /* cta band */
-  .ctaband{background:var(--paper-dark);color:#fff;text-align:center}
-  .ctaband h2{color:#fff;margin-bottom:26px}
-  .ctaband .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .ctaband .meet{margin-top:24px;color:#aecbe6;font-size:15px}
+  .ctaband{background:var(--paper-dark);color:#fff;text-align:center;padding:clamp(76px,11vw,120px) 0}
+  .ctaband .wrap{max-width:720px}
+  .ctaband .label{display:inline-block;color:#9fc2e0;background:none;padding:0;margin-bottom:14px}
+  .ctaband h2{color:#fff;font-size:clamp(1.9rem,3.5vw,2.6rem);margin-bottom:14px}
+  .ctaband .lead{color:#cfe0f2;font-size:clamp(1.05rem,1.5vw,1.18rem);margin:0 auto 36px;max-width:540px}
+  .ctaband .btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .ctaband .meet{margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,.16);
+    color:#aecbe6;font-size:15px;display:inline-block}
   /* footer */
   footer{background:var(--rotary-blue);color:#dbe6f5;font-size:15px}
   footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:32px;padding:56px 24px 30px;max-width:var(--maxw);margin:0 auto}
@@ -267,7 +271,7 @@
 <!-- B2 HERO -->
 <div class="hero">
   <div class="hero-media"><!-- swap <picture> H01 ทีหลัง --></div>
-  <svg class="seal-bg"><use href="#seal"/></svg>
+  <img class="seal-bg" src="club_emblem.png" alt="">
   <div class="wrap">
     <div class="label">Rotary Club of Meuang Rae Phuket · District 3330</div>
     <h1 class="hero-h1">
@@ -331,7 +335,7 @@
 <!-- B6 HERITAGE (cinematic) -->
 <div class="heritage" id="heritage">
   <svg class="divider chain-live gold d-top" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track ore"></g></svg>
-  <svg class="seal"><use href="#seal"/></svg>
+  <img class="seal" src="club_emblem.png" alt="">
   <div class="wrap reveal">
     <div class="label" style="display:inline-block">มรดกเหมืองแร่ภูเก็ต</div>
     <div class="line-th">กระเชอที่เคย<em>ตักแร่</em>สร้างเมืองภูเก็ต<br>วันนี้<em>ตักน้ำใจ</em>สร้างชุมชนที่ยั่งยืน</div>
@@ -378,9 +382,11 @@
 
 <!-- B9 CTA -->
 <div class="ctaband" id="join"><div class="wrap reveal">
+  <div class="label">ร่วมเป็นส่วนหนึ่ง</div>
   <h2>ร่วมสร้างผลกระทบที่ยั่งยืนไปกับเรา</h2>
+  <p class="lead">ไม่ว่าคุณจะอยากลงมือทำ สนับสนุนโครงการ หรือแค่อยากรู้จักเรา — เริ่มต้นได้ที่นี่</p>
   <div class="btns"><a href="#" class="btn btn-gold">สมัครสมาชิก</a><a href="#" class="btn btn-outline-white">เป็น Sponsor</a><a href="#" class="btn btn-outline-white">ติดต่อสโมสร</a></div>
-  <div class="meet">ประชุมทุกอังคารที่ 1 และ 3 · 19:00–20:00 น. · Happy Property Office กะทู้ ภูเก็ต</div>
+  <div class="meet">📍 ประชุมทุกอังคารที่ 1 และ 3 · 19:00–20:00 น. · Happy Property Office กะทู้ ภูเก็ต</div>
 </div></div>
 
 <!-- B10 FOOTER -->
