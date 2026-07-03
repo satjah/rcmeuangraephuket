@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <!--
-  MOCKUP เบื้องต้น — www.rcmeuangraephuket.org  (Phase 0)
+  MOCKUP — www.rcmeuangraephuket.org (Phase 0 + WOW layer)
   สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330
-  สร้างโดย Opus ตาม spec: plan/website_design_fable.md · 3 ก.ค. 2569
-  🟡 ร่างเสนอทีม — ทุกอย่างรออนุมัติประธานฝ่าย/นายก
-  หมายเหตุ: mockup ใช้ Google Fonts CDN เพื่อความคมชัด — เว็บจริงจะ self-host (จีน-friendly)
-            วงล้อ Rotary ในโลโก้ = placeholder (⬤) รอไฟล์ทางการจาก Brand Center — ห้ามวาดปลอม
+  Opus ตาม spec: website_design_fable.md + website_wow_design_fable.md · 3 ก.ค. 2569
+  🟡 ร่างเสนอทีม · โลโก้ทางการ swap แล้ว · วงล้อ = ไฟล์จริง (ห้าม animate)
+  wow: hero cinematic+kinetic · โซ่กระเชอเคลื่อนที่ · scroll reveal+count-up · heritage cinematic · video facade
+  หมายเหตุ: mockup ใช้ Google Fonts + YouTube thumbnail (external) — เว็บจริง self-host ส่วนที่เหลือ
 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,nofollow"><!-- ร่างเสนอทีม: กัน Google index จนกว่าจะอนุมัติ+ขึ้น domain จริง -->
+<meta name="robots" content="noindex,nofollow">
 <title>สโมสรโรตารีเหมืองแร่ภูเก็ต — จากเวที สู่ชีวิต</title>
 <link rel="icon" href="club_emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,46 +19,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&family=Sarabun:wght@400;500;600&family=Open+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* สีทางการสโมสร (จาก brand sheet) */
     --rotary-blue:#19468D; --rotary-gold:#F5A81C; --azure:#0076C0;
-    --bronze:#B08D57; --bronze-deep:#8C6A3F;              /* heritage accent (อุ่น) */
-    --verdigris:#00AE98; --verdigris-deep:#00796B;         /* turquoise ทางการสโมสร */
+    --bronze:#B08D57; --bronze-deep:#8C6A3F;
+    --verdigris:#00AE98; --verdigris-deep:#00796B;
     --ink:#1F2933; --paper:#FAF8F4; --paper-dark:#122F5E;
-    --maxw:1140px;
+    --maxw:1140px; --ease:cubic-bezier(.22,1,.36,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
   body{font-family:'Sarabun','Noto Sans Thai',-apple-system,'Thonburi',sans-serif;
-    color:var(--ink);background:var(--paper);font-size:18px;line-height:1.75}
-  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.2;color:var(--rotary-blue)}
+    color:var(--ink);background:var(--paper);font-size:18px;line-height:1.75;overflow-x:hidden}
+  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.2;color:var(--rotary-blue);text-wrap:balance}
+  p{text-wrap:pretty}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  section{padding:80px 0}
+  section{padding:clamp(72px,10vw,120px) 0}
   a{color:var(--rotary-blue);text-decoration:none}
   .en{font-family:'Open Sans',sans-serif}
+  /* kicker label + ถังกระเชอจิ๋ว */
   .label{font-family:'Open Sans',sans-serif;font-weight:600;text-transform:uppercase;
-    letter-spacing:.08em;font-size:13px;color:var(--verdigris-deep)}
+    letter-spacing:.08em;font-size:13px;color:var(--verdigris-deep);
+    padding-left:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23B08D57'/%3E%3C/svg%3E") left center no-repeat}
   .todo{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;color:#B4541F;
     background:#FCEEE3;border-radius:4px;padding:1px 6px;vertical-align:middle;white-space:nowrap}
+  h2{font-size:clamp(1.9rem,3.5vw,2.6rem)}
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);
+    transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.in{opacity:1;transform:none}
   /* buttons */
   .btn{display:inline-block;font-family:'Noto Sans Thai',sans-serif;font-weight:600;
-    padding:13px 26px;border-radius:8px;font-size:16px;cursor:pointer;transition:.15s;border:2px solid transparent}
-  .btn-gold{background:var(--rotary-gold);color:#1F2933}
+    padding:13px 26px;border-radius:8px;font-size:16px;cursor:pointer;transition:.25s;border:2px solid transparent}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-gold{background:var(--rotary-gold);color:#1F2933;box-shadow:0 4px 14px -4px rgba(245,168,28,.5)}
   .btn-gold:hover{background:#e0960a}
   .btn-outline{border-color:var(--bronze);color:var(--bronze-deep);background:transparent}
   .btn-outline:hover{background:rgba(176,141,87,.1)}
   .btn-outline-white{border-color:#fff;color:#fff;background:transparent}
   .btn-outline-white:hover{background:rgba(255,255,255,.12)}
-  /* chain divider */
+  /* divider */
   .divider{display:block;width:100%;height:26px}
+  .chain-live .chain-track{animation:convey 7s linear infinite;will-change:transform}
+  @keyframes convey{to{transform:translateX(-48px)}}
   /* header */
-  header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 1px 8px rgba(15,42,86,.08)}
+  header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 1px 6px rgba(15,42,86,.06);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 4px 18px rgba(15,42,86,.13)}
   .nav{display:flex;align-items:center;gap:24px;padding:12px 24px;max-width:var(--maxw);margin:0 auto}
-  .logo{display:flex;align-items:center;gap:10px;flex:1}
-  .logo .mark{width:40px;height:40px;border:2px dashed var(--rotary-gold);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;color:var(--rotary-gold);font-size:11px;flex-shrink:0}
-  .logo .txt{line-height:1.15}
-  .logo .txt b{color:var(--rotary-blue);font-family:'Noto Sans Thai';font-weight:700;font-size:15px;display:block}
-  .logo .txt span{font-family:'Open Sans';font-size:9.5px;letter-spacing:.04em;color:var(--bronze-deep);text-transform:uppercase}
+  .logo{display:flex;align-items:center;flex:1}
   .logo-img{height:48px;width:auto;display:block}
   nav.menu{display:flex;align-items:center;gap:22px}
   nav.menu a{font-family:'Noto Sans Thai';font-weight:600;font-size:15px;color:var(--ink)}
@@ -67,55 +72,96 @@
     border:1px solid var(--verdigris);border-radius:6px;padding:4px 8px}
   .burger{display:none;font-size:26px;background:none;border:none;color:var(--rotary-blue);cursor:pointer}
   #mtoggle{display:none}
-  /* hero */
-  .hero{background:var(--paper-dark);color:#fff;position:relative;overflow:hidden;text-align:center;padding:96px 24px 0}
-  .hero .seal-bg{position:absolute;right:-30px;bottom:-40px;width:360px;opacity:.13;filter:brightness(0) invert(1)}
-  .hero .wrap{position:relative;z-index:2}
-  .hero h1{color:#fff;font-size:56px;margin:14px 0 6px}
-  .hero .sub-en{font-family:'Open Sans';font-weight:700;color:var(--rotary-gold);font-size:22px;letter-spacing:.02em}
-  .hero p.lead{max-width:640px;margin:22px auto 30px;font-size:19px;color:#dbe6f5}
-  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding-bottom:60px}
-  .hero .label{color:#8fb8d8}
+  /* HERO */
+  .hero{position:relative;min-height:92svh;display:grid;place-items:center;text-align:center;overflow:hidden;color:#fff}
+  .hero-media{position:absolute;inset:0;overflow:hidden;
+    background:linear-gradient(160deg,#0F2A56 0%,#122F5E 45%,#1a3d6e 70%,#0a1a34 100%)}
+  .hero-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(.92) contrast(1.04);
+    animation:kenburns 14s var(--ease) forwards}
+  @keyframes kenburns{from{transform:scale(1.08)}to{transform:scale(1)}}
+  .hero-media::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(60% 50% at 50% 42%,rgba(245,168,28,.12),transparent 70%),
+    linear-gradient(180deg,rgba(18,47,94,.5) 0%,rgba(18,47,94,.32) 40%,rgba(10,26,52,.9) 100%)}
+  .hero .seal-bg{position:absolute;right:-30px;bottom:20px;width:340px;opacity:.09;filter:brightness(0) invert(1);z-index:1}
+  .hero .wrap{position:relative;z-index:2;padding-top:80px;padding-bottom:80px}
+  .hero .label{color:#9fc2e0;display:inline-flex;align-items:center;gap:12px;background:none;padding:0}
+  .hero .label::before,.hero .label::after{content:"";width:36px;height:1px;background:rgba(245,168,28,.5)}
+  .hero-h1{color:#fff;font-size:clamp(3rem,9vw,6rem);line-height:1.08;font-weight:700;margin:16px 0 2px}
+  .hero-h1 .line{display:inline-block;opacity:0;transform:translateY(28px);animation:rise .8s var(--ease) forwards}
+  .hero-h1 .l2{animation-delay:1.15s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .chain-draw{display:block;width:min(300px,55vw);margin:6px auto;overflow:visible}
+  .chain-draw path{fill:none;stroke:var(--rotary-gold);stroke-width:2.5;stroke-dasharray:100;stroke-dashoffset:100;
+    animation:draw .7s ease-out .55s forwards}
+  .chain-draw .bkt{stroke-width:2;animation-delay:.95s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .rise{opacity:0;transform:translateY(20px);animation:rise .8s var(--ease) forwards}
+  .sub-en{font-family:'Open Sans';font-weight:700;color:var(--rotary-gold);text-transform:uppercase;
+    letter-spacing:.14em;font-size:clamp(.95rem,1.6vw,1.25rem);animation-delay:1.5s}
+  .hero p.lead{max-width:640px;margin:22px auto 30px;font-size:clamp(1.05rem,1.5vw,1.2rem);color:#dbe6f5;animation-delay:1.7s}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation-delay:1.9s}
+  .hero .divider{position:absolute;bottom:0;left:0}
+  .scroll-cue{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:1px;height:56px;background:rgba(255,255,255,.28);z-index:2}
+  .scroll-cue::after{content:"";position:absolute;left:-4px;width:9px;height:7px;background:var(--rotary-gold);
+    clip-path:polygon(0 0,100% 0,80% 100%,20% 100%);animation:cue 2.6s ease-in-out infinite}
+  @keyframes cue{0%{top:0;opacity:0}15%{opacity:1}70%{opacity:1}100%{top:48px;opacity:0}}
   /* impact numbers */
   .impact{background:#fff}
   .impact .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center}
-  .impact .num{font-family:'Open Sans';font-weight:800;font-size:52px;color:var(--bronze);line-height:1.05}
+  .impact .num{font-family:'Open Sans';font-weight:800;font-size:clamp(2.6rem,5vw,3.4rem);color:var(--bronze);
+    line-height:1.05;font-variant-numeric:tabular-nums;display:inline-block}
+  .impact .num .unit{font-size:.5em}
+  .impact .uline{height:2px;width:44px;margin:8px auto 0;background:var(--rotary-gold);transform:scaleX(0);transform-origin:center;
+    transition:transform .9s var(--ease) .3s}
+  .impact .in .uline,.impact .reveal.in .uline{transform:scaleX(1)}
   .impact .cap{font-size:15px;color:var(--ink);margin-top:8px;line-height:1.5}
   /* featured */
   .feat{background:var(--paper)}
   .feat .row{display:grid;grid-template-columns:7fr 5fr;gap:44px;align-items:center}
-  .feat h2{font-size:32px;margin:8px 0 20px}
+  .feat h2{margin:8px 0 20px}
   .timeline{list-style:none;margin:18px 0 26px}
   .timeline li{position:relative;padding:0 0 22px 46px}
   .timeline li:before{content:attr(data-n);position:absolute;left:0;top:0;width:32px;height:32px;
     background:var(--bronze);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;
     font-family:'Open Sans';font-weight:800;font-size:15px}
-  .timeline li:not(:last-child):after{content:"";position:absolute;left:15px;top:34px;bottom:0;
-    width:2px;background:repeating-linear-gradient(var(--bronze) 0 4px,transparent 4px 8px)}
+  .timeline li:not(:last-child):after{content:"";position:absolute;left:15px;top:34px;bottom:0;width:2px;
+    background:repeating-linear-gradient(var(--bronze) 0 4px,transparent 4px 8px)}
   .timeline b{color:var(--rotary-blue);display:block;font-family:'Noto Sans Thai';font-weight:600}
   .timeline span{font-size:16px;color:var(--ink)}
-  /* project cards */
+  /* cards */
   .projects{background:#fff}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .card{border:1px solid rgba(176,141,87,.35);border-radius:8px;overflow:hidden;background:#fff;transition:.15s}
-  .card:hover{box-shadow:0 8px 24px rgba(15,42,86,.10);transform:translateY(-2px)}
+  .card{position:relative;border:1px solid rgba(176,141,87,.35);border-radius:8px;overflow:hidden;background:#fff;
+    box-shadow:0 1px 2px rgba(15,42,86,.05);transition:box-shadow .45s,transform .45s,border-color .45s}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;z-index:2;
+    background:linear-gradient(90deg,var(--bronze),var(--rotary-gold));transform:scaleX(0);transform-origin:left;
+    transition:transform .45s var(--ease)}
+  .card:hover{transform:translateY(-4px);border-color:var(--bronze);
+    box-shadow:0 1px 2px rgba(15,42,86,.06),0 16px 40px -12px rgba(15,42,86,.18)}
+  .card:hover::before{transform:scaleX(1)}
+  .card:hover .ph img,.card:hover .ph{transform:scale(1.045)}
   .card .body{padding:18px 20px 22px}
-  .card .tag{font-family:'Open Sans';font-size:12px;font-weight:600;text-transform:uppercase;
-    letter-spacing:.06em;color:var(--verdigris-deep);background:rgba(95,158,160,.12);
-    padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:10px}
+  .card .tag{font-family:'Open Sans';font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--verdigris-deep);background:rgba(0,174,152,.12);padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:10px}
   .card h3{font-size:20px;margin-bottom:8px}
   .card p{font-size:16px;color:var(--ink)}
   .card .more{font-weight:600;font-size:15px;color:var(--bronze-deep);margin-top:12px;display:inline-block}
-  /* heritage band */
-  .heritage{background:var(--verdigris-deep);color:#fff;padding:52px 0}
-  .heritage .row{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center}
-  .heritage .seal{width:96px;color:#fff;flex-shrink:0}
-  .heritage .line-th{font-family:'Noto Sans Thai';font-weight:700;font-size:26px;line-height:1.35}
-  .heritage .line-en{font-family:'Open Sans';font-style:italic;color:#d6 eaea;color:#cfe6e6;margin-top:8px;font-size:15px}
-  .heritage a{color:#fff;font-weight:600;font-size:15px;border-bottom:1px solid rgba(255,255,255,.5);display:inline-block;margin-top:14px}
+  .card .more::after{content:"→";display:inline-block;margin-left:.35em;transition:transform .3s}
+  .card:hover .more::after{transform:translateX(4px)}
+  /* heritage cinematic */
+  .heritage{position:relative;min-height:64svh;display:grid;place-items:center;color:#fff;text-align:center;overflow:hidden;
+    background:linear-gradient(160deg,var(--verdigris-deep),#0d3d38 70%,#08302c)}
+  .heritage .seal{position:absolute;right:-6vw;bottom:-4vw;width:44vw;max-width:520px;color:#fff;opacity:.08;z-index:1}
+  .heritage .wrap{position:relative;z-index:2;max-width:820px}
+  .heritage .label{color:#a9dcd5;background:none;padding:0}
+  .heritage .line-th{font-family:'Noto Sans Thai';font-weight:700;font-size:clamp(1.6rem,3.2vw,2.4rem);line-height:1.4;margin:14px 0}
+  .heritage .line-th em{color:var(--rotary-gold);font-style:normal}
+  .heritage .line-en{font-family:'Open Sans';font-style:italic;color:#cfe6e6;font-size:15px;margin-bottom:16px}
+  .heritage a{color:#fff;font-weight:600;font-size:15px;border-bottom:1px solid rgba(255,255,255,.5)}
+  .heritage .divider{position:absolute;left:0}.heritage .d-top{top:0}.heritage .d-bot{bottom:0}
   /* people */
   .people{background:var(--paper)}
-  .people h2{font-size:32px;text-align:center;margin-bottom:8px}
+  .people h2{text-align:center;margin-bottom:8px}
   .people .intro{text-align:center;color:var(--ink);max-width:600px;margin:0 auto 40px}
   .profiles{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
   .profile{background:#fff;border-radius:8px;border:1px solid rgba(176,141,87,.25);padding:22px;text-align:center}
@@ -124,143 +170,138 @@
   .profile .who{margin-top:12px;font-family:'Noto Sans Thai';font-weight:600;color:var(--rotary-blue);font-size:15px}
   .profile .role{font-size:13px;color:var(--bronze-deep)}
   .center-cta{text-align:center;margin-top:34px}
+  /* VIDEO */
+  .video{position:relative;background:var(--paper-dark);color:#fff;text-align:center}
+  .video h2{color:#fff;margin:8px 0 10px}
+  .video .label{color:#9fc2e0;background:none;padding:0;display:inline-block}
+  .video p.vsub{color:#cfe0f2;max-width:620px;margin:0 auto 30px}
+  .lite-yt{position:relative;max-width:900px;margin:0 auto;aspect-ratio:16/9;border-radius:12px;overflow:hidden;
+    cursor:pointer;background:#000 center/cover no-repeat;box-shadow:0 24px 60px -20px rgba(0,0,0,.6)}
+  .lite-yt img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) brightness(.85);transition:.5s}
+  .lite-yt:hover img{filter:grayscale(0) brightness(.95);transform:scale(1.03)}
+  .lite-yt iframe{width:100%;height:100%;border:0;display:block}
+  .yt-play{position:absolute;inset:0;margin:auto;width:82px;height:82px;border:none;border-radius:50%;cursor:pointer;
+    background:rgba(245,168,28,.95);display:grid;place-items:center;transition:.3s;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  .yt-play::after{content:"";width:0;height:0;margin-left:6px;border-style:solid;border-width:15px 0 15px 26px;border-color:transparent transparent transparent #12305e}
+  .lite-yt:hover .yt-play{transform:scale(1.08);background:var(--rotary-gold)}
   /* news */
   .news{background:#fff}
-  .news h2{font-size:32px;margin-bottom:30px}
-  .news .top{display:flex;justify-content:space-between;align-items:baseline}
+  .news .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:30px}
   .ncards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .ncard{border-radius:8px;overflow:hidden;border:1px solid #eee;background:#fff}
+  .ncard{border-radius:8px;overflow:hidden;border:1px solid #eee;background:#fff;transition:box-shadow .4s,transform .4s}
+  .ncard:hover{transform:translateY(-3px);box-shadow:0 14px 34px -14px rgba(15,42,86,.16)}
   .ncard .body{padding:16px 18px 20px}
   .ncard .date{font-family:'Open Sans';font-size:12px;font-weight:600;color:var(--verdigris-deep);letter-spacing:.04em}
-  .ncard h3{font-size:18px;margin:6px 0 6px}
+  .ncard h3{font-size:18px;margin:6px 0}
   .ncard p{font-size:15px;color:#555}
   /* cta band */
   .ctaband{background:var(--paper-dark);color:#fff;text-align:center}
-  .ctaband h2{color:#fff;font-size:30px;margin-bottom:26px}
+  .ctaband h2{color:#fff;margin-bottom:26px}
   .ctaband .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
   .ctaband .meet{margin-top:24px;color:#aecbe6;font-size:15px}
   /* footer */
   footer{background:var(--rotary-blue);color:#dbe6f5;font-size:15px}
   footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:32px;padding:56px 24px 30px;max-width:var(--maxw);margin:0 auto}
   footer h4{color:#fff;font-family:'Noto Sans Thai';font-weight:600;font-size:16px;margin-bottom:14px}
-  footer a{color:#cddcf0;display:block;margin-bottom:7px}
-  footer a:hover{color:#fff}
+  footer a{color:#cddcf0;display:block;margin-bottom:7px}footer a:hover{color:#fff}
   footer .flogo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  footer .flogo .mark{width:38px;height:38px;border:2px dashed rgba(247,168,27,.7);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;color:var(--rotary-gold);font-size:10px;flex-shrink:0}
-  footer .flogo b{color:#fff;font-family:'Noto Sans Thai';font-weight:700;font-size:14px}
-  footer .bottom{border-top:1px solid rgba(255,255,255,.15);padding:16px 24px 30px;max-width:var(--maxw);
-    margin:0 auto;text-align:center;font-size:13px;color:#9db8d8}
+  footer .bottom{border-top:1px solid rgba(255,255,255,.15);padding:16px 24px 30px;max-width:var(--maxw);margin:0 auto;
+    text-align:center;font-size:13px;color:#9db8d8}
   footer .bottom .h-en{font-style:italic}
-  .placeholder{background:linear-gradient(135deg,var(--paper-dark),var(--bronze-deep));
-    display:flex;align-items:center;justify-content:center;text-align:center;color:rgba(255,255,255,.92);
-    font-family:'Open Sans';font-size:13px;font-weight:600;padding:16px;line-height:1.5;position:relative}
-  .placeholder:before{content:"📷";font-size:22px;display:block;position:absolute;top:12px;left:0;right:0;opacity:.6}
+  /* placeholder (duotone) */
+  .placeholder{background:linear-gradient(135deg,var(--paper-dark),var(--bronze-deep));display:flex;align-items:center;
+    justify-content:center;text-align:center;color:rgba(255,255,255,.92);font-family:'Open Sans';font-size:13px;font-weight:600;
+    padding:16px;line-height:1.5;position:relative;transition:transform .7s var(--ease)}
+  .placeholder:before{content:"📷";font-size:22px;position:absolute;top:12px;left:0;right:0;opacity:.6}
   .placeholder span{margin-top:14px}
   .ph-32{aspect-ratio:3/2}
-  .ph-hero{height:300px;border-radius:10px}
   @media(max-width:768px){
-    .hero h1{font-size:38px}
+    .hero{min-height:88svh}
     section{padding:52px 0}
     .impact .grid{grid-template-columns:repeat(2,1fr);gap:30px 20px}
-    .feat .row,.heritage .row{grid-template-columns:1fr;gap:24px}
-    .cards,.profiles,.ncards{grid-template-columns:1fr}
+    .feat .row,.people .profiles,.cards,.ncards{grid-template-columns:1fr}
+    .feat .row{gap:24px}
     footer .cols{grid-template-columns:1fr 1fr}
-    nav.menu{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;
-      gap:0;padding:8px 0;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+    nav.menu{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 0;box-shadow:0 8px 16px rgba(0,0,0,.12)}
     nav.menu a{padding:12px 24px;width:100%;border-bottom:1px solid #f0f0f0}
     #mtoggle:checked ~ nav.menu{display:flex}
     .burger{display:block}
-    .impact .num{font-size:42px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    .reveal{opacity:1!important;transform:none!important;transition:none!important}
+    .hero-h1 .line,.rise{opacity:1;transform:none}
+    .chain-draw path{stroke-dashoffset:0}
+    .impact .uline{transform:scaleX(1)}
+    .scroll-cue::after{top:20px;opacity:1}
   }
 </style>
 </head>
 <body>
 
-<!-- SVG defs: กระเชอ seal + bucket-chain patterns (นิยามครั้งเดียว ใช้ทั้งหน้า) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <!-- Club seal: กระเชอตักแร่ (line-art อย่างง่าย รอไฟล์จริงจาก ChatGPT) -->
-    <symbol id="seal" viewBox="0 0 100 100">
-      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-        <circle cx="50" cy="50" r="46"/>
-        <!-- โซ่ด้านบน -->
-        <path d="M50 14 v10"/>
-        <ellipse cx="50" cy="27" rx="5" ry="3.5"/>
-        <!-- กระเชอ (ถังตักแร่ ทรงคางหมู + ฟันตัก) -->
-        <path d="M30 36 L70 36 L62 66 L38 66 Z"/>
-        <path d="M38 66 l3 8 M46 66 l2 8 M54 66 l-2 8 M62 66 l-3 8"/>
-        <!-- แถบเส้นสื่อการหมุน/ตัก -->
-        <path d="M36 46 L64 46" stroke-width="2"/>
-      </g>
-    </symbol>
-    <!-- Bucket-chain pattern (บรอนซ์บนพื้นอ่อน) -->
-    <pattern id="chainBronze" width="48" height="26" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="8" x2="48" y2="8" stroke="#B08D57" stroke-width="2"/>
-      <circle cx="24" cy="8" r="2.6" fill="#B08D57"/>
-      <path d="M15 8 L33 8 L29 21 L19 21 Z" fill="none" stroke="#B08D57" stroke-width="2"/>
-    </pattern>
-    <!-- Bucket-chain pattern (ทองบนพื้นเข้ม) -->
-    <pattern id="chainGold" width="48" height="26" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="8" x2="48" y2="8" stroke="#F7A81B" stroke-width="2" opacity=".65"/>
-      <circle cx="24" cy="8" r="2.6" fill="#F7A81B" opacity=".8"/>
-      <path d="M15 8 L33 8 L29 21 L19 21 Z" fill="none" stroke="#F7A81B" stroke-width="2" opacity=".7"/>
-    </pattern>
-  </defs>
-</svg>
+<!-- SVG defs: กระเชอ seal -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="seal" viewBox="0 0 100 100">
+    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <circle cx="50" cy="50" r="46"/><path d="M50 14 v10"/><ellipse cx="50" cy="27" rx="5" ry="3.5"/>
+      <path d="M30 36 L70 36 L62 66 L38 66 Z"/><path d="M38 66 l3 8 M46 66 l2 8 M54 66 l-2 8 M62 66 l-3 8"/>
+      <path d="M36 46 L64 46" stroke-width="2"/>
+    </g>
+  </symbol>
+</defs></svg>
 
-<!-- ═══ B1 HEADER ═══ -->
+<!-- B1 HEADER -->
 <header>
   <div class="nav">
     <input type="checkbox" id="mtoggle">
-    <a href="#" class="logo">
-      <img src="club_logo.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img">
-    </a>
+    <a href="#" class="logo"><img src="club_logo.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img"></a>
     <label for="mtoggle" class="burger">☰</label>
     <nav class="menu">
-      <a href="#">หน้าแรก</a>
-      <a href="#feat">ผลงานของเรา</a>
-      <a href="#heritage">เราคือใคร</a>
-      <a href="#news">ข่าว</a>
+      <a href="#">หน้าแรก</a><a href="#feat">ผลงานของเรา</a><a href="#heritage">เราคือใคร</a><a href="#news">ข่าว</a>
       <a href="#join" class="btn btn-gold" style="padding:9px 18px;font-size:14px">ร่วมกับเรา</a>
       <span class="lang">TH / EN</span>
     </nav>
   </div>
 </header>
 
-<!-- ═══ B2 HERO ═══ -->
+<!-- B2 HERO -->
 <div class="hero">
-  <img class="seal-bg" src="club_emblem.png" alt="">
-
+  <div class="hero-media"><!-- swap <picture> H01 ทีหลัง --></div>
+  <svg class="seal-bg"><use href="#seal"/></svg>
   <div class="wrap">
     <div class="label">Rotary Club of Meuang Rae Phuket · District 3330</div>
-    <h1>จากเวที สู่ชีวิต</h1>
-    <div class="sub-en">From Stage to Lasting Impact</div>
-    <p class="lead">สโมสรเล็กๆ 36 คน ที่แปลงเสียงดนตรีเป็นเครื่องมือแพทย์ ทะเลที่ฟื้นคืน และอาชีพที่ยั่งยืน — ที่ภูเก็ต บ้านของเรา</p>
-    <div class="cta">
+    <h1 class="hero-h1">
+      <span class="line l1">จากเวที</span>
+      <svg class="chain-draw" viewBox="0 0 300 24" aria-hidden="true">
+        <path d="M0 12 H300"/><path class="bkt" d="M138 12 h24 l-5 10 h-14 Z"/>
+      </svg>
+      <span class="line l2">สู่ชีวิต</span>
+    </h1>
+    <div class="sub-en rise">From Stage to Lasting Impact</div>
+    <p class="lead rise">สโมสรเล็กๆ 36 คน ที่แปลงเสียงดนตรีเป็นเครื่องมือแพทย์ ทะเลที่ฟื้นคืน และอาชีพที่ยั่งยืน — ที่ภูเก็ต บ้านของเรา</p>
+    <div class="cta rise">
       <a href="#feat" class="btn btn-gold">ดูผลงานของเรา →</a>
       <a href="#join" class="btn btn-outline-white">ร่วมสร้าง impact</a>
     </div>
   </div>
-  <svg class="divider" preserveAspectRatio="none"><rect width="100%" height="26" fill="url(#chainGold)"/></svg>
+  <div class="scroll-cue"></div>
+  <svg class="divider chain-live gold" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track"></g></svg>
 </div>
 
-<!-- ═══ B3 IMPACT NUMBERS ═══ -->
+<!-- B3 IMPACT NUMBERS -->
 <section class="impact"><div class="wrap"><div class="grid">
-  <div><div class="num">1.9<span style="font-size:26px">ล้าน฿</span></div><div class="cap">เครื่องเอกซเรย์มอบ รพ.ถลาง<br>(Global Grant ร่วมสโมสรเกาหลี)</div></div>
-  <div><div class="num">5<span style="font-size:26px">ล้าน฿</span></div><div class="cap">Save Underwater World<br>ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></div></div>
-  <div><div class="num">7<span style="font-size:26px"> ปี</span></div><div class="cap">รับใช้ชุมชนภูเก็ต<br>(charter 15 มี.ค. 2562)</div></div>
-  <div><div class="num">36</div><div class="cap">สมาชิก<br>People of Action</div></div>
+  <div class="reveal" style="--d:0s"><div class="num"><span data-n="1.9">1.9</span><span class="unit">ล้าน฿</span></div><div class="uline"></div><div class="cap">เครื่องเอกซเรย์มอบ รพ.ถลาง<br>(Global Grant ร่วมสโมสรเกาหลี)</div></div>
+  <div class="reveal" style="--d:.08s"><div class="num"><span data-n="5">5</span><span class="unit">ล้าน฿</span></div><div class="uline"></div><div class="cap">Save Underwater World<br>ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></div></div>
+  <div class="reveal" style="--d:.16s"><div class="num"><span data-n="7">7</span><span class="unit"> ปี</span></div><div class="uline"></div><div class="cap">รับใช้ชุมชนภูเก็ต<br>(charter 15 มี.ค. 2562)</div></div>
+  <div class="reveal" style="--d:.24s"><div class="num"><span data-n="36">36</span></div><div class="uline"></div><div class="cap">สมาชิก<br>People of Action</div></div>
 </div></div></section>
 
-<!-- ═══ B4 FEATURED: ROTARY CHARITY LIVE ═══ -->
+<!-- B4 FEATURED -->
 <section class="feat" id="feat">
-  <svg class="divider" preserveAspectRatio="none" style="margin-bottom:40px"><rect width="100%" height="26" fill="url(#chainBronze)"/></svg>
+  <svg class="divider chain-live" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true" style="margin-bottom:40px"><g class="chain-track"></g></svg>
   <div class="wrap"><div class="row">
-    <div class="placeholder ph-32" style="border-radius:10px">
-      <span>ภาพ: บรรยากาศคอนเสิร์ต Rotary Charity Live + พิธีมอบเครื่องเอกซเรย์ รพ.ถลาง<br>(แนวนอน People of Action)</span>
-    </div>
-    <div>
+    <div class="placeholder ph-32 reveal ph" style="border-radius:10px;--d:0s"><span>ภาพ H02: บรรยากาศคอนเสิร์ต Rotary Charity Live + พิธีมอบเครื่องเอกซเรย์ รพ.ถลาง</span></div>
+    <div class="reveal" style="--d:.15s">
       <div class="label">Signature Project</div>
       <h2>Rotary Charity Live<br>คอนเสิร์ตที่จบ แต่ผลไม่จบ</h2>
       <ul class="timeline">
@@ -273,107 +314,119 @@
   </div></div>
 </section>
 
-<!-- ═══ B5 PROJECTS GRID ═══ -->
+<!-- B5 PROJECTS -->
 <section class="projects"><div class="wrap">
-  <div class="label" style="text-align:center">โครงการของเรา</div>
-  <h2 style="text-align:center;font-size:32px;margin:8px 0 34px">สร้างผลกระทบใน 7 ด้านของโรตารี</h2>
+  <div class="reveal" style="text-align:center"><div class="label" style="display:inline-block">โครงการของเรา</div>
+    <h2 style="margin:8px 0 40px">สร้างผลกระทบใน 7 ด้านของโรตารี</h2></div>
   <div class="cards">
-    <div class="card">
-      <div class="placeholder ph-32"><span>ภาพ: มอบเครื่องเอกซเรย์ รพ.ถลาง</span></div>
-      <div class="body"><span class="tag">สุขภาพชุมชน</span><h3>เครื่องมือแพทย์ รพ.ถลาง</h3>
-        <p>Global Grant ไทย–เกาหลี เพื่อคนถลางทุกคน</p><span class="more">อ่านต่อ →</span></div>
-    </div>
-    <div class="card">
-      <div class="placeholder ph-32"><span>ภาพ: กิจกรรมฟื้นฟูปะการัง อ่าวพังงา</span></div>
-      <div class="body"><span class="tag">สิ่งแวดล้อม</span><h3>Save Underwater World</h3>
-        <p>ฟื้นฟูระบบนิเวศอ่าวพังงา ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></p><span class="more">อ่านต่อ →</span></div>
-    </div>
-    <div class="card">
-      <div class="placeholder ph-32"><span>ภาพ: อบรมตัดเย็บ ชุมชนกะทู้</span></div>
-      <div class="body"><span class="tag">เศรษฐกิจชุมชน</span><h3>สร้างอาชีพตัดเย็บ</h3>
-        <p>ทักษะที่อยู่กับผู้เรียนตลอดชีวิต ทั้งชุมชนกะทู้และผู้ต้องขังหญิง</p><span class="more">อ่านต่อ →</span></div>
-    </div>
+    <a class="card reveal" href="#" style="--d:0s"><div class="placeholder ph-32 ph"><span>ภาพ H03: มอบเครื่องเอกซเรย์ รพ.ถลาง</span></div>
+      <div class="body"><span class="tag">สุขภาพชุมชน</span><h3>เครื่องมือแพทย์ รพ.ถลาง</h3><p>Global Grant ไทย–เกาหลี เพื่อคนถลางทุกคน</p><span class="more">อ่านต่อ</span></div></a>
+    <a class="card reveal" href="#" style="--d:.09s"><div class="placeholder ph-32 ph"><span>ภาพ H04: ฟื้นฟูปะการัง อ่าวพังงา</span></div>
+      <div class="body"><span class="tag">สิ่งแวดล้อม</span><h3>Save Underwater World</h3><p>ฟื้นฟูระบบนิเวศอ่าวพังงา ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></p><span class="more">อ่านต่อ</span></div></a>
+    <a class="card reveal" href="#" style="--d:.18s"><div class="placeholder ph-32 ph"><span>ภาพ H05: อบรมตัดเย็บ ชุมชนกะทู้</span></div>
+      <div class="body"><span class="tag">เศรษฐกิจชุมชน</span><h3>สร้างอาชีพตัดเย็บ</h3><p>ทักษะที่อยู่กับผู้เรียนตลอดชีวิต ทั้งชุมชนกะทู้และผู้ต้องขังหญิง</p><span class="more">อ่านต่อ</span></div></a>
   </div>
 </div></section>
 
-<!-- ═══ B6 HERITAGE BAND ═══ -->
-<div class="heritage" id="heritage"><div class="wrap"><div class="row">
-  <svg class="seal" viewBox="0 0 100 100"><use href="#seal"/></svg>
-  <div>
-    <div class="line-th">กระเชอที่เคยตักแร่สร้างเมืองภูเก็ต<br>วันนี้ตักน้ำใจสร้างชุมชนที่ยั่งยืน</div>
+<!-- B6 HERITAGE (cinematic) -->
+<div class="heritage" id="heritage">
+  <svg class="divider chain-live gold d-top" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track ore"></g></svg>
+  <svg class="seal"><use href="#seal"/></svg>
+  <div class="wrap reveal">
+    <div class="label" style="display:inline-block">มรดกเหมืองแร่ภูเก็ต</div>
+    <div class="line-th">กระเชอที่เคย<em>ตักแร่</em>สร้างเมืองภูเก็ต<br>วันนี้<em>ตักน้ำใจ</em>สร้างชุมชนที่ยั่งยืน</div>
     <div class="line-en">The dredge buckets that once mined tin to build Phuket now carry goodwill to build lasting impact.</div>
     <a href="#">ทำไมเราชื่อ "เหมืองแร่" →</a>
   </div>
-</div></div></div>
+  <svg class="divider chain-live gold d-bot" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track ore"></g></svg>
+</div>
 
-<!-- ═══ B7 PEOPLE OF ACTION ═══ -->
+<!-- B7 PEOPLE OF ACTION -->
 <section class="people"><div class="wrap">
-  <h2>คนธรรมดา ที่รวมพลังทำสิ่งไม่ธรรมดา</h2>
-  <p class="intro">เราคือ "People of Action" ที่ลงมือทำจริง เพื่อสร้างความเปลี่ยนแปลงเชิงบวก จากภูเก็ต…สู่ชุมชน…สู่สากล</p>
+  <div class="reveal"><h2>คนธรรมดา ที่รวมพลังทำสิ่งไม่ธรรมดา</h2>
+    <p class="intro">เราคือ "People of Action" ที่ลงมือทำจริง เพื่อสร้างความเปลี่ยนแปลงเชิงบวก จากภูเก็ต…สู่ชุมชน…สู่สากล</p></div>
   <div class="profiles">
-    <div class="profile"><div class="placeholder ph-round"><span style="font-size:11px">ภาพสมาชิก</span></div>
-      <div class="quote">"ผมอยากเห็นบ้านเกิดดีขึ้นด้วยมือของเราเอง"</div>
-      <div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
-    <div class="profile"><div class="placeholder ph-round"><span style="font-size:11px">ภาพสมาชิก</span></div>
-      <div class="quote">"โรตารีทำให้ผมได้ให้ในแบบที่ลงมือทำจริง"</div>
-      <div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
-    <div class="profile"><div class="placeholder ph-round"><span style="font-size:11px">ภาพสมาชิก</span></div>
-      <div class="quote">"เสียงดนตรีของเรา กลายเป็นโอกาสของใครหลายคน"</div>
-      <div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
+    <div class="profile reveal" style="--d:0s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H06</span></div><div class="quote">"ผมอยากเห็นบ้านเกิดดีขึ้นด้วยมือของเราเอง"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
+    <div class="profile reveal" style="--d:.09s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H07</span></div><div class="quote">"โรตารีทำให้ผมได้ให้ในแบบที่ลงมือทำจริง"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
+    <div class="profile reveal" style="--d:.18s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H08</span></div><div class="quote">"เสียงดนตรีของเรา กลายเป็นโอกาสของใครหลายคน"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
   </div>
-  <div class="center-cta"><a href="#" class="btn btn-outline">รู้จักเราทั้ง 36 คน →</a></div>
+  <div class="center-cta reveal"><a href="#" class="btn btn-outline">รู้จักเราทั้ง 36 คน →</a></div>
 </div></section>
 
-<!-- ═══ B8 NEWS ═══ -->
+<!-- VIDEO -->
+<section class="video">
+  <div class="wrap">
+    <div class="reveal"><div class="label">หนังสั้น impact</div>
+      <h2>คนทำจริง — เรื่องจริงจากเหมืองแร่</h2>
+      <p class="vsub">ไม่ต้องเล่า…ดูเอง ว่า "People of Action" ลงมือเปลี่ยนชีวิตคนภูเก็ตอย่างไร</p></div>
+    <div class="lite-yt reveal" data-id="XmyPOZC4kf0" style="--d:.1s">
+      <img src="https://i.ytimg.com/vi/XmyPOZC4kf0/hqdefault.jpg" alt="วิดีโอ: คนทำจริง" loading="lazy">
+      <button class="yt-play" aria-label="เล่นวิดีโอ"></button>
+    </div>
+  </div>
+</section>
+
+<!-- B8 NEWS -->
 <section class="news" id="news"><div class="wrap">
-  <div class="top"><h2>ข่าวล่าสุด</h2><a href="#" style="font-weight:600;color:var(--bronze-deep)">ข่าวทั้งหมด →</a></div>
+  <div class="top reveal"><h2>ข่าวล่าสุด</h2><a href="#" style="font-weight:600;color:var(--bronze-deep)">ข่าวทั้งหมด →</a></div>
   <div class="ncards">
-    <div class="ncard"><div class="placeholder ph-32"><span>ภาพ: ประชุมเคาะฆ้อง #1</span></div>
-      <div class="body"><div class="date">7 ก.ค. 2569</div><h3>ประชุมเคาะฆ้อง ครั้งที่ 1 ปีบริหาร 2569–2570</h3>
-        <p>เปิดปีบริหารใหม่ภายใต้ธีม "Create Lasting Impact"</p></div></div>
-    <div class="ncard"><div class="placeholder ph-32"><span>ภาพ: คอนเสิร์ต Queens of Rock 2568</span></div>
-      <div class="body"><div class="date">2568</div><h3>สรุปคอนเสิร์ต Queens of Rock</h3>
-        <p>ระดมทุนเพื่อเครื่องมือแพทย์ รพ.ถลาง <span class="todo">ยอดรอเหรัญญิก</span></p></div></div>
-    <div class="ncard"><div class="placeholder ph-32"><span>ภาพ: ทีมบริหารรุ่น 122</span></div>
-      <div class="body"><div class="date">ก.ค. 2569</div><h3>เปิดปีบริหาร "Create Lasting Impact"</h3>
-        <p>คณะกรรมการบริหารรุ่น 122 พร้อมรับใช้ชุมชนภูเก็ต</p></div></div>
+    <div class="ncard reveal" style="--d:0s"><div class="placeholder ph-32 ph"><span>ภาพ H09: ประชุมเคาะฆ้อง #1</span></div><div class="body"><div class="date">7 ก.ค. 2569</div><h3>ประชุมเคาะฆ้อง ครั้งที่ 1 ปีบริหาร 2569–2570</h3><p>เปิดปีบริหารใหม่ภายใต้ธีม "Create Lasting Impact"</p></div></div>
+    <div class="ncard reveal" style="--d:.09s"><div class="placeholder ph-32 ph"><span>ภาพ H10: คอนเสิร์ต Queens of Rock 2568</span></div><div class="body"><div class="date">2568</div><h3>สรุปคอนเสิร์ต Queens of Rock</h3><p>ระดมทุนเพื่อเครื่องมือแพทย์ รพ.ถลาง <span class="todo">ยอดรอเหรัญญิก</span></p></div></div>
+    <div class="ncard reveal" style="--d:.18s"><div class="placeholder ph-32 ph"><span>ภาพ H11: ทีมบริหารรุ่น 122</span></div><div class="body"><div class="date">ก.ค. 2569</div><h3>เปิดปีบริหาร "Create Lasting Impact"</h3><p>คณะกรรมการบริหารรุ่น 122 พร้อมรับใช้ชุมชนภูเก็ต</p></div></div>
   </div>
 </div></section>
 
-<!-- ═══ B9 CTA BAND ═══ -->
-<div class="ctaband" id="join"><div class="wrap">
+<!-- B9 CTA -->
+<div class="ctaband" id="join"><div class="wrap reveal">
   <h2>ร่วมสร้างผลกระทบที่ยั่งยืนไปกับเรา</h2>
-  <div class="btns">
-    <a href="#" class="btn btn-gold">สมัครสมาชิก</a>
-    <a href="#" class="btn btn-outline-white">เป็น Sponsor</a>
-    <a href="#" class="btn btn-outline-white">ติดต่อสโมสร</a>
-  </div>
+  <div class="btns"><a href="#" class="btn btn-gold">สมัครสมาชิก</a><a href="#" class="btn btn-outline-white">เป็น Sponsor</a><a href="#" class="btn btn-outline-white">ติดต่อสโมสร</a></div>
   <div class="meet">ประชุมทุกอังคารที่ 1 และ 3 · 19:00–20:00 น. · Happy Property Office กะทู้ ภูเก็ต</div>
 </div></div>
 
-<!-- ═══ B10 FOOTER ═══ -->
+<!-- B10 FOOTER -->
 <footer>
   <div class="cols">
-    <div>
-      <div class="flogo"><img src="club_emblem.png" alt="" style="height:46px;background:#fff;border-radius:8px;padding:4px"><b>สโมสรโรตารีเหมืองแร่ภูเก็ต</b></div>
-      <div style="font-size:14px;color:#bcd0ea">Rotary Club of Meuang Rae Phuket<br>District 3330 · ก่อตั้ง 2562</div>
-    </div>
+    <div><div class="flogo"><img src="club_emblem.png" alt="" style="height:46px;background:#fff;border-radius:8px;padding:4px"><b style="color:#fff;font-family:'Noto Sans Thai';font-weight:700;font-size:14px">สโมสรโรตารีเหมืองแร่ภูเก็ต</b></div>
+      <div style="font-size:14px;color:#bcd0ea">Rotary Club of Meuang Rae Phuket<br>District 3330 · ก่อตั้ง 2562</div></div>
     <div><h4>เมนู</h4><a href="#">หน้าแรก</a><a href="#feat">ผลงานของเรา</a><a href="#heritage">เราคือใคร</a><a href="#news">ข่าว</a><a href="#join">ร่วมกับเรา</a></div>
-    <div><h4>ติดต่อ</h4>
-      <div style="color:#bcd0ea;margin-bottom:8px">Happy Property Office<br>กะทู้ ภูเก็ต</div>
-      <a href="https://www.facebook.com/rotarymeuangraephuket/">Facebook</a>
-      <a href="#">YouTube</a>
-      <a href="#">อีเมล <span class="todo">รอถามฝ่าย</span></a>
-    </div>
+    <div><h4>ติดต่อ</h4><div style="color:#bcd0ea;margin-bottom:8px">Happy Property Office<br>กะทู้ ภูเก็ต</div>
+      <a href="https://www.facebook.com/rotarymeuangraephuket/">Facebook</a><a href="#">YouTube</a><a href="#">อีเมล <span class="todo">รอถามฝ่าย</span></a></div>
     <div><h4>โรตารี</h4><a href="https://www.rotary.org">rotary.org</a><a href="https://www.rotary3330.org">rotary3330.org</a><a href="https://brandcenter.rotary.org">Brand Center</a></div>
   </div>
-  <svg class="divider" preserveAspectRatio="none" style="max-width:var(--maxw);margin:0 auto"><rect width="100%" height="26" fill="url(#chainGold)"/></svg>
-  <div class="bottom">
-    กระเชอที่เคยตักแร่สร้างเมืองภูเก็ต วันนี้ตักน้ำใจสร้างชุมชนที่ยั่งยืน<br>
+  <svg class="divider chain-live gold" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true" style="max-width:var(--maxw);margin:0 auto"><g class="chain-track"></g></svg>
+  <div class="bottom">กระเชอที่เคยตักแร่สร้างเมืองภูเก็ต วันนี้ตักน้ำใจสร้างชุมชนที่ยั่งยืน<br>
     <span class="h-en">The dredge buckets that once mined tin to build Phuket now carry goodwill to build lasting impact.</span><br><br>
-    © 2569 สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket, District 3330
-  </div>
+    © 2569 สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket, District 3330</div>
 </footer>
 
+<script>
+// build โซ่กระเชอ (chain-live) — เติมถังซ้ำ 60 หน่วย (48px) ให้ track
+document.querySelectorAll('.chain-live .chain-track').forEach(function(track){
+  var live=track.closest('.chain-live'), gold=live.classList.contains('gold'), ore=track.classList.contains('ore');
+  var col=gold?'#F5A81C':'#B08D57', op=gold?0.72:1, s='';
+  for(var n=0;n<60;n++){var x=n*48;
+    s+='<path d="M'+x+' 8 H'+(x+48)+'" stroke="'+col+'" stroke-width="2" opacity="'+op+'"/>';
+    s+='<circle cx="'+(x+24)+'" cy="8" r="2.6" fill="'+col+'" opacity="'+op+'"/>';
+    s+='<path d="M'+(x+15)+' 8 L'+(x+33)+' 8 L'+(x+29)+' 21 L'+(x+19)+' 21 Z" fill="none" stroke="'+col+'" stroke-width="2" opacity="'+op+'"/>';
+    if(ore && n%3===0) s+='<circle cx="'+(x+24)+'" cy="15" r="3" fill="#F5A81C"/>';
+  }
+  track.innerHTML=s;
+});
+// scroll reveal (ครั้งเดียวแล้ว unobserve)
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+// count-up ตัวเลข impact
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var ease=function(t){return 1-Math.pow(1-t,3)};
+function countUp(el){var end=parseFloat(el.dataset.n),dec=(el.dataset.n.split('.')[1]||'').length,t0=performance.now(),d=1400;
+  (function f(t){var p=Math.min((t-t0)/d,1);el.textContent=(end*ease(p)).toFixed(dec);if(p<1)requestAnimationFrame(f)})(t0)}
+if(!reduce){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io2.unobserve(e.target)}})},{threshold:.6});
+  document.querySelectorAll('.num [data-n]').forEach(function(el){io2.observe(el)})}
+// header shadow on scroll
+var hd=document.querySelector('header');addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>4)},{passive:true});
+// lite youtube facade
+document.querySelectorAll('.lite-yt').forEach(function(el){el.addEventListener('click',function(){
+  var id=el.dataset.id;el.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="video" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>'})});
+</script>
 </body>
 </html>
