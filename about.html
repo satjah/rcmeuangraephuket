@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--
+  MOCKUP — /about/ ความเป็นมาของสโมสร · timeline "สายกระเชอ"
+  สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330
+  Fable ตาม spec: plan/timeline_design_fable.md · ข้อมูล: research/06+07 (Codex harvest 4 ก.ค. 2569)
+  🟡 ร่างเสนอทีม · รูปจริง 5 ไฟล์จากเพจสโมสร (img/) · ช่องที่ขาด = การ์ด "กระเชอว่าง" + todo
+-->
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ความเป็นมาของสโมสร — สโมสรโรตารีเหมืองแร่ภูเก็ต</title>
+<link rel="icon" href="club_emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&family=Sarabun:wght@400;500;600&family=Open+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rotary-blue:#19468D; --rotary-gold:#F5A81C; --azure:#0076C0;
+    --bronze:#B08D57; --bronze-deep:#8C6A3F;
+    --verdigris:#00AE98; --verdigris-deep:#00796B;
+    --ink:#1F2933; --paper:#FAF8F4; --paper-dark:#122F5E;
+    --maxw:1140px; --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Sarabun','Noto Sans Thai',-apple-system,'Thonburi',sans-serif;
+    color:var(--ink);background:var(--paper);font-size:18px;line-height:1.75;overflow-x:hidden}
+  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.2;color:var(--rotary-blue);text-wrap:balance}
+  p{text-wrap:pretty}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--rotary-blue);text-decoration:none}
+  .en{font-family:'Open Sans',sans-serif}
+  .label{font-family:'Open Sans',sans-serif;font-weight:600;text-transform:uppercase;
+    letter-spacing:.08em;font-size:13px;color:var(--verdigris-deep);
+    padding-left:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23B08D57'/%3E%3C/svg%3E") left center no-repeat}
+  .todo{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;color:#B4541F;
+    background:#FCEEE3;border-radius:4px;padding:1px 6px;vertical-align:middle;white-space:nowrap}
+  .reveal{opacity:0;transform:translateY(24px);
+    transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.in{opacity:1;transform:none}
+  .btn{display:inline-block;font-family:'Noto Sans Thai',sans-serif;font-weight:600;
+    padding:13px 26px;border-radius:8px;font-size:16px;cursor:pointer;transition:.25s;border:2px solid transparent}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-gold{background:var(--rotary-gold);color:#1F2933;box-shadow:0 4px 14px -4px rgba(245,168,28,.5)}
+  .btn-gold:hover{background:#e0960a}
+  .btn-outline-white{border-color:#fff;color:#fff;background:transparent}
+  .btn-outline-white:hover{background:rgba(255,255,255,.12)}
+
+  /* ── header (ตาม index) ── */
+  header{position:sticky;top:0;z-index:50;background:rgba(250,248,244,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(176,141,87,.25)}
+  .nav{max-width:var(--maxw);margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+  .logo-img{height:52px;display:block}
+  .menu{margin-left:auto;display:flex;align-items:center;gap:22px;font-weight:600;font-size:15.5px}
+  .menu a.active{color:var(--bronze-deep);border-bottom:2px solid var(--rotary-gold)}
+  .lang{color:#8a94a3;font-size:13px;font-family:'Open Sans',sans-serif}
+  #mtoggle,.burger{display:none}
+  @media(max-width:820px){
+    .burger{display:block;margin-left:auto;font-size:24px;cursor:pointer;color:var(--rotary-blue)}
+    .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);
+      flex-direction:column;padding:18px 24px;border-bottom:1px solid rgba(176,141,87,.25)}
+    #mtoggle:checked ~ .menu{display:flex}
+    .menu .lang{margin-left:0}
+  }
+
+  /* ── page hero ── */
+  .phero{position:relative;color:#fff;padding:clamp(90px,13vw,150px) 0 clamp(70px,9vw,110px);overflow:hidden}
+  .phero .media{position:absolute;inset:0;background:url('img/2020_milk_project_group_01.jpg') center 30%/cover no-repeat}
+  .phero .media::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(120deg,rgba(18,47,94,.94) 0%,rgba(18,47,94,.82) 45%,rgba(0,118,192,.55) 100%)}
+  .phero .wrap{position:relative;z-index:2}
+  .phero h1{color:#fff;font-size:clamp(2.1rem,4.5vw,3.2rem);margin:14px 0 10px}
+  .phero .sub{font-family:'Open Sans',sans-serif;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;font-size:13px;color:var(--rotary-gold)}
+  .phero p.lead{max-width:640px;font-size:clamp(1.02rem,1.6vw,1.15rem);color:#EAF0FA}
+  .phero .label{color:#CFE0F6;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23F5A81C'/%3E%3C/svg%3E")}
+
+  /* ── presidents strip ── */
+  .prez{padding:clamp(48px,6vw,72px) 0;background:#fff;border-bottom:1px solid rgba(176,141,87,.18)}
+  .prez h2{font-size:clamp(1.4rem,2.4vw,1.8rem);margin-bottom:6px}
+  .prez .note{color:#617083;font-size:15px;margin-bottom:22px}
+  .prez-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .pchip{border:1px solid rgba(176,141,87,.35);border-radius:10px;padding:12px 16px;background:var(--paper);
+    display:flex;flex-direction:column;gap:2px}
+  .pchip .yr{font-family:'Open Sans',sans-serif;font-weight:800;font-size:13px;color:var(--azure);letter-spacing:.04em}
+  .pchip .nm{font-weight:600;font-size:16.5px;color:var(--ink)}
+  .pchip.first{border-color:var(--rotary-gold);background:linear-gradient(180deg,#FFF9EC,#FFFDF6)}
+  .pchip.first .yr{color:var(--bronze-deep)}
+  .pchip.now{border-color:var(--verdigris);background:linear-gradient(180deg,#EDFBF8,#FAFFFE)}
+
+  /* ── timeline สายกระเชอ ── */
+  .tl{padding:clamp(72px,9vw,110px) 0}
+  .tl-head{max-width:720px;margin-bottom:clamp(40px,6vw,64px)}
+  .tl-head h2{font-size:clamp(1.9rem,3.5vw,2.6rem);margin:10px 0 12px}
+  .tl-body{position:relative;padding-left:34px}
+  .tl-body::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:3px;
+    background:linear-gradient(180deg,var(--bronze) 0%,var(--bronze-deep) 100%);border-radius:2px;opacity:.55}
+  .era{position:relative;margin:0 0 clamp(46px,7vw,72px)}
+  .era-head{position:relative;margin-bottom:26px}
+  .era-num{position:absolute;top:-28px;left:-10px;z-index:0;font-family:'Open Sans',sans-serif;font-weight:800;
+    font-size:clamp(3.2rem,8vw,5.2rem);letter-spacing:-.02em;color:var(--azure);opacity:.10;line-height:1;user-select:none}
+  .era-head .label{position:relative;z-index:1}
+  .era-head h3{position:relative;z-index:1;font-size:clamp(1.45rem,2.6vw,1.95rem);margin-top:6px}
+  .era-head .intro{position:relative;z-index:1;color:#4a5568;max-width:660px;font-size:16.5px;margin-top:6px}
+  .ev{position:relative;background:#fff;border:1px solid rgba(176,141,87,.22);border-radius:12px;
+    padding:18px 20px;margin-bottom:16px;box-shadow:0 2px 10px -6px rgba(18,47,94,.18)}
+  .ev::before{content:'';position:absolute;left:-34px;top:26px;width:18px;height:15px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='15'%3E%3Cpath d='M1 1.5 h16 l-3.6 12 h-8.8 Z' fill='%23B08D57'/%3E%3C/svg%3E") center/contain no-repeat;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.15))}
+  .ev.star{border-color:var(--rotary-gold);box-shadow:0 6px 22px -8px rgba(245,168,28,.45)}
+  .ev.star::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='15'%3E%3Cpath d='M1 1.5 h16 l-3.6 12 h-8.8 Z' fill='%23F5A81C'/%3E%3C/svg%3E") center/contain no-repeat}
+  .ev .dt{font-family:'Open Sans',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.05em;
+    color:var(--verdigris-deep);text-transform:uppercase}
+  .ev h4{font-family:'Noto Sans Thai',sans-serif;font-size:18.5px;color:var(--rotary-blue);margin:2px 0 4px}
+  .ev p{font-size:16px;color:#3d4a5c;margin:0}
+  .ev .ph{margin-top:12px;border-radius:8px;overflow:hidden}
+  .ev .ph img{width:100%;max-height:340px;object-fit:cover;display:block}
+  .ev .cap{font-size:13px;color:#8a94a3;margin-top:6px}
+  .ev.missing{border-style:dashed;border-color:var(--bronze);background:var(--paper)}
+  .ev.missing::before{opacity:.35}
+  .ev.missing h4{color:var(--bronze-deep)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+
+  /* ── CTA band ── */
+  .ctaband{background:linear-gradient(115deg,var(--paper-dark) 0%,var(--rotary-blue) 70%,#1d5aa8 100%);
+    color:#fff;padding:clamp(64px,9vw,100px) 0;text-align:center}
+  .ctaband h2{color:#fff;font-size:clamp(1.7rem,3.2vw,2.3rem);margin-bottom:10px}
+  .ctaband p{color:#D9E4F5;max-width:560px;margin:0 auto 26px}
+
+  footer{background:var(--paper-dark);color:#B9C6DC;padding:34px 0;font-size:14.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;justify-content:space-between}
+  footer a{color:#EAF0FA}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="nav">
+    <input type="checkbox" id="mtoggle">
+    <a href="index.html" class="logo"><img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img"></a>
+    <label for="mtoggle" class="burger">☰</label>
+    <nav class="menu">
+      <a href="index.html">หน้าแรก</a><a href="index.html#feat">ผลงานของเรา</a><a href="#" class="active">เราคือใคร</a><a href="index.html#news">ข่าว</a>
+      <a href="index.html#join" class="btn btn-gold" style="padding:9px 18px;font-size:14px">ร่วมกับเรา</a>
+      <span class="lang">TH / EN</span>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="phero">
+  <div class="media"></div>
+  <div class="wrap">
+    <div class="label">Our Story · Since 2019</div>
+    <h1>ความเป็นมาของสโมสร</h1>
+    <div class="sub en">The Bucket Line — ปี 2562 ถึงวันนี้</div>
+    <p class="lead" style="margin-top:14px">เหมืองแร่ภูเก็ตขุดขึ้นมาทีละกระเชอ — สโมสรของเราก็เช่นกัน
+      แปดปีบริหาร แปดกระเชอ ที่ตักโอกาส สุขภาพ และอนาคต ขึ้นมาให้เกาะที่เรารัก</p>
+  </div>
+</div>
+
+<!-- ทำเนียบนายก -->
+<section class="prez"><div class="wrap">
+  <div class="label">Presidents</div>
+  <h2>ทำเนียบนายกสโมสร</h2>
+  <div class="note">ปีบริหารโรตารี = กรกฎาคม–มิถุนายน</div>
+  <div class="prez-row">
+    <div class="pchip first reveal" style="--d:0s"><span class="yr">2562–63 · ก่อตั้ง</span><span class="nm">เกรียงยุทธ เตโชภาส</span></div>
+    <div class="pchip reveal" style="--d:.05s"><span class="yr">2563–64</span><span class="nm">ธนประเสริฐ อินทร์ชญาณ์</span></div>
+    <div class="pchip reveal" style="--d:.1s"><span class="yr">2564–65</span><span class="nm">ฐานิตา วาณิชชุติกุล</span></div>
+    <div class="pchip reveal" style="--d:.15s"><span class="yr">2565–66</span><span class="nm">ศาสวัส หลิมพานิชย์</span></div>
+    <div class="pchip reveal" style="--d:.2s"><span class="yr">2566–67</span><span class="nm">พณิชชา เชื้อชิต</span></div>
+    <div class="pchip reveal" style="--d:.25s"><span class="yr">2567–68</span><span class="nm">ดร.ชัญญา ตันสกุล</span></div>
+    <div class="pchip reveal" style="--d:.3s"><span class="yr">2568–69</span><span class="nm">ทิพานัน จอมเทพมาลา</span></div>
+    <div class="pchip now reveal" style="--d:.35s"><span class="yr">2569–70 · รุ่น 122</span><span class="nm">เอก โรจนภัทรานนท์</span></div>
+  </div>
+</div></section>
+
+<!-- TIMELINE -->
+<section class="tl"><div class="wrap">
+  <div class="tl-head">
+    <div class="label">Timeline · สายกระเชอ</div>
+    <h2>แต่ละปี เราตักอะไรขึ้นมาให้ภูเก็ต</h2>
+    <p style="color:#4a5568">เรื่องเล่า 5 บท จากบันทึกจริงบนเพจสโมสรและทะเบียนข่าวภาค 3330</p>
+  </div>
+
+  <div class="tl-body">
+
+    <!-- บท 1 -->
+    <div class="era">
+      <div class="era-head reveal">
+        <div class="era-num en">2562</div>
+        <div class="label">บทที่ 1 · 2562–2564</div>
+        <h3>เกิดจากสายแร่ กลางพายุ</h3>
+        <p class="intro">สโมสรรับสารตราตั้งเดือนมีนาคม 2562 — หนึ่งปีต่อมาโควิดถล่มภูเก็ต
+          สโมสรน้องใหม่เลือกตอบด้วยการลงพื้นที่ ไม่ใช่การรอ</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">15 มี.ค. 2562</div>
+        <h4>รับสารตราตั้งสโมสร (Charter) — รหัส 89941</h4>
+        <p>ก่อตั้งโดยการอุปถัมภ์ของสโมสรโรตารีภูเก็ตเซ้าท์ · นายกก่อตั้ง เกรียงยุทธ เตโชภาส</p>
+      </div>
+      <div class="ev missing reveal">
+        <div class="dt">กระเชอที่ยังว่าง</div>
+        <h4>ตามหารูปวันรับสารตราตั้ง 2562 📸</h4>
+        <p>อัลบั้มบนเพจเริ่มที่กลางปี 2563 — สมาชิกรุ่นก่อตั้งท่านใดมีภาพวัน Charter
+          ส่งมาเติมกระเชอใบแรกของสายได้ที่ฝ่ายภาพลักษณ์ <span class="todo">รอรูปจากสมาชิก</span></p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">มิ.ย.–ก.ค. 2563 · โควิด-19</div>
+        <h4>"สเปรย์เพื่อพี่ นมนี้เพื่อน้อง" — 2 ครั้งแรกของสโมสร</h4>
+        <p>แจกนมและของจำเป็นแก่ครอบครัวที่กระทบจากโควิด ณ สวนสาธารณะกะทู้ — กิจกรรมชุมชนยุคเริ่มต้นที่กำหนดตัวตน "ลงมือทำ"</p>
+        <div class="grid2">
+          <div class="ph"><img src="img/2020_milk_for_children_01.jpg" alt="สมาชิกส่งมอบนมแก่ครอบครัวในพื้นที่กะทู้" loading="lazy"><div class="cap">ถึงมือผู้รับตรง — กะทู้ มิ.ย. 2563</div></div>
+          <div class="ph"><img src="img/2020_milk_project_round2_01.jpg" alt="เครือข่ายอาสาสมัครแจกนมครั้งที่ 2" loading="lazy"><div class="cap">เครือข่ายอาสาสมัคร ครั้งที่ 2 — ก.ค. 2563</div></div>
+        </div>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.ค. 2563</div>
+        <h4>เข้าสู่ปีบริหารที่ 2</h4>
+        <p>การประชุมครั้งแรกของปี 2563–2564 ภายใต้นายกธนประเสริฐ — สโมสรตั้งหลักเป็นระบบ</p>
+        <div class="ph"><img src="img/2020_first_meeting_01.jpg" alt="การประชุมครั้งแรกปีบริหาร 2563-2564" loading="lazy"><div class="cap">การประชุมครั้งแรก ปีบริหาร 2563–64</div></div>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ส.ค. 2564</div>
+        <h4>รับมือโควิดระลอกใหม่</h4>
+        <p>บรรจุฟ้าทะลายโจรส่งมอบ รพ.สต.กะทู้ + โครงการ "โฮมีโอพาธีย์ สู้วิกฤติโควิด-19"</p>
+      </div>
+    </div>
+
+    <!-- บท 2 -->
+    <div class="era">
+      <div class="era-head reveal">
+        <div class="era-num en">2564</div>
+        <div class="label">บทที่ 2 · 2564</div>
+        <h3>เวทีแรก</h3>
+        <p class="intro">กลางปีที่เมืองยังเงียบจากโควิด สโมสรค้นพบเครื่องมือของตัวเอง — เสียงดนตรี</p>
+      </div>
+      <div class="ev star reveal">
+        <div class="dt">4 ต.ค. 2564 · Charity Live #1</div>
+        <h4>Rotary Charity Live — "จับมือไว้ แล้วไปด้วยกัน"</h4>
+        <p>คอนเสิร์ตการกุศลครั้งแรกของสโมสร จัดกลางวิกฤติเพื่อระดมทุนช่วยชุมชน
+          — จุดเริ่มของประเพณีที่กลายเป็นลายเซ็นของเหมืองแร่ภูเก็ต
+          <span class="todo">ยอดระดมทุน — รอข้อมูลเหรัญญิก</span></p>
+      </div>
+    </div>
+
+    <!-- บท 3 -->
+    <div class="era">
+      <div class="era-head reveal">
+        <div class="era-num en">2565</div>
+        <div class="label">บทที่ 3 · 2565–2567</div>
+        <h3>ดนตรีกลายเป็นเครื่องมือ</h3>
+        <p class="intro">จากงานระดมทุนครั้งเดียว สู่สายงานที่ออกแบบมาเพื่อเปลี่ยนชีวิต — ทั้งบนเวทีและหลังเวที</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.ค.–ส.ค. 2565</div>
+        <h4>"เหมืองแร่สถาปนา ALOHA In the Garden"</h4>
+        <p>งานสถาปนาปีบริหาร 2565–66 (นายกศาสวัส) + ร่วม Club Vibrant Workshop ของภาค</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.พ. 2567</div>
+        <h4>"แด่น้องอันดามัน" — ค่ายทะเลเด็กพิเศษ</h4>
+        <p>พาเด็กพิเศษเข้าค่ายกิจกรรมทะเลและปล่อยเต่า ณ ฐานทัพเรือทับละมุ</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.พ. 2567</div>
+        <h4>Sound of Hope ครั้งที่ 1</h4>
+        <p>เปิดโอกาสด้านดนตรีแก่เด็กภูเก็ตกว่า 2,000 คน <span class="todo">verify ตัวเลขกับรายงานโครงการ</span>
+          — พร้อมโครงการ "สร้างฝัน สร้างอาชีพ" ร่วมกับเรือนจำจังหวัดภูเก็ต</p>
+      </div>
+      <div class="ev star reveal">
+        <div class="dt">เม.ย. 2567 · Charity Live #2</div>
+        <h4>"Queens Return" — มาช่า × คริสติน่า</h4>
+        <p>The Legends Concert ที่ประกาศเป้าหมายชัด: ระดมทุนจัดหา<strong>เครื่องเอกซเรย์ให้โรงพยาบาลถลาง</strong>
+          <span class="todo">ยอดระดมทุน — รอข้อมูลเหรัญญิก</span></p>
+      </div>
+    </div>
+
+    <!-- บท 4 -->
+    <div class="era">
+      <div class="era-head reveal">
+        <div class="era-num en">2567</div>
+        <div class="label">บทที่ 4 · 2567–2568 · จุดพิสูจน์</div>
+        <h3>จากเวที สู่ชีวิต</h3>
+        <p class="intro">ปีที่พลังบนเวทีกลายเป็นสิ่งที่จับต้องได้ในโรงพยาบาล ในทะเล และในเครือข่ายข้ามประเทศ</p>
+      </div>
+      <div class="ev star reveal">
+        <div class="dt">20 ก.พ. 2568 ★</div>
+        <h4>เครื่องเอกซเรย์ 1.9 ล้านบาท ถึงโรงพยาบาลถลาง</h4>
+        <p>ผลลัพธ์จากสายงานคอนเสิร์ต + Global Grant ร่วมกับสโมสรคู่มิตรเกาหลี —
+          หลักฐานที่ดีที่สุดของประโยค "จากเวที สู่ชีวิต": เสียงเพลงเมื่อวาน คือเครื่องมือแพทย์วันนี้</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.พ. 2568</div>
+        <h4>ต่อสัญญาคู่มิตร Rotary Club of Seongnam (ภาค 3600 เกาหลีใต้)</h4>
+        <p>เครือข่ายระหว่างประเทศที่อยู่เบื้องหลัง Global Grant</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">มี.ค. 2568</div>
+        <h4>"Save Underwater World" — 19 สโมสร งบรวม 5 ล้านบาท</h4>
+        <p>โครงการฟื้นฟูระบบนิเวศทะเลร่วมภาค 3330/3600 <span class="todo">รอยืนยันสัดส่วนสโมสร</span></p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ปีบริหาร 2567–68</div>
+        <h4>ปีแห่งการยอมรับ</h4>
+        <p>ชนะเลิศประกวดสนเทศ Intercity Meeting · เกียรติบัตร "ผู้มีคุณูปการต่อการศึกษาจังหวัดภูเก็ต" ·
+          โครงการถนนปลอดภัย 6 โรงเรียน · World Polio Day ร่วม 11 สโมสร · Sound of Hope ปี 2 · ครบรอบ 6 ปี ณ บ้านตะวันฉาย</p>
+      </div>
+    </div>
+
+    <!-- บท 5 -->
+    <div class="era">
+      <div class="era-head reveal">
+        <div class="era-num en">2568</div>
+        <div class="label">บทที่ 5 · 2568–ปัจจุบัน</div>
+        <h3>Create Lasting Impact</h3>
+        <p class="intro">รุ่นปัจจุบันรับไม้ต่อ ด้วยโจทย์ที่ชัดกว่าเดิม: ไม่ใช่แค่จัดงานให้ใหญ่ แต่ทำให้ผลกระทบ<em>คงอยู่</em></p>
+      </div>
+      <div class="ev star reveal">
+        <div class="dt">30 ส.ค. 2568 · Charity Live #3</div>
+        <h4>The Legends Concert #2 — "Queens of Rock"</h4>
+        <p>แอม เสาวลักษณ์ · ใหม่ เจริญปุระ · The Palace — บันทึกไว้ 709 ภาพ
+          <span class="todo">ยอดระดมทุน — รอข้อมูลเหรัญญิก</span></p>
+        <div class="ph"><img src="img/2025_the_legends_concert_01.jpg" alt="ผู้ชมเต็มฮอลล์ใน The Legends Concert #2 Queens of Rock" loading="lazy"><div class="cap">Queens of Rock — 30 ส.ค. 2568</div></div>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">ก.พ. 2569</div>
+        <h4>"Music for Tomorrow"</h4>
+        <p>มอบบัตร T-CONIC LIVE IN PHUKET แก่เยาวชนทั่วภูเก็ต — เปิดประตูสู่ดนตรีและโปรดักชันระดับสากล</p>
+      </div>
+      <div class="ev reveal">
+        <div class="dt">1 ก.ค. 2569</div>
+        <h4>เปิดปีโรตารีรุ่น 122 — นายกเอก โรจนภัทรานนท์</h4>
+        <p>คณะกรรมการปี 2569–70 ภายใต้แนวคิด <span class="en" style="font-weight:700">Create Lasting Impact</span> —
+          สายกระเชอหมุนต่อ และหน้าเว็บนี้คือบันทึกของมัน</p>
+      </div>
+    </div>
+
+  </div>
+</div></section>
+
+<!-- CTA -->
+<div class="ctaband">
+  <div class="wrap reveal">
+    <div class="label" style="color:#CFE0F6;display:inline-block;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23F5A81C'/%3E%3C/svg%3E&quot;)">The Next Bucket</div>
+    <h2>สายกระเชอยังหมุนต่อ — ใบต่อไปมีชื่อคุณได้</h2>
+    <p>สโมสรเล็กๆ 36 คนทำมาได้ขนาดนี้ ลองนึกภาพถ้ามีคุณอีกคน</p>
+    <a href="index.html#join" class="btn btn-gold">ร่วมกับเรา →</a>
+    <a href="index.html#feat" class="btn btn-outline-white" style="margin-left:10px">ดูผลงานของเรา</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>© 2569 สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330</div>
+    <div><a href="index.html">หน้าแรก</a> · <a href="index.html#join">ร่วมกับเรา</a> · <span class="en">Facebook</span></div>
+  </div>
+</footer>
+
+<script>
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
