@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>แดชบอร์ดรางวัล 2569-70 · สโมสรโรตารีเหมืองแร่ภูเก็ต</title>
+<!--
+  A1 AWARD TRACKER — Phase 2 · Club Systems
+  สโมสรโรตารีเหมืองแร่ภูเก็ต · ปีบริหาร 2569-2570
+  spec: plan/club_systems_blueprint_fable.md §4 · เกณฑ์: research/02b (ภาค 3330) + research/09 + Sonnet fetch (Club Excellence 26)
+  หลัก: prototype standalone · SoT ตอนต่อจริง = Google Sheet (คอลัมน์ = data model ล่าง) · สถานะ demo เก็บใน localStorage
+  brand tokens = ตรงกับ website/mockup + meeting-kit
+-->
+<style>
+  :root{
+    --rotary-blue:#19468D; --rotary-gold:#F5A81C; --azure:#0076C0;
+    --bronze:#B08D57; --bronze-deep:#8C6A3F;
+    --verdigris:#00AE98; --verdigris-deep:#00796B;
+    --ink:#1F2933; --paper:#FAF8F4; --paper-dark:#122F5E;
+    --line:#E7E1D6; --card:#fff;
+    --ok:#1E9E6A; --wip:#C98A16; --todo:#98A0AA; --skip:#C7CDD4;
+    --maxw:1080px; --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Sarabun','Noto Sans Thai',-apple-system,'Thonburi',sans-serif;
+    color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.25;color:var(--rotary-blue);margin:0}
+  .en{font-family:'Open Sans',sans-serif}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .label{font-family:'Open Sans',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.08em;font-size:12px;color:var(--verdigris-deep)}
+
+  /* header */
+  header{background:linear-gradient(135deg,#122F5E,#19468D 60%,#1a3d6e);color:#fff}
+  .head-row{display:flex;align-items:center;gap:16px;padding:18px 20px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap}
+  .head-row img{height:46px;width:auto}
+  .head-txt h1{color:#fff;font-size:20px}
+  .head-txt p{margin:2px 0 0;font-size:13px;color:#c9d8ee}
+  .countdown{margin-left:auto;text-align:right;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);
+    border-radius:10px;padding:8px 14px}
+  .countdown b{font-family:'Open Sans';font-size:24px;color:var(--rotary-gold);display:block;line-height:1}
+  .countdown span{font-size:11px;color:#c9d8ee;letter-spacing:.03em}
+
+  /* summary cards */
+  .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:24px 0}
+  .scard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden}
+  .scard .cap{font-size:13px;color:#5b6672;margin:0 0 6px}
+  .scard .big{font-family:'Open Sans';font-weight:800;font-size:38px;line-height:1;color:var(--rotary-blue)}
+  .scard .big small{font-size:18px;font-weight:700;color:var(--todo)}
+  .scard .sub{font-size:12px;color:#7a828c;margin-top:6px}
+  .bar{height:8px;background:#EEEAE1;border-radius:99px;margin-top:12px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--verdigris),var(--rotary-gold));transition:width .6s var(--ease)}
+  .scard.gold{border-color:#f0d9a8;background:linear-gradient(180deg,#fffaf0,#fff)}
+  .scard.gold .big{color:var(--bronze-deep)}
+
+  /* section */
+  section{margin:30px 0}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:6px;flex-wrap:wrap}
+  .sec-head h2{font-size:22px}
+  .sec-head .pill{font-family:'Open Sans';font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#eef2f7;color:var(--rotary-blue)}
+  .sec-head .note{margin-left:auto;font-size:13px;color:#7a828c}
+  .sec-desc{font-size:14px;color:#5b6672;margin:8px 0 14px}
+
+  /* item rows */
+  .items{display:flex;flex-direction:column;gap:8px}
+  .item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 16px}
+  .item.rec{border-color:#cfe6df;background:linear-gradient(90deg,#f2fbf8,#fff 60%)}
+  .item .idc{font-family:'Open Sans';font-weight:700;font-size:12px;color:#fff;background:var(--rotary-blue);
+    border-radius:6px;min-width:38px;text-align:center;padding:4px 6px}
+  .item .idc.ce{background:var(--verdigris-deep)}
+  .item .idc.sup{background:var(--bronze)}
+  .item .body .t{font-weight:600;font-size:15px;color:var(--ink)}
+  .item .body .m{font-size:12.5px;color:#7a828c;margin-top:2px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .star{color:var(--rotary-gold);font-size:13px}
+  .tag{font-size:11px;font-family:'Open Sans';font-weight:600;padding:1px 7px;border-radius:5px;background:#eef2f7;color:#5b6672}
+  .tag.rec{background:#d9f2ea;color:var(--verdigris-deep)}
+  .tag.compete{background:#fdeede;color:#B4541F}
+  .ev{color:var(--azure);font-size:12px;text-decoration:underline;cursor:pointer}
+
+  /* status pill (clickable) */
+  .st{border:none;cursor:pointer;font-family:'Noto Sans Thai',sans-serif;font-weight:700;font-size:12.5px;
+    border-radius:99px;padding:6px 13px;white-space:nowrap;min-width:104px;text-align:center;transition:.15s}
+  .st[data-s="done"]{background:#e2f5ec;color:var(--ok)}
+  .st[data-s="wip"]{background:#fdf1d8;color:var(--wip)}
+  .st[data-s="todo"]{background:#eef0f2;color:#647080}
+  .st[data-s="skip"]{background:#f4f5f7;color:#aab0b8;text-decoration:line-through}
+  .st:hover{filter:brightness(.97);transform:translateY(-1px)}
+
+  /* category group */
+  .catg{margin-top:16px}
+  .cat-h{display:flex;align-items:center;gap:10px;margin:14px 0 8px;cursor:pointer;user-select:none}
+  .cat-h h3{font-size:16px;color:var(--verdigris-deep)}
+  .cat-h .cnt{font-family:'Open Sans';font-size:12px;font-weight:700;color:#7a828c}
+  .cat-h .chev{margin-left:auto;color:#aab0b8;transition:.2s}
+  .cat-h.closed .chev{transform:rotate(-90deg)}
+  .cat-body.closed{display:none}
+
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 40px;font-size:12.5px;color:#8a929c}
+  footer b{color:var(--ink)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;font-size:12px;color:#7a828c;align-items:center}
+  .legend .st{pointer-events:none;min-width:0;padding:3px 9px}
+  .resetbtn{background:none;border:1px solid var(--line);border-radius:7px;padding:5px 11px;font-size:12px;color:#7a828c;cursor:pointer;font-family:inherit}
+  @media(max-width:560px){
+    .item{grid-template-columns:auto 1fr;gap:10px}
+    .item .st{grid-column:2;justify-self:start;margin-top:4px}
+    .countdown{margin-left:0;width:100%;text-align:left}
+    .head-row{gap:12px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต">
+    <div class="head-txt">
+      <h1>แดชบอร์ดรางวัล ปีบริหาร 2569–2570</h1>
+      <p>สโมสรโรตารีเหมืองแร่ภูเก็ต · District 3330 · ฝ่ายภาพลักษณ์</p>
+    </div>
+    <div class="countdown">
+      <b id="cd-days">–</b>
+      <span>วันถึงเส้นตาย 28 ก.พ. 2570</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="summary" id="summary"></div>
+
+  <!-- SECTION 1: PI-1 -->
+  <section id="sec-pi1">
+    <div class="sec-head">
+      <h2>① รางวัลภาคฝ่ายภาพลักษณ์ (PI-1)</h2>
+      <span class="pill" id="pi1-pill">0 / 4 ช่องสื่อ</span>
+      <span class="note">non-competitive · ทำครบ = ได้รางวัลแน่ · Satja คุม 100%</span>
+    </div>
+    <p class="sec-desc">ประชาสัมพันธ์โครงการบำเพ็ญประโยชน์ <b>โดยใช้โลโก้จาก Brand Center</b> ผ่านสื่อ <b>อย่างน้อย 4 จาก 7 ช่องทาง</b> · ⭐ = 4 ช่องที่แนะนำ (ทำจากโต๊ะได้ async) · ส่งไฟล์ → nprotary@gmail.com</p>
+    <div class="items" id="pi1-items"></div>
+  </section>
+
+  <!-- SECTION 2: Club Excellence -->
+  <section id="sec-ce">
+    <div class="sec-head">
+      <h2>② Club Excellence Award (RI)</h2>
+      <span class="pill" id="ce-pill">0 / 13</span>
+      <span class="note">เลือก+ทำสำเร็จ ≥13 จาก 26 เป้า · รายงานใน Rotary Club Central ภายใน 30 มิ.ย. · pass/fail</span>
+    </div>
+    <p class="sec-desc">แตะสถานะเพื่อวางเป้า (<span style="color:var(--wip);font-weight:600">กำลังทำ</span>) แล้วปิดเมื่อ <span style="color:var(--ok);font-weight:600">สำเร็จ</span> · นับเฉพาะ "สำเร็จ" เข้า 13 · <span class="star">★</span> = เป้า priority ของ RI · ชื่อหมวดเต็ม: Enhance Engagement / Increase Impact / Expand Reach / Increase Ability to Adapt</p>
+    <div id="ce-cats"></div>
+  </section>
+
+  <!-- SECTION 3: Supporting awards -->
+  <section id="sec-sup">
+    <div class="sec-head">
+      <h2>③ รางวัลสนับสนุน (PI ช่วยผลักดัน)</h2>
+      <span class="note">เก็บหลักฐาน + PR ให้ฝ่ายอื่น · deadline หลัก 28 ก.พ. 2570</span>
+    </div>
+    <div class="items" id="sup-items"></div>
+  </section>
+
+  <div class="legend">
+    <span>สถานะ:</span>
+    <span class="st" data-s="todo">ยังไม่เริ่ม</span>
+    <span class="st" data-s="wip">กำลังทำ</span>
+    <span class="st" data-s="done">สำเร็จ</span>
+    <span class="st" data-s="skip">ไม่เลือก</span>
+    <span style="margin-left:auto"></span>
+    <button class="resetbtn" onclick="resetAll()">↺ ล้างสถานะทั้งหมด</button>
+  </div>
+
+  <footer>
+    <p><b>Prototype · Phase 2 Club Systems</b> — สถานะที่แตะเก็บในเบราว์เซอร์นี้ (localStorage) ยังไม่ผูกฐานข้อมูลจริง</p>
+    <p><b>เมื่อได้บัญชี Google สโมสร:</b> ย้าย data model ด้านล่างเป็น Google Sheet <code>awards</code> (1 เกณฑ์ = 1 แถว) → กรรมการอัปเดต status/หลักฐานในชีต → dashboard นี้อ่านผ่าน Apps Script/CSV · ดึงหลักฐานอัตโนมัติจาก M3 archive + P1 ทะเบียนโครงการ (blueprint §4)</p>
+    <p><b>คอลัมน์ชีต:</b> <code>group · id · category · title_th · target · competitive · priority · status · evidence_link · owner · deadline · notes</code></p>
+    <p style="margin-top:10px;color:#b0b6bd">เกณฑ์: ภาค 3330 = ทำเนียบภาค น.51-52 (research/02b) · Club Excellence 26 = Rotary Club Excellence Award Goals &amp; Instructions (Revised Jan 2026, RI) — ตรวจซ้ำใน Club Central ก่อนรายงานจริง</p>
+  </footer>
+</div>
+
+<script>
+/* ---------- DATA MODEL (= โครง Google Sheet ในอนาคต) ---------- */
+const DEADLINE = new Date('2027-02-28T23:59:59+07:00');
+
+const PI1 = [
+  {id:'1.1', title:'หนังสือพิมพ์', target:'≥ 3 ข่าว', rec:false, evi:'ภาพข่าวหน้าสื่อสิ่งพิมพ์'},
+  {id:'1.2', title:'Rotary Showcase', target:'≥ 3 ข่าว', rec:true, evi:'Screen capture + คำบรรยาย'},
+  {id:'1.3', title:'Facebook (ใช้ Template จาก Brand Center)', target:'≥ 3 หัวข่าว', rec:true, evi:'Screen capture + คำบรรยาย'},
+  {id:'1.4', title:'สื่อสิ่งพิมพ์ (แผ่นพับ/โบชัวร์/ไวนิล)', target:'ใช้จริง', rec:true, evi:'ภาพถ่ายการใช้จริง'},
+  {id:'1.5', title:'YouTube', target:'≥ 3 ข่าว', rec:true, evi:'Screen capture + คำบรรยาย'},
+  {id:'1.6', title:'Billboard', target:'1 แผ่น/ครั้ง', rec:false, evi:'ภาพถ่ายจากจุดติดตั้งจริง'},
+  {id:'1.7', title:'สารผู้ว่าการภาค', target:'≥ 3 ข่าว', rec:false, evi:'ภาพข่าว + ระบุลำดับ/เดือน'},
+];
+
+const CE = [
+  {cat:'Engagement (เข้าร่วม)', full:'Enhance Participant Engagement', goals:[
+    {id:'E1', p:1, t:'สมาชิกเข้าร่วมกิจกรรมบำเพ็ญประโยชน์', target:'จำนวนที่คลับกำหนด'},
+    {id:'E2', p:0, t:'กิจกรรมสังสรรค์นอกการประชุมปกติ', target:'จำนวนที่คลับกำหนด'},
+    {id:'E3', p:0, t:'สมาชิกร่วม Rotarian Action Group (RAG)', target:'จำนวนที่คลับกำหนด'},
+    {id:'E4', p:0, t:'สมาชิกร่วมโปรแกรมพัฒนาผู้นำ', target:'จำนวนที่คลับกำหนด'},
+    {id:'E5', p:0, t:'สมาชิกเข้าร่วมประชุมภาค', target:'จำนวนที่คลับกำหนด'},
+    {id:'E6', p:0, t:'สมาชิกร่วม Rotary Fellowship', target:'จำนวนที่คลับกำหนด'},
+    {id:'E7', p:0, t:'ผู้นำคลับเข้าอบรมเตรียมบทบาท', target:'จำนวนที่คลับกำหนด'},
+    {id:'E8', p:0, t:'ใช้สื่อประชาสัมพันธ์ทางการ (Brand Center)', target:'ใช่ / ไม่ใช่'},
+  ]},
+  {cat:'Impact (ผลกระทบ)', full:'Increase our Impact', goals:[
+    {id:'I1', p:1, t:'ยอดบริจาค Annual Fund (คลับ+สมาชิก)', target:'USD ที่คลับกำหนด'},
+    {id:'I2', p:1, t:'ยอดบริจาค PolioPlus Fund', target:'USD ที่คลับกำหนด'},
+    {id:'I3', p:1, t:'ผู้เป็น Benefactor (Endowment ≥1,000 USD/พินัยกรรม)', target:'จำนวนคน'},
+    {id:'I4', p:0, t:'โครงการบำเพ็ญประโยชน์ที่ทำสำเร็จ', target:'จำนวนโครงการ'},
+    {id:'I5', p:0, t:'ผู้บริจาคก้อนใหญ่ (≥10,000 USD ครั้งเดียว)', target:'จำนวนคน'},
+    {id:'I6', p:0, t:'สมาชิก Bequest Society (พินัยกรรม ≥10,000 USD)', target:'จำนวนคน'},
+    {id:'I7', p:0, t:'รับเป็นเจ้าภาพนักเรียนแลกเปลี่ยน (inbound)', target:'จำนวนคน'},
+    {id:'I8', p:0, t:'สนับสนุนนักเรียนแลกเปลี่ยน (outbound)', target:'จำนวนคน'},
+  ]},
+  {cat:'Reach (ขยายผล)', full:'Expand our Reach', goals:[
+    {id:'R1', p:1, t:'จำนวนสมาชิกรวมเมื่อสิ้นปีบริหาร', target:'จำนวนที่คลับกำหนด'},
+    {id:'R2', p:1, t:'สมาชิกที่สปอนเซอร์สมาชิกใหม่', target:'จำนวนที่คลับกำหนด'},
+    {id:'R3', p:0, t:'สปอนเซอร์สโมสร Rotaract (ใหม่/เดิม)', target:'จำนวนที่คลับกำหนด'},
+    {id:'R4', p:0, t:'สปอนเซอร์สโมสร Interact (ใหม่/เดิม)', target:'จำนวนที่คลับกำหนด'},
+    {id:'R5', p:0, t:'สนับสนุนผู้เข้าร่วม RYLA', target:'จำนวนที่คลับกำหนด'},
+    {id:'R6', p:0, t:'ข่าว/สื่อที่นำเสนอโครงการของคลับ', target:'จำนวนที่คลับกำหนด'},
+  ]},
+  {cat:'Adapt (ปรับตัว)', full:'Increase Our Ability to Adapt', goals:[
+    {id:'A1', p:1, t:'คลับมีแผนยุทธศาสตร์ที่อัปเดต', target:'ใช่ / ไม่ใช่'},
+    {id:'A2', p:0, t:'ความถี่อัปเดตเว็บไซต์/โซเชียลต่อเดือน', target:'ครั้ง/เดือน'},
+    {id:'A3', p:0, t:'ตัวตนออนไลน์สะท้อนกิจกรรมปัจจุบัน', target:'ใช่ / ไม่ใช่'},
+    {id:'A4', p:0, t:'ข้อบังคับคลับสะท้อนความต้องการสมาชิก', target:'ใช่ / ไม่ใช่'},
+  ]},
+];
+
+const SUP = [
+  {id:'CLI', t:'Create Lasting Impact Award', target:'บันทึกโครงการสิ่งแวดล้อม/Safe Roads ผ่าน Service Project Center · หรือตั้ง RCC + ได้ Charter · โครงการได้รับอนุมัติจากมูลนิธิภายใน 28 ก.พ. 2570', tag:'ทำครบ = ได้ทุกสโมสร', tagcls:'rec', owner:'บำเพ็ญประโยชน์ + PI'},
+  {id:'PRIP', t:'ถ้วยเกียรติยศ PRIP พิชัย รัตตกุล', target:'เพิ่มสมาชิกสุทธิสูงสุดในภาค + ชำระค่าบำรุง RI/ภาคตรงเวลา', tag:'แข่ง', tagcls:'compete', owner:'สมาชิกภาพ (PI หนุนสื่อ recruit)'},
+  {id:'PI4', t:'PI-4 ประกวดภาพ "โครงการสู่ชุมชน"', target:'≥3 หน่วยงานร่วม · โลโก้ในภาพจริง (ห้ามวางทับ) · People of Action · 1 ภาพ ≤2MB', tag:'ทำครบ = ได้ทุกสโมสร', tagcls:'rec', owner:'ฝ่ายภาพลักษณ์'},
+  {id:'PI2', t:'PI-2 ประกวดคลิปวิดีโอ', target:'7 Areas/Safe Roads · โลโก้ชัด · ซับ TH+EN · ≤60 นาที · เผยแพร่โซเชียล', tag:'แข่ง', tagcls:'compete', owner:'ฝ่ายภาพลักษณ์'},
+  {id:'PI3', t:'PI-3 ประกวดภาพถ่ายประทับใจ', target:'บุคคล 3-5 คน · โลโก้ในภาพจริง · 1 ภาพ ≤2MB ≥1024×768', tag:'แข่ง', tagcls:'compete', owner:'ฝ่ายภาพลักษณ์'},
+];
+
+/* ---------- STATE (localStorage) ---------- */
+const KEY='rcmr_awards_v1';
+let S = JSON.parse(localStorage.getItem(KEY) || '{}');
+function save(){ localStorage.setItem(KEY, JSON.stringify(S)); }
+function get(id, def){ return S[id] || def; }
+function setSt(id, v){ S[id]=v; save(); }
+
+const LBL={todo:'ยังไม่เริ่ม', wip:'กำลังทำ', done:'สำเร็จ', skip:'ไม่เลือก'};
+function cycle(id, states){
+  const cur = get(id, states[0]);
+  const nx = states[(states.indexOf(cur)+1) % states.length];
+  setSt(id, nx); renderAll();
+}
+function pill(id, states){
+  const s = get(id, states[0]);
+  return `<button class="st" data-s="${s}" onclick="cycle('${id}',${JSON.stringify(states).replace(/"/g,'&quot;')})">${LBL[s]}</button>`;
+}
+
+/* ---------- RENDER ---------- */
+function renderPI1(){
+  const states=['todo','wip','done'];
+  document.getElementById('pi1-items').innerHTML = PI1.map(c=>`
+    <div class="item ${c.rec?'rec':''}">
+      <span class="idc">${c.id}</span>
+      <div class="body">
+        <div class="t">${c.rec?'⭐ ':''}${c.title}</div>
+        <div class="m"><span class="tag ${c.rec?'rec':''}">${c.target}</span><span>หลักฐาน: ${c.evi}</span></div>
+      </div>
+      ${pill('pi1-'+c.id, states)}
+    </div>`).join('');
+  const done = PI1.filter(c=>get('pi1-'+c.id,'todo')==='done').length;
+  document.getElementById('pi1-pill').textContent = `${done} / 4 ช่องสื่อ`;
+  return done;
+}
+
+function renderCE(){
+  const states=['skip','wip','done'];
+  document.getElementById('ce-cats').innerHTML = CE.map((cat,ci)=>{
+    const rows = cat.goals.map(g=>`
+      <div class="item">
+        <span class="idc ce">${g.id}</span>
+        <div class="body">
+          <div class="t">${g.p?'<span class="star">★</span> ':''}${g.t}</div>
+          <div class="m"><span class="tag">${g.target}</span></div>
+        </div>
+        ${pill('ce-'+g.id, states)}
+      </div>`).join('');
+    const cdone = cat.goals.filter(g=>get('ce-'+g.id,'skip')==='done').length;
+    const cclosed = get('cat-'+ci,'open')==='closed';
+    return `<div class="catg">
+      <div class="cat-h ${cclosed?'closed':''}" onclick="toggleCat(${ci})">
+        <h3>${cat.cat}</h3>
+        <span class="cnt">สำเร็จ ${cdone}/${cat.goals.length}</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="cat-body ${cclosed?'closed':''}">${rows}</div>
+    </div>`;
+  }).join('');
+  const done = CE.flatMap(c=>c.goals).filter(g=>get('ce-'+g.id,'skip')==='done').length;
+  const el=document.getElementById('ce-pill');
+  el.textContent = `${done} / 13`;
+  el.style.background = done>=13?'#d9f2ea':'#eef2f7';
+  el.style.color = done>=13?'var(--verdigris-deep)':'var(--rotary-blue)';
+  return done;
+}
+function toggleCat(ci){ setSt('cat-'+ci, get('cat-'+ci,'open')==='closed'?'open':'closed'); renderCE(); }
+
+function renderSUP(){
+  const states=['todo','wip','done'];
+  document.getElementById('sup-items').innerHTML = SUP.map(s=>`
+    <div class="item">
+      <span class="idc sup">${s.id}</span>
+      <div class="body">
+        <div class="t">${s.t}</div>
+        <div class="m"><span class="tag ${s.tagcls}">${s.tag}</span><span>${s.target}</span><span>· ผู้ดูแล: ${s.owner}</span></div>
+      </div>
+      ${pill('sup-'+s.id, states)}
+    </div>`).join('');
+}
+
+function renderSummary(pi1done, cedone){
+  const days = Math.max(0, Math.ceil((DEADLINE - new Date())/86400000));
+  document.getElementById('cd-days').textContent = days.toLocaleString('th-TH');
+  const pi1pct = Math.min(100, pi1done/4*100);
+  const cepct = Math.min(100, cedone/13*100);
+  document.getElementById('summary').innerHTML = `
+    <div class="scard gold">
+      <p class="cap">🎯 สนามหลัก · รางวัลภาค PI-1</p>
+      <div class="big">${pi1done}<small>/4 ช่องสื่อ</small></div>
+      <div class="sub">${pi1done>=4?'✓ ครบเกณฑ์ — ได้รางวัลแน่':'ทำครบ 4 = ได้รางวัลแน่ (non-competitive)'}</div>
+      <div class="bar"><i style="width:${pi1pct}%"></i></div>
+    </div>
+    <div class="scard">
+      <p class="cap">🏆 Club Excellence Award</p>
+      <div class="big">${cedone}<small>/13 เป้า</small></div>
+      <div class="sub">${cedone>=13?'✓ ผ่านเกณฑ์ 13/26':'ต้องทำสำเร็จอีก '+(13-cedone)+' เป้า'} · จาก 26</div>
+      <div class="bar"><i style="width:${cepct}%"></i></div>
+    </div>
+    <div class="scard">
+      <p class="cap">⏳ เส้นตายรวม</p>
+      <div class="big">${days}<small> วัน</small></div>
+      <div class="sub">28 ก.พ. 2570 · Club Excellence รายงานถึง 30 มิ.ย. 2570</div>
+    </div>`;
+}
+
+function renderAll(){
+  const pi1 = renderPI1();
+  const ce = renderCE();
+  renderSUP();
+  renderSummary(pi1, ce);
+}
+function resetAll(){ if(confirm('ล้างสถานะทั้งหมด?')){ S={}; save(); renderAll(); } }
+renderAll();
+</script>
+</body>
+</html>

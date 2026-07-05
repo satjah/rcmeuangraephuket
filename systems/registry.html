@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ทะเบียนโครงการบำเพ็ญประโยชน์ 2569-70 · สโมสรโรตารีเหมืองแร่ภูเก็ต</title>
+<!--
+  P1 PROJECT REGISTRY — Phase 2 · Club Systems
+  สโมสรโรตารีเหมืองแร่ภูเก็ต · ปีบริหาร 2569-2570
+  spec: plan/club_systems_blueprint_fable.md §2 + §4 · หลัก 4 ข้อ (input ≤2 นาที · Sheet SoT · งบ 0 · ผลิตหลักฐานรางวัล)
+  ป้อน 3 ปลายทาง: A1 Award Tracker (auto-tag) · หน้า impact เว็บ (rollup) · ชั่วโมงอาสาต่อคน (โยง M2 เกณฑ์ 12 ชม.)
+  prototype standalone · SoT ตอนต่อจริง = Google Sheet (คอลัมน์ = data model) · demo เก็บใน localStorage
+  brand tokens = ตรงกับ website/mockup + meeting-kit + award-tracker
+-->
+<style>
+  :root{
+    --rotary-blue:#19468D; --rotary-gold:#F5A81C; --azure:#0076C0;
+    --bronze:#B08D57; --bronze-deep:#8C6A3F;
+    --verdigris:#00AE98; --verdigris-deep:#00796B;
+    --ink:#1F2933; --paper:#FAF8F4; --line:#E7E1D6; --card:#fff;
+    --maxw:1120px; --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Sarabun','Noto Sans Thai',-apple-system,'Thonburi',sans-serif;
+    color:var(--ink);background:var(--paper);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.25;color:var(--rotary-blue);margin:0}
+  .en{font-family:'Open Sans',sans-serif}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .label{font-family:'Open Sans',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--verdigris-deep)}
+
+  header{background:linear-gradient(135deg,#122F5E,#19468D 60%,#1a3d6e);color:#fff}
+  .head-row{display:flex;align-items:center;gap:16px;padding:18px 20px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap}
+  .head-row img{height:46px;width:auto}
+  .head-txt h1{color:#fff;font-size:20px}
+  .head-txt p{margin:2px 0 0;font-size:13px;color:#c9d8ee}
+  .addbtn{margin-left:auto;background:var(--rotary-gold);color:#1F2933;border:none;border-radius:10px;
+    font-family:'Noto Sans Thai';font-weight:700;font-size:15px;padding:11px 20px;cursor:pointer;box-shadow:0 4px 14px -4px rgba(245,168,28,.6)}
+  .addbtn:hover{background:#e0960a}
+
+  /* rollup */
+  .rollup{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:24px 0 8px}
+  .rc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px}
+  .rc .cap{font-size:12.5px;color:#5b6672;margin:0 0 6px}
+  .rc .big{font-family:'Open Sans';font-weight:800;font-size:30px;line-height:1;color:var(--rotary-blue)}
+  .rc .big small{font-size:15px;font-weight:700;color:#98A0AA}
+  .rc.gold{border-color:#f0d9a8;background:linear-gradient(180deg,#fffaf0,#fff)}
+  .rc.gold .big{color:var(--bronze-deep)}
+  .rc.teal{border-color:#cfe6df;background:linear-gradient(180deg,#f2fbf8,#fff)}
+  .rc.teal .big{color:var(--verdigris-deep)}
+  .hint{font-size:12px;color:#8a929c;margin:0 0 18px}
+
+  /* table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;min-width:820px;font-size:14px}
+  th{background:#F4F1EA;text-align:left;font-family:'Noto Sans Thai';font-weight:700;color:var(--rotary-blue);
+    padding:11px 12px;border-bottom:2px solid var(--line);white-space:nowrap;font-size:13px}
+  td{padding:11px 12px;border-bottom:1px solid #F0ECE3;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#FBFAF7}
+  .pname{font-weight:600;color:var(--ink)}
+  .pname small{display:block;font-weight:400;color:#8a929c;font-size:12px;margin-top:2px}
+  .num{font-family:'Open Sans';font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .chip{display:inline-block;font-size:11px;font-family:'Open Sans';font-weight:600;padding:2px 8px;border-radius:6px;background:#eef2f7;color:#5b6672;margin:1px 2px 1px 0;white-space:nowrap}
+  .chip.area{background:#e7f0fb;color:var(--rotary-blue)}
+  .chip.env{background:#e2f5ec;color:var(--verdigris-deep)}
+  .chip.award{background:#fdf1d8;color:var(--bronze-deep)}
+  .st{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+  .st.done{background:#e2f5ec;color:#1E9E6A}
+  .st.wip{background:#fdf1d8;color:#C98A16}
+  .st.plan{background:#eef0f2;color:#647080}
+  .rowbtn{background:none;border:none;cursor:pointer;color:#98A0AA;font-size:15px;padding:3px 6px;border-radius:6px}
+  .rowbtn:hover{background:#f0ece3;color:var(--rotary-blue)}
+  .empty{text-align:center;color:#98A0AA;padding:40px 20px;font-size:15px}
+
+  /* form panel */
+  .backdrop{position:fixed;inset:0;background:rgba(18,47,94,.4);display:none;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;z-index:50}
+  .backdrop.open{display:flex}
+  .panel{background:#fff;border-radius:16px;max-width:680px;width:100%;padding:26px 26px 22px;box-shadow:0 20px 60px -20px rgba(18,47,94,.5)}
+  .panel h2{font-size:20px;margin-bottom:4px}
+  .panel .sub{font-size:13px;color:#7a828c;margin:0 0 18px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fld{display:flex;flex-direction:column;gap:5px}
+  .fld.full{grid-column:1/-1}
+  .fld label{font-size:13px;font-weight:600;color:var(--ink)}
+  .fld label .req{color:#C0392B}
+  .fld label .h{font-weight:400;color:#98A0AA;font-size:12px}
+  input,select,textarea{font-family:inherit;font-size:14.5px;color:var(--ink);border:1px solid #d8d2c6;border-radius:9px;padding:9px 11px;background:#fff;width:100%}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--verdigris);border-color:var(--verdigris)}
+  textarea{resize:vertical;min-height:56px}
+  .checks{grid-column:1/-1;background:#F9F7F2;border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-top:2px}
+  .checks .ct{font-size:12.5px;font-weight:700;color:var(--verdigris-deep);margin-bottom:8px}
+  .checkrow{display:flex;align-items:flex-start;gap:9px;margin:7px 0;font-size:13.5px;line-height:1.4}
+  .checkrow input{width:auto;margin-top:3px;flex-shrink:0}
+  .checkrow small{color:#8a929c;display:block}
+  .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+  .btn{font-family:'Noto Sans Thai';font-weight:700;font-size:15px;border-radius:10px;padding:10px 20px;cursor:pointer;border:none}
+  .btn.save{background:var(--rotary-blue);color:#fff}
+  .btn.save:hover{background:#123472}
+  .btn.cancel{background:#fff;border:1px solid var(--line);color:#7a828c}
+
+  footer{border-top:1px solid var(--line);margin-top:36px;padding:22px 0 40px;font-size:12.5px;color:#8a929c}
+  footer b{color:var(--ink)} footer code{background:#F1EDE4;padding:1px 5px;border-radius:4px;font-size:12px}
+  .toolbar{display:flex;align-items:center;gap:12px;margin:22px 0 10px;flex-wrap:wrap}
+  .toolbar h2{font-size:20px} .toolbar .cnt{font-size:13px;color:#8a929c}
+  .resetbtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:7px;padding:6px 12px;font-size:12px;color:#7a828c;cursor:pointer;font-family:inherit}
+  @media(max-width:560px){ .grid{grid-template-columns:1fr} .addbtn{margin-left:0;width:100%} .head-row{gap:12px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต">
+    <div class="head-txt">
+      <h1>ทะเบียนโครงการบำเพ็ญประโยชน์ 2569–2570</h1>
+      <p>สโมสรโรตารีเหมืองแร่ภูเก็ต · District 3330 · ฝ่ายบำเพ็ญประโยชน์ + ภาพลักษณ์</p>
+    </div>
+    <button class="addbtn" onclick="openForm()">＋ บันทึกโครงการ</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="rollup" id="rollup"></div>
+  <p class="hint">ตัวเลขนี้ = วัตถุดิบหน้า impact เว็บ + หลักฐาน Club Excellence + ชั่วโมงอาสา (โยง M2 เกณฑ์ 12 ชม./ครึ่งปี) · 🏅 <b>หลักฐานรางวัลปีนี้</b> นับเฉพาะโครงการปีบริหาร 2569-70 (1 ก.ค.69–30 มิ.ย.70) — โครงการเก่า 15 รายการที่ seed ไว้เข้าแค่ยอดสะสม impact · 0 tag ตอนนี้ = ถูกต้อง (ปีเพิ่งเริ่ม)</p>
+
+  <div class="toolbar">
+    <h2>รายการโครงการ</h2>
+    <span class="cnt" id="tblcnt"></span>
+    <button class="resetbtn" onclick="resetAll()">↺ ล้างข้อมูลทั้งหมด</button>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th>โครงการ</th><th>วันที่</th><th>ด้าน (Area)</th>
+        <th class="num">งบ (฿)</th><th class="num">ผู้รับประโยชน์</th><th class="num">ชม.อาสา</th>
+        <th>หลักฐานรางวัล (auto)</th><th>สถานะ</th><th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p><b>Prototype · Phase 2 Club Systems (P1)</b> — ข้อมูลที่บันทึกเก็บในเบราว์เซอร์นี้ (localStorage) ยังไม่ผูกฐานข้อมูลจริง</p>
+    <p><b>เมื่อได้บัญชี Google สโมสร:</b> ย้าย data model เป็น Google Sheet <code>projects</code> (1 โครงการ = 1 แถว) + <code>project_hours</code> (โครงการ×สมาชิก → ชั่วโมง โยง M1/M2) → ฟอร์มบันทึกผ่าน Apps Script web app (มือถือ ≤2 นาที) → A1 dashboard + หน้า impact เว็บ ดึงอัตโนมัติ</p>
+    <p><b>คอลัมน์ชีต <code>projects</code>:</b> <code>id · name · date · area · funding · budget · beneficiaries · benef_group · partner_orgs · volunteer_hours · volunteers · photo_url · in_spc · logo_in_photo · pr_done · status · sustain_note</code></p>
+    <p style="margin-top:8px;color:#b0b6bd">Areas of Focus 7 ด้าน + Safe Roads Save Lives (เน้นภาค) · auto-tag: Create Lasting Impact (สวล./Safe Roads + บันทึก SPC) · PI-4 (≥3 หน่วยงาน + โลโก้ในภาพ) · PI-1 (มี PR) · Club Excellence I4 (เสร็จ)</p>
+  </footer>
+</div>
+
+<!-- FORM -->
+<div class="backdrop" id="backdrop">
+  <div class="panel">
+    <h2 id="formtitle">บันทึกโครงการใหม่</h2>
+    <p class="sub">กรอกเท่าที่มี — ช่อง <span style="color:#C0392B">*</span> จำเป็น · ระบบ tag รางวัลที่เข้าเกณฑ์ให้อัตโนมัติ</p>
+    <input type="hidden" id="f_id">
+    <div class="grid">
+      <div class="fld full"><label>ชื่อโครงการ <span class="req">*</span></label><input id="f_name" placeholder="เช่น มอบนมเพื่อน้อง โรงเรียนบ้าน..."></div>
+      <div class="fld"><label>วันที่</label><input type="date" id="f_date"></div>
+      <div class="fld"><label>ด้าน (Area of Focus)</label>
+        <select id="f_area">
+          <option value="">— เลือก —</option>
+          <option>สันติภาพ/ป้องกันความขัดแย้ง</option>
+          <option>ป้องกันและรักษาโรค</option>
+          <option>น้ำ สุขาภิบาล สุขอนามัย</option>
+          <option>สุขภาพแม่และเด็ก</option>
+          <option>การศึกษาและการรู้หนังสือ</option>
+          <option>พัฒนาเศรษฐกิจชุมชน</option>
+          <option>สิ่งแวดล้อม</option>
+          <option>Safe Roads Save Lives</option>
+        </select>
+      </div>
+      <div class="fld"><label>แหล่งทุน</label>
+        <select id="f_funding">
+          <option value="">— เลือก —</option>
+          <option>ทุนสโมสรเอง</option>
+          <option>District Grant</option>
+          <option>Global Grant</option>
+          <option>ผู้สนับสนุน/สปอนเซอร์</option>
+        </select>
+      </div>
+      <div class="fld"><label>งบประมาณ <span class="h">(บาท)</span></label><input type="number" id="f_budget" min="0" placeholder="0"></div>
+      <div class="fld"><label>ผู้รับประโยชน์ <span class="h">(จำนวนคน)</span></label><input type="number" id="f_benef" min="0" placeholder="0"></div>
+      <div class="fld"><label>กลุ่มผู้รับประโยชน์</label><input id="f_benefgrp" placeholder="เช่น นักเรียน 3 โรงเรียน"></div>
+      <div class="fld"><label>หน่วยงานร่วม <span class="h">(กี่หน่วยงาน)</span></label><input type="number" id="f_partners" min="0" placeholder="0"></div>
+      <div class="fld"><label>ชั่วโมงอาสารวม</label><input type="number" id="f_hours" min="0" placeholder="0"></div>
+      <div class="fld"><label>จำนวนอาสาสมัคร</label><input type="number" id="f_vol" min="0" placeholder="0"></div>
+      <div class="fld"><label>สถานะ</label>
+        <select id="f_status"><option value="plan">วางแผน</option><option value="wip">กำลังทำ</option><option value="done">เสร็จ</option></select>
+      </div>
+      <div class="fld full"><label>ลิงก์ภาพ/อัลบั้ม <span class="h">(Drive/FB)</span></label><input id="f_photo" placeholder="https://..."></div>
+      <div class="fld full"><label>คำอธิบายความยั่งยืน/ผลกระทบ <span class="h">(สำหรับ dossier รางวัล)</span></label><textarea id="f_note" placeholder="ผลที่เกิดต่อชุมชน + ความต่อเนื่อง..."></textarea></div>
+
+      <div class="checks">
+        <div class="ct">เงื่อนไขที่ทำให้เข้าเกณฑ์รางวัล (ติ๊กถ้าใช่)</div>
+        <label class="checkrow"><input type="checkbox" id="f_spc"><span>บันทึกใน <b>Service Project Center</b> แล้ว <small>เกณฑ์ Create Lasting Impact (โครงการสวล./Safe Roads)</small></span></label>
+        <label class="checkrow"><input type="checkbox" id="f_logo"><span><b>โลโก้ Brand Center ปรากฏในภาพจริง</b> (ไม่วางทับทีหลัง) <small>เกณฑ์ PI-3/PI-4 · ภาพใช้ส่งประกวดได้</small></span></label>
+        <label class="checkrow"><input type="checkbox" id="f_pr"><span>ทำ <b>PR ผ่านสื่อ</b> แล้ว (FB/YouTube/สิ่งพิมพ์/ข่าว) <small>ป้อนเข้า PI-1 (≥4 ช่องสื่อ)</small></span></label>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn cancel" onclick="closeForm()">ยกเลิก</button>
+      <button class="btn save" onclick="saveProject()">บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- DATA MODEL (= โครง Google Sheet `projects`) ---------- */
+const KEY='rcmr_projects_v1';
+const AREA_ENV=['สิ่งแวดล้อม','Safe Roads Save Lives'];
+
+/* seed = โครงการจริง 15 รายการจาก research/06 (FB harvest) + timeline (แก้/ลบได้)
+   🔴 ตาม research: ไม่ประมาณยอดเงิน/ผู้รับประโยชน์ — กรอกเฉพาะที่มีหลักฐาน (Sound of Hope 2,000 · เอกซเรย์ 1.9 ล้าน)
+   ที่เหลือ beneficiaries/volunteer_hours = 0 → รอทีมเติม · logo_in_photo=false → รอ verify (กัน auto-tag PI-4 ผิด) */
+const SEED=[
+  {id:'s01', name:'สเปรย์เพื่อพี่ นมนี้เพื่อน้อง (แจกนม 2 รอบ)', date:'2020-06-28', area:'สุขภาพแม่และเด็ก', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'เด็ก+ชุมชนกะทู้', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.facebook.com/media/set/?set=a.175965167220429&type=3', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'แจกนม+สเปรย์แอลกอฮอล์ช่วงโควิด (People of Action ยุคต้น)'},
+  {id:'s02', name:'ฟ้าทะลายโจร สู้วิกฤติโควิด รพ.สต.กะทู้', date:'2021-08-23', area:'ป้องกันและรักษาโรค', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'รพ.สต.กะทู้', partner_orgs:1, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=7169&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'บรรจุฟ้าทะลายโจร + โครงการโฮมีโอพาธีย์'},
+  {id:'s03', name:'Charity Live "จับมือไว้ แล้วไปด้วยกัน"', date:'2021-10-04', area:'', funding:'ผู้สนับสนุน/สปอนเซอร์', budget:0, beneficiaries:0, benef_group:'', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=7389&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'คอนเสิร์ตการกุศลรุ่นแรก (สาย Charity Live) · ยอดระดมทุน: รอเหรัญญิก'},
+  {id:'s04', name:'กำจัดวัชพืช เปิดทางน้ำ ฝายคลองพระแทว', date:'2023-12-09', area:'สิ่งแวดล้อม', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'ชุมชนคลองพระแทว', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=11531&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'ฟื้นทางน้ำชุมชน'},
+  {id:'s05', name:'แด่น้องอันดามัน — ค่ายทะเลเด็กพิเศษ ปล่อยเต่า', date:'2024-02-03', area:'สิ่งแวดล้อม', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'เด็กพิเศษ', partner_orgs:1, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=11204&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'พาเด็กพิเศษเข้าค่ายทะเล ณ ฐานทัพเรือทับละมุ'},
+  {id:'s06', name:'Sound of Hope ครั้งที่ 1', date:'2024-02-20', area:'การศึกษาและการรู้หนังสือ', funding:'ผู้สนับสนุน/สปอนเซอร์', budget:0, beneficiaries:2000, benef_group:'เยาวชนภูเก็ต', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=11530&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'สร้างโอกาสด้านดนตรีแก่เด็กภูเก็ตกว่า 2,000 คน (🟡 verify ตัวเลข)'},
+  {id:'s07', name:'สร้างฝัน สร้างอาชีพ (ร่วมเรือนจำภูเก็ต)', date:'2024-02-20', area:'พัฒนาเศรษฐกิจชุมชน', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'ผู้ต้องขัง', partner_orgs:1, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=11529&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'ฝึกอาชีพ ร่วมเรือนจำจังหวัดภูเก็ต'},
+  {id:'s08', name:'The Legends Concert "Queens Return"', date:'2024-04-17', area:'', funding:'ผู้สนับสนุน/สปอนเซอร์', budget:0, beneficiaries:0, benef_group:'', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=11740&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'คอนเสิร์ตระดมทุน (มาช่า×คริสติน่า) → เครื่องเอกซเรย์ รพ.ถลาง · ยอด: รอเหรัญญิก'},
+  {id:'s09', name:'ใช้ถนนปลอดภัย 6 โรงเรียน', date:'2024-09-23', area:'Safe Roads Save Lives', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'นักเรียน 6 โรงเรียน', partner_orgs:6, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=12672&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'ถนนปลอดภัย 6 โรงเรียนในภูเก็ต'},
+  {id:'s10', name:'World Polio Day 2024 (ร่วม 11 สโมสร)', date:'2024-10-24', area:'ป้องกันและรักษาโรค', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'ชุมชนภูเก็ต', partner_orgs:11, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=12881&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'หยอดวัคซีนป้องกันโปลิโอ ร่วม 11 สโมสร'},
+  {id:'s11', name:'มอบเครื่องเอกซเรย์ 1.9 ล้าน รพ.ถลาง', date:'2025-02-20', area:'ป้องกันและรักษาโรค', funding:'Global Grant', budget:1900000, beneficiaries:0, benef_group:'ผู้ป่วย รพ.ถลาง', partner_orgs:2, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=13568&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'ผลจากสาย Charity Live + Global Grant ร่วมสโมสรเกาหลี Seongnam'},
+  {id:'s12', name:'Save Underwater World (ร่วม 19 สโมสร)', date:'2025-03-13', area:'สิ่งแวดล้อม', funding:'District Grant', budget:0, beneficiaries:0, benef_group:'ระบบนิเวศทะเล', partner_orgs:19, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=13757&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'ฟื้นฟูระบบนิเวศทะเล · งบรวมทุกสโมสร 5 ล้าน (สัดส่วนสโมสร: รอยืนยัน)'},
+  {id:'s13', name:'บ้านตะวันฉาย + พัฒนาฝีมือตัดเย็บชุมชนกะทู้', date:'2025-05-12', area:'พัฒนาเศรษฐกิจชุมชน', funding:'ทุนสโมสรเอง', budget:0, beneficiaries:0, benef_group:'ชุมชนกะทู้', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=13899&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'กิจกรรมครบรอบ 6 ปี + พัฒนาฝีมือตัดเย็บ (ได้เกียรติบัตร)'},
+  {id:'s14', name:'Sound of Hope ปีที่ 2', date:'2025-06-12', area:'การศึกษาและการรู้หนังสือ', funding:'ผู้สนับสนุน/สปอนเซอร์', budget:0, beneficiaries:0, benef_group:'เยาวชนภูเก็ต', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.rotary3330.org/clubs/newsdetail.php?Meuang_Rae_Phuket&id=14027&type=1', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'โครงการดนตรีเพื่อเยาวชนต่อเนื่องปีที่ 2'},
+  {id:'s15', name:'Music for Tomorrow (บัตร T-CONIC ให้เยาวชน)', date:'2026-02-04', area:'การศึกษาและการรู้หนังสือ', funding:'ผู้สนับสนุน/สปอนเซอร์', budget:0, beneficiaries:0, benef_group:'เยาวชนภูเก็ต', partner_orgs:0, volunteer_hours:0, volunteers:0, photo_url:'https://www.facebook.com/photo/?fbid=948125404381509&set=a.266813862512670', in_spc:false, logo_in_photo:false, pr_done:true, status:'done', sustain_note:'มอบบัตร T-CONIC LIVE IN PHUKET เปิดโอกาสเข้าถึงดนตรีระดับสากล'},
+];
+let P = JSON.parse(localStorage.getItem(KEY) || 'null');
+if(P===null){ P=SEED.slice(); persist(); }
+function persist(){ localStorage.setItem(KEY, JSON.stringify(P)); }
+
+/* ---------- award auto-tagging (spec §4: ผลิตหลักฐานรางวัลเป็นผลพลอยได้) ---------- */
+/* 🔑 gate ปีบริหารปัจจุบัน 2569-70: รางวัลนับเฉพาะโครงการ 1 ก.ค.2569–30 มิ.ย.2570 (โครงการเก่าเข้าแค่ impact) */
+const RY_START='2026-07-01', RY_END='2027-06-30';
+function inRY(d){ return d && d>=RY_START && d<=RY_END; }
+function awards(p){
+  if(!inRY(p.date)) return [];   // โครงการนอกปีบริหาร → ไม่ tag รางวัลปีนี้
+  const a=[];
+  if(AREA_ENV.includes(p.area) && p.in_spc) a.push('Create Lasting Impact');
+  if((+p.partner_orgs)>=3 && p.logo_in_photo) a.push('PI-4');
+  if(p.pr_done) a.push('PI-1');
+  if(p.status==='done') a.push('Club Excellence I4');
+  return a;
+}
+const ST={plan:['plan','วางแผน'], wip:['wip','กำลังทำ'], done:['done','เสร็จ']};
+
+/* ---------- render ---------- */
+const $=id=>document.getElementById(id);
+const n=v=>(+v||0).toLocaleString('th-TH');
+function render(){
+  const tb=$('tbody');
+  if(!P.length){ tb.innerHTML=`<tr><td colspan="9" class="empty">ยังไม่มีโครงการ — กด “＋ บันทึกโครงการ” เพื่อเริ่ม</td></tr>`; }
+  else tb.innerHTML=P.map(p=>{
+    const aw=awards(p).map(x=>`<span class="chip award">🏅 ${x}</span>`).join('')||'<span style="color:#c3c8ce;font-size:12px">—</span>';
+    const areaChip=p.area?`<span class="chip ${AREA_ENV.includes(p.area)?'env':'area'}">${p.area}</span>`:'';
+    const s=ST[p.status]||ST.plan;
+    return `<tr>
+      <td><div class="pname">${esc(p.name)}${p.benef_group?`<small>${esc(p.benef_group)}</small>`:''}</div></td>
+      <td style="white-space:nowrap;color:#6b7280">${p.date||'—'}</td>
+      <td>${areaChip}${p.funding?`<br><span class="chip">${p.funding}</span>`:''}</td>
+      <td class="num">${n(p.budget)}</td>
+      <td class="num">${n(p.beneficiaries)}</td>
+      <td class="num">${n(p.volunteer_hours)}</td>
+      <td>${aw}</td>
+      <td><span class="st ${s[0]}">${s[1]}</span></td>
+      <td style="white-space:nowrap"><button class="rowbtn" onclick="editP('${p.id}')" title="แก้ไข">✎</button><button class="rowbtn" onclick="delP('${p.id}')" title="ลบ">🗑</button></td>
+    </tr>`;
+  }).join('');
+  $('tblcnt').textContent=`${P.length} โครงการ`;
+  renderRollup();
+}
+function renderRollup(){
+  const done=P.filter(p=>p.status==='done').length;
+  const sum=k=>P.reduce((s,p)=>s+(+p[k]||0),0);
+  const areas=new Set(P.filter(p=>p.area).map(p=>p.area)).size;
+  const awCount=P.reduce((s,p)=>s+awards(p).length,0);
+  $('rollup').innerHTML=`
+    <div class="rc"><p class="cap">📋 โครงการทั้งหมด</p><div class="big">${P.length}<small> · เสร็จ ${done}</small></div></div>
+    <div class="rc teal"><p class="cap">🤝 ผู้รับประโยชน์รวม</p><div class="big">${n(sum('beneficiaries'))}<small> คน</small></div></div>
+    <div class="rc gold"><p class="cap">💰 งบประมาณรวม</p><div class="big">${n(sum('budget'))}<small> ฿</small></div></div>
+    <div class="rc"><p class="cap">⏱️ ชั่วโมงอาสารวม</p><div class="big">${n(sum('volunteer_hours'))}<small> ชม.</small></div></div>
+    <div class="rc"><p class="cap">🎯 ครอบคลุมด้าน</p><div class="big">${areas}<small>/8 areas</small></div></div>
+    <div class="rc"><p class="cap">🏅 หลักฐานรางวัลปีนี้ (auto)</p><div class="big">${awCount}<small> tag</small></div></div>`;
+}
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+/* ---------- form CRUD ---------- */
+const FIELDS=['name','date','area','funding','budget','beneficiaries','benef_group','partner_orgs','volunteer_hours','volunteers','photo_url','status','sustain_note'];
+const CHECKS={in_spc:'f_spc', logo_in_photo:'f_logo', pr_done:'f_pr'};
+const FMAP={name:'f_name',date:'f_date',area:'f_area',funding:'f_funding',budget:'f_budget',beneficiaries:'f_benef',
+  benef_group:'f_benefgrp',partner_orgs:'f_partners',volunteer_hours:'f_hours',volunteers:'f_vol',photo_url:'f_photo',status:'f_status',sustain_note:'f_note'};
+function openForm(){ $('f_id').value=''; $('formtitle').textContent='บันทึกโครงการใหม่';
+  FIELDS.forEach(f=>$(FMAP[f]).value = f==='status'?'plan':'');
+  Object.values(CHECKS).forEach(c=>$(c).checked=false);
+  $('backdrop').classList.add('open'); }
+function editP(id){ const p=P.find(x=>x.id===id); if(!p)return;
+  $('f_id').value=id; $('formtitle').textContent='แก้ไขโครงการ';
+  FIELDS.forEach(f=>$(FMAP[f]).value=p[f]??'');
+  Object.entries(CHECKS).forEach(([k,c])=>$(c).checked=!!p[k]);
+  $('backdrop').classList.add('open'); }
+function closeForm(){ $('backdrop').classList.remove('open'); }
+function saveProject(){
+  const name=$('f_name').value.trim();
+  if(!name){ alert('กรุณากรอกชื่อโครงการ'); $('f_name').focus(); return; }
+  const id=$('f_id').value;
+  const rec={id: id||('p'+Date.now())};
+  FIELDS.forEach(f=>rec[f]=$(FMAP[f]).value);
+  Object.entries(CHECKS).forEach(([k,c])=>rec[k]=$(c).checked);
+  if(id){ const i=P.findIndex(x=>x.id===id); P[i]=rec; } else { P.unshift(rec); }
+  persist(); closeForm(); render();
+}
+function delP(id){ const p=P.find(x=>x.id===id); if(confirm('ลบโครงการ "'+(p?p.name:'')+'" ?')){ P=P.filter(x=>x.id!==id); persist(); render(); } }
+function resetAll(){ if(confirm('ล้างข้อมูลทั้งหมด (กลับเป็นตัวอย่างเริ่มต้น)?')){ P=SEED.slice(); persist(); render(); } }
+$('backdrop').addEventListener('click',e=>{ if(e.target===$('backdrop')) closeForm(); });
+render();
+</script>
+</body>
+</html>
