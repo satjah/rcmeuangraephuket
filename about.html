@@ -343,6 +343,42 @@
   </div>
 </div></section>
 
+<!-- ── P1 IMPACT STRIP · ป้อนจากทะเบียนโครงการบำเพ็ญประโยชน์ (P1 · club-systems/project-registry) ── -->
+<style>
+  .p1impact{background:#fff;padding:clamp(52px,7vw,84px) 0;border-top:1px solid rgba(176,141,87,.18)}
+  .p1grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;text-align:center;margin:32px 0 16px}
+  .p1grid .num{font-family:'Open Sans',sans-serif;font-weight:800;font-size:clamp(2.4rem,5vw,3.3rem);color:var(--bronze);line-height:1}
+  .p1grid .num .unit{font-size:.42em;color:var(--bronze-deep);font-weight:700}
+  .p1grid .uline{height:2px;width:42px;margin:9px auto 0;background:var(--rotary-gold)}
+  .p1grid .cap{font-size:14.5px;color:var(--ink);margin-top:10px;line-height:1.45}
+  .p1note{text-align:center;font-size:13px;color:#8a929c;margin-top:4px}
+  @media(max-width:640px){.p1grid{grid-template-columns:repeat(2,1fr);gap:28px 18px}}
+</style>
+<section class="p1impact"><div class="wrap reveal">
+  <div style="text-align:center">
+    <div class="label" style="display:inline-block">ผลงานสะสม · จากทะเบียนโครงการ</div>
+    <h2 style="margin:10px 0 6px">7 ปี สายกระเชอไม่หยุดหมุน</h2>
+    <p style="max-width:600px;margin:0 auto;color:#5b6672;font-size:1rem;line-height:1.6">ทุกโครงการที่สโมสรลงมือทำ ถูกบันทึกไว้เป็นหลักฐาน — นี่คือยอดรวมที่ระบบทะเบียนโครงการสรุปให้</p>
+  </div>
+  <div class="p1grid" id="p1grid"></div>
+  <p class="p1note"><span class="todo">ยอดผู้รับประโยชน์รวม · ชั่วโมงอาสา — รอทีมเติมข้อมูลใน P1</span> · ตัวเลขอัปเดตอัตโนมัติเมื่อระบบขึ้นบัญชีสโมสร</p>
+</div></section>
+<script>
+/* P1_ROLLUP = สรุปจากทะเบียนโครงการ P1 (club-systems/project-registry/registry.html) · live: Apps Script เขียนจาก Sheet `projects` */
+(function(){
+  var R={projects:15, areas:6, youth:2000, years:7};
+  var tiles=[
+    {n:R.projects, u:'', c:'โครงการบำเพ็ญประโยชน์<br>ตลอด 7 ปี'},
+    {n:R.areas, u:'', c:'ด้านที่ลงมือทำ<br>(จาก 7 Areas + Safe Roads)'},
+    {n:R.youth.toLocaleString('th-TH'), u:'+', c:'เยาวชนเข้าถึงดนตรี<br>Sound of Hope'},
+    {n:R.years, u:' ปี', c:'รับใช้ชุมชนภูเก็ต<br>charter 15 มี.ค. 2562'}
+  ];
+  document.getElementById('p1grid').innerHTML=tiles.map(function(t){
+    return '<div><div class="num">'+t.n+'<span class="unit">'+t.u+'</span></div><div class="uline"></div><div class="cap">'+t.c+'</div></div>';
+  }).join('');
+})();
+</script>
+
 <!-- CTA -->
 <div class="ctaband">
   <div class="wrap reveal">
