@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+  donate.html — "สนับสนุนเรา" · INFORMATION ONLY (C-11 · club_os_architecture_fable.md §S5)
+  สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330
+  🔴 กติกาเหล็ก: ไม่มีฟอร์ม ไม่มี input ไม่รับข้อมูลการเงิน ไม่สัญญาใบเสร็จ/ลดหย่อนภาษี
+  เงินจริงผ่านมือเหรัญญิกเท่านั้น (OS-3) · เลขบัญชี/QR รอเหรัญญิกส่ง+อนุมัติ (TODO ด้านล่าง)
+  ธีมเดิม 100% (โครง header/footer ตาม about/join — ไม่มี token ใหม่)
+-->
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>สนับสนุนเรา — สโมสรโรตารีเหมืองแร่ภูเก็ต</title>
+<link rel="icon" href="club_emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&family=Sarabun:wght@400;500;600&family=Open+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rotary-blue:#19468D; --rotary-gold:#F5A81C; --azure:#0076C0;
+    --bronze:#B08D57; --bronze-deep:#8C6A3F;
+    --verdigris:#00AE98; --verdigris-deep:#00796B;
+    --ink:#1F2933; --paper:#FAF8F4; --paper-dark:#122F5E;
+    --maxw:1140px; --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Sarabun','Noto Sans Thai',-apple-system,'Thonburi',sans-serif;
+    color:var(--ink);background:var(--paper);font-size:18px;line-height:1.75;overflow-x:hidden}
+  h1,h2,h3{font-family:'Noto Sans Thai','Open Sans',sans-serif;line-height:1.2;color:var(--rotary-blue);text-wrap:balance}
+  p{text-wrap:pretty}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  a{color:var(--rotary-blue);text-decoration:none}
+  .en{font-family:'Open Sans',sans-serif}
+  .label{font-family:'Open Sans',sans-serif;font-weight:600;text-transform:uppercase;
+    letter-spacing:.08em;font-size:13px;color:var(--verdigris-deep);
+    padding-left:20px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23B08D57'/%3E%3C/svg%3E") left center no-repeat}
+  .todo{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:600;color:#B4541F;
+    background:#FCEEE3;border-radius:4px;padding:1px 6px;vertical-align:middle;white-space:nowrap}
+  .reveal{opacity:0;transform:translateY(24px);
+    transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+  .reveal.in{opacity:1;transform:none}
+  .btn{display:inline-block;font-family:'Noto Sans Thai',sans-serif;font-weight:600;
+    padding:13px 26px;border-radius:8px;font-size:16px;cursor:pointer;transition:.25s;border:2px solid transparent}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-gold{background:var(--rotary-gold);color:#1F2933;box-shadow:0 4px 14px -4px rgba(245,168,28,.5)}
+  .btn-gold:hover{background:#e0960a}
+  .btn-outline{border-color:var(--bronze);color:var(--bronze-deep);background:transparent}
+  .btn-outline:hover{background:rgba(176,141,87,.1)}
+  .btn-outline-white{border-color:#fff;color:#fff;background:transparent}
+  .btn-outline-white:hover{background:rgba(255,255,255,.12)}
+
+  /* ── header (ตาม about/join) ── */
+  header{position:sticky;top:0;z-index:50;background:rgba(250,248,244,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(176,141,87,.25)}
+  .nav{max-width:var(--maxw);margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
+  .logo-img{height:52px;display:block}
+  .menu{margin-left:auto;display:flex;align-items:center;gap:22px;font-weight:600;font-size:15.5px}
+  .menu a.active{color:var(--bronze-deep);border-bottom:2px solid var(--rotary-gold)}
+  .lang{color:#8a94a3;font-size:13px;font-family:'Open Sans',sans-serif}
+  #mtoggle,.burger{display:none}
+  @media(max-width:820px){
+    .burger{display:block;margin-left:auto;font-size:24px;cursor:pointer;color:var(--rotary-blue)}
+    .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);
+      flex-direction:column;padding:18px 24px;border-bottom:1px solid rgba(176,141,87,.25)}
+    #mtoggle:checked ~ .menu{display:flex}
+    .menu .lang{margin-left:0}
+  }
+
+  /* ── page hero ── */
+  .phero{position:relative;color:#fff;padding:clamp(84px,12vw,132px) 0 clamp(60px,8vw,96px);overflow:hidden}
+  .phero .media{position:absolute;inset:0;background:url('img/2568_xray_thalang.jpg') center 35%/cover no-repeat}
+  .phero .media::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(120deg,rgba(18,47,94,.94) 0%,rgba(18,47,94,.82) 45%,rgba(0,118,192,.55) 100%)}
+  .phero .wrap{position:relative;z-index:2}
+  .phero .label{color:#CFE0F6;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23F5A81C'/%3E%3C/svg%3E")}
+  .phero h1{color:#fff;font-size:clamp(2.1rem,4.5vw,3.2rem);margin:14px 0 10px}
+  .phero p.lead{max-width:640px;font-size:clamp(1.02rem,1.6vw,1.15rem);color:#EAF0FA}
+
+  /* ── section base ── */
+  section{padding:clamp(52px,7vw,90px) 0}
+  .sec-head{max-width:720px;margin-bottom:clamp(28px,4vw,44px)}
+  .sec-head h2{font-size:clamp(1.7rem,3vw,2.3rem);margin:8px 0 10px}
+  .sec-head p{color:#4a5568;font-size:16.5px}
+
+  /* ① เงินไปไหน — impact numbers */
+  .impact{background:#fff}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;margin:6px 0 30px}
+  .nums .num{font-family:'Open Sans';font-weight:800;font-size:clamp(2rem,4vw,2.8rem);color:var(--bronze);line-height:1.05}
+  .nums .num .u{font-size:.42em;color:var(--bronze-deep)}
+  .nums .cap{font-size:14px;color:var(--ink);margin-top:8px;line-height:1.45}
+  @media(max-width:560px){.nums{grid-template-columns:repeat(2,1fr);gap:26px 16px}}
+  .proof{background:var(--paper);border:1px solid rgba(176,141,87,.28);border-radius:12px;
+    padding:20px 22px;font-size:16px;color:#3d4a5c;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .proof b{color:var(--rotary-blue)}
+
+  /* ② วิธีสนับสนุน + ③ TRF — การ์ดช่องทาง */
+  .ways{background:var(--paper)}
+  .way-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:760px){.way-grid{grid-template-columns:1fr}}
+  .way{background:#fff;border:1px solid rgba(176,141,87,.3);border-radius:14px;padding:clamp(24px,3.5vw,34px);
+    box-shadow:0 8px 28px -18px rgba(18,47,94,.25);display:flex;flex-direction:column}
+  .way.trf{border-color:rgba(0,174,152,.4)}
+  .way .tag{font-family:'Open Sans';font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--verdigris-deep);margin-bottom:8px}
+  .way h3{font-size:20px;margin-bottom:10px}
+  .way p{font-size:16px;color:#3d4a5c;margin-bottom:12px}
+  .way .channel{background:var(--paper);border:1px dashed rgba(176,141,87,.55);border-radius:10px;
+    padding:16px 18px;font-size:15.5px;color:#4a5568;margin:6px 0 16px;line-height:1.6}
+  .way .foot{margin-top:auto}
+  .note{font-size:13.5px;color:#8a94a3;margin-top:10px;line-height:1.6}
+  .split{background:#EDFBF8;border-left:3px solid var(--verdigris);border-radius:8px;
+    padding:12px 16px;font-size:14.5px;color:var(--verdigris-deep);margin-top:12px}
+
+  /* ── CTA band ── */
+  .ctaband{background:linear-gradient(115deg,var(--paper-dark) 0%,var(--rotary-blue) 70%,#1d5aa8 100%);
+    color:#fff;padding:clamp(60px,8vw,92px) 0;text-align:center}
+  .ctaband .label{color:#CFE0F6;display:inline-block;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='12'%3E%3Cpath d='M0 1 h14 l-3 10 h-8 Z' fill='%23F5A81C'/%3E%3C/svg%3E")}
+  .ctaband h2{color:#fff;font-size:clamp(1.7rem,3.2vw,2.3rem);margin:10px 0}
+  .ctaband p{color:#D9E4F5;max-width:560px;margin:0 auto 26px}
+
+  footer{background:var(--paper-dark);color:#B9C6DC;padding:34px 0;font-size:14.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;justify-content:space-between}
+  footer a{color:#EAF0FA}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="nav">
+    <input type="checkbox" id="mtoggle">
+    <a href="index.html" class="logo"><img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img"></a>
+    <label for="mtoggle" class="burger">☰</label>
+    <nav class="menu">
+      <a href="index.html">หน้าแรก</a><a href="gallery.html">ผลงานของเรา</a><a href="about.html">เราคือใคร</a><a href="index.html#news">ข่าว</a>
+      <a href="join.html" class="btn btn-gold" style="padding:9px 18px;font-size:14px">ร่วมกับเรา</a>
+      <span class="lang">TH / EN</span>
+    </nav>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="phero">
+  <div class="media"></div>
+  <div class="wrap">
+    <div class="label">Support Us · โปร่งใส ตรวจสอบได้</div>
+    <h1>สนับสนุนเรา</h1>
+    <p class="lead" style="margin-top:14px">ทุกบาทที่สนับสนุนสโมสร กลายเป็นเครื่องมือแพทย์ ทะเลที่ฟื้นคืน และอาชีพที่ยั่งยืน — ที่นี่เราเล่าให้เห็นชัดว่าเงินไปไหน และสนับสนุนได้อย่างไร</p>
+  </div>
+</div>
+
+<!-- ① เงินสนับสนุนไปไหน -->
+<section class="impact"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="label">เงินสนับสนุนไปไหน</div>
+    <h2>เราไม่ได้ขอเงิน — เราขอให้คุณร่วมสร้างสิ่งที่จับต้องได้</h2>
+    <p>ผลงานทุกชิ้นของสโมสรมาจากน้ำใจของผู้สนับสนุนและแรงของอาสาสมัคร ตัวเลขเหล่านี้คือสิ่งที่เกิดขึ้นจริงในชุมชนภูเก็ต</p>
+  </div>
+  <div class="nums reveal">
+    <div><div class="num">1.9<span class="u"> ล้าน฿</span></div><div class="cap">เครื่องเอกซเรย์มอบ รพ.ถลาง<br>(Global Grant ไทย–เกาหลี)</div></div>
+    <div><div class="num">15</div><div class="cap">โครงการบำเพ็ญประโยชน์<br>เพื่อคนภูเก็ต</div></div>
+    <div><div class="num">2,000<span class="u">+</span></div><div class="cap">เยาวชนเข้าถึงดนตรี<br>และโอกาส</div></div>
+    <div><div class="num">7<span class="u"> ปี</span></div><div class="cap">รับใช้ชุมชนภูเก็ต<br>ตั้งแต่ก่อตั้ง 2562</div></div>
+  </div>
+  <div class="proof reveal">
+    <span>อยากเห็นก่อนตัดสินใจ? ดูโครงการจริงทุกชิ้นที่เราลงมือทำ — <b>เล่าเรื่องด้วยภาพจริง</b></span>
+    <a href="gallery.html" class="btn btn-outline">ดูผลงานของเรา →</a>
+  </div>
+</div></section>
+
+<!-- ② + ③ วิธีสนับสนุน -->
+<section class="ways"><div class="wrap">
+  <div class="sec-head reveal">
+    <div class="label">สนับสนุนได้อย่างไร</div>
+    <h2>สองช่องทาง — คนละกระเป๋า เลือกได้ตามใจ</h2>
+    <p>สนับสนุนโครงการของสโมสรโดยตรง หรือบริจาคเข้ามูลนิธิโรตารีสากล — ทั้งสองทางล้วนสร้างผลกระทบที่ยั่งยืน</p>
+  </div>
+  <div class="way-grid">
+
+    <!-- ② สนับสนุนสโมสรโดยตรง -->
+    <div class="way reveal">
+      <div class="tag">① สนับสนุนสโมสรโดยตรง</div>
+      <h3>ร่วมทุนโครงการของสโมสร</h3>
+      <p>สนับสนุนโครงการบำเพ็ญประโยชน์ในพื้นที่ภูเก็ตโดยตรง — เงินทุกบาทผ่านมือเหรัญญิกสโมสรและลงบัญชีสโมสรอย่างโปร่งใส</p>
+      <div class="channel">
+        <!-- TODO: ช่องทางติดต่อเหรัญญิก + QR รอเหรัญญิกส่ง+อนุมัติ -->
+        📌 ช่องทางติดต่อเหรัญญิกและ PromptPay QR ของสโมสร <span class="todo">รอเหรัญญิกยืนยัน</span><br>
+        ระหว่างนี้ ทักสอบถามช่องทางสนับสนุนได้ที่ Facebook เพจสโมสร แล้วเหรัญญิกจะประสานงานให้
+      </div>
+      <div class="foot">
+        <a href="https://www.facebook.com/rotarymeuangraephuket/" class="btn btn-gold" target="_blank" rel="noopener">สอบถามช่องทางผ่าน Facebook →</a>
+      </div>
+      <p class="note">สโมสรโดยทั่วไปไม่ใช่องค์กรที่ออกใบเสร็จลดหย่อนภาษี — การสนับสนุนนี้เป็นน้ำใจเพื่อชุมชน ไม่ใช่เพื่อสิทธิลดหย่อน</p>
+    </div>
+
+    <!-- ③ TRF -->
+    <div class="way trf reveal" style="--d:.08s">
+      <div class="tag">② บริจาคมูลนิธิโรตารีสากล (TRF)</div>
+      <h3>The Rotary Foundation</h3>
+      <p>บริจาคเข้ามูลนิธิโรตารีสากล กองทุนระดับโลกที่ขับเคลื่อนโครงการโปลิโอ ทุนการศึกษา และ Global Grant ทั่วโลก — ผ่านช่องทางทางการของ Rotary International โดยตรง</p>
+      <div class="channel">
+        🌐 บริจาคออนไลน์ที่เว็บทางการของโรตารีสากล ปลอดภัยและออกใบเสร็จตามระบบของมูลนิธิ
+      </div>
+      <div class="foot">
+        <a href="https://www.rotary.org/en/donate" class="btn btn-outline" target="_blank" rel="noopener">ไปที่ rotary.org/donate →</a>
+      </div>
+      <div class="split">💡 TRF เป็นคนละกระเป๋ากับสโมสร — เงินเข้ากองทุนกลางของโรตารีสากล ไม่ใช่บัญชีของสโมสรเหมืองแร่ภูเก็ตโดยตรง</div>
+    </div>
+
+  </div>
+</div></section>
+
+<!-- ④ CTA ร่วมกิจกรรม -->
+<div class="ctaband">
+  <div class="wrap reveal">
+    <div class="label">อีกวิธีที่ช่วยได้</div>
+    <h2>สนับสนุนด้วยแรง ก็มีค่าไม่แพ้เงิน</h2>
+    <p>อยากลงมือทำจริงไปกับเรา? มาร่วมกิจกรรม เป็นอาสาสมัคร หรือสมัครเป็นสมาชิก — ทิ้งชื่อไว้ให้เราติดต่อกลับ</p>
+    <a href="join.html" class="btn btn-gold">ร่วมกับเรา →</a>
+    <a href="gallery.html" class="btn btn-outline-white" style="margin-left:10px">ดูผลงานของเรา</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>© 2569 สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330</div>
+    <div><a href="index.html">หน้าแรก</a> · <a href="join.html">ร่วมกับเรา</a> · <a href="https://www.facebook.com/rotarymeuangraephuket/">Facebook</a></div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal (ตาม about.html)
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
