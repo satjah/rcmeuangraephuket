@@ -50,21 +50,25 @@
   .btn-outline-white{border-color:#fff;color:#fff;background:transparent}
   .btn-outline-white:hover{background:rgba(255,255,255,.12)}
 
-  /* ── header (ตาม about/join) ── */
-  header{position:sticky;top:0;z-index:50;background:rgba(250,248,244,.92);backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(176,141,87,.25)}
-  .nav{max-width:var(--maxw);margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px}
-  .logo-img{height:52px;display:block}
-  .menu{margin-left:auto;display:flex;align-items:center;gap:22px;font-weight:600;font-size:15.5px}
-  .menu a.active{color:var(--bronze-deep);border-bottom:2px solid var(--rotary-gold)}
-  .lang{color:#8a94a3;font-size:13px;font-family:'Open Sans',sans-serif}
-  #mtoggle,.burger{display:none}
-  @media(max-width:820px){
-    .burger{display:block;margin-left:auto;font-size:24px;cursor:pointer;color:var(--rotary-blue)}
-    .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);
-      flex-direction:column;padding:18px 24px;border-bottom:1px solid rgba(176,141,87,.25)}
-    #mtoggle:checked ~ .menu{display:flex}
-    .menu .lang{margin-left:0}
+  /* ── header (canonical = index.html) ── */
+  header{position:sticky;top:0;z-index:50;background:#fff;box-shadow:0 1px 6px rgba(15,42,86,.06);transition:box-shadow .3s}
+  header.scrolled{box-shadow:0 4px 18px rgba(15,42,86,.13)}
+  .nav{display:flex;align-items:center;gap:24px;padding:12px 24px;max-width:var(--maxw);margin:0 auto}
+  .logo{display:flex;align-items:center;flex:1}
+  .logo-img{height:54px;width:auto;display:block}
+  nav.menu{display:flex;align-items:center;gap:22px}
+  nav.menu a{font-family:'Noto Sans Thai';font-weight:600;font-size:15px;color:var(--ink)}
+  nav.menu a:hover{color:var(--rotary-blue)}
+  nav.menu a.active{color:var(--bronze-deep);border-bottom:2px solid var(--rotary-gold)}
+  .lang{font-family:'Open Sans';font-size:13px;font-weight:600;color:var(--verdigris-deep);
+    border:1px solid var(--verdigris);border-radius:6px;padding:4px 8px}
+  .burger{display:none;font-size:26px;background:none;border:none;color:var(--rotary-blue);cursor:pointer}
+  #mtoggle{display:none}
+  @media(max-width:768px){
+    nav.menu{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:8px 0;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+    nav.menu a{padding:12px 24px;width:100%;border-bottom:1px solid #f0f0f0}
+    #mtoggle:checked ~ nav.menu{display:flex}
+    .burger{display:block}
   }
 
   /* ── page hero ── */
