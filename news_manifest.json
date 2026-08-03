@@ -1,0 +1,41 @@
+{
+  "_note": "SoT ของ news card บน index.html — pickup.py publish-web regen บล็อก NCARDS จากไฟล์นี้ · seed = 3 การ์ดเดิม (evergreen) · sort_ts = epoch ms ใช้เรียงใหม่→เก่า",
+  "items": [
+    {
+      "id": "seed_gong_2569",
+      "sort_ts": 1751846400000,
+      "date_thai": "7 ก.ค. 2569",
+      "title": "ประชุมเคาะฆ้อง ครั้งที่ 1 ปีบริหาร 2569–2570",
+      "summary_html": "เปิดปีบริหารใหม่ภายใต้ธีม \"Create Lasting Impact\"",
+      "img": "img/2569_gong_meeting.jpg",
+      "alt": "ประชุมเคาะฆ้อง ครั้งที่ 1"
+    },
+    {
+      "id": "seed_queens_2568",
+      "sort_ts": 1735689600000,
+      "date_thai": "2568",
+      "title": "สรุปคอนเสิร์ต Queens of Rock",
+      "summary_html": "ระดมทุนเพื่อเครื่องมือแพทย์ รพ.ถลาง <span class=\"todo\">ยอดรอเหรัญญิก</span>",
+      "img": "img/2568_queens_of_rock.jpg",
+      "alt": "คอนเสิร์ต Queens of Rock 2568"
+    },
+    {
+      "id": "seed_committee_2569",
+      "sort_ts": 1751328000000,
+      "date_thai": "ก.ค. 2569",
+      "title": "เปิดปีบริหาร \"Create Lasting Impact\"",
+      "summary_html": "คณะกรรมการบริหารรุ่น 122 พร้อมรับใช้ชุมชนภูเก็ต",
+      "img": "img/2569_committee_122.jpg",
+      "alt": "คณะกรรมการบริหารรุ่น 122"
+    },
+    {
+      "id": "20260801_1035",
+      "sort_ts": 1785555300000,
+      "date_thai": "1 สิงหาคม 2569",
+      "title": "งานปั้นประติมากรรมรายาร่วมกับกรมทะเลชายฝั่ง",
+      "summary_html": "สโมสรโรตารี เหมืองแร่ภูเก็ต ร่วมติดตามความคืบหน้าประติมากรรมใต้ทะเลในโครงการรายาร่วมมือกับกรมทรัพยากรทางทะเลและชายฝั่ง และ สมาคมศิลป์",
+      "img": "img/news/20260801_1035.jpg",
+      "alt": "งานปั้นประติมากรรมรายาร่วมกับกรมทะเลชายฝั่ง"
+    }
+  ]
+}
