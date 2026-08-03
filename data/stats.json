@@ -1,0 +1,36 @@
+{
+  "_note": "🔴 SoT ตัวเลขสรุปของสโมสร — แก้ที่นี่ที่เดียว แล้วรัน `python3 pickup.py inject-stats` ตัวเลขจะไปเองทั้ง index/gallery/about (B-24 T1 · design: plan/gallery_ia_pl7b_design_fable.md §3)",
+  "_rule": "ตัวเลขที่ไม่มีฐานห้ามขึ้นจอ — ทุกค่าต้องมี source · ค่าที่ยังไม่ยืนยัน ใส่ pending:true จะขึ้นป้าย 'รอยืนยัน' บนเว็บให้เอง",
+  "asof": "2569-08",
+
+  "values": {
+    "projects": { "v": 15, "source": "ทะเบียนโครงการ P1 (club-systems/project-registry)" },
+    "areas":    { "v": 6,  "source": "P1 — ด้านที่ลงมือทำจริง (จาก 7 Areas of Focus + Safe Roads)" },
+    "youth":    { "v": 2000, "display": "2,000", "source": "Sound of Hope สะสม" },
+    "years":    { "v": 7,  "source": "charter 15 มี.ค. 2562 ถึงปัจจุบัน" },
+    "members":  { "v": 36, "source": "ทำเนียบสมาชิก M1 (2 ส.ค. 2569)" },
+    "xray_mb":  { "v": 1.9, "source": "Global Grant เครื่องเอกซเรย์ รพ.ถลาง ร่วมสโมสรเกาหลี" },
+    "suw_mb":   { "v": 5, "pending": true, "source": "Save Underwater World ร่วม 19 สโมสร — ยังรอยืนยันยอด" }
+  },
+
+  "pages": {
+    "index": [
+      { "key": "xray_mb", "unit": "ล้าน฿", "cap": "เครื่องเอกซเรย์มอบ รพ.ถลาง<br>(Global Grant ร่วมสโมสรเกาหลี)" },
+      { "key": "suw_mb",  "unit": "ล้าน฿", "cap": "Save Underwater World<br>ร่วม 19 สโมสร" },
+      { "key": "years",   "unit": " ปี",   "cap": "รับใช้ชุมชนภูเก็ต<br>(charter 15 มี.ค. 2562)" },
+      { "key": "members", "unit": "",      "cap": "สมาชิก<br>People of Action" }
+    ],
+    "gallery": [
+      { "key": "projects", "unit": "",     "cap": "โครงการบำเพ็ญประโยชน์" },
+      { "key": "youth",    "unit": "+",    "cap": "เยาวชนเข้าถึงดนตรี" },
+      { "key": "areas",    "unit": "",     "cap": "ด้าน · Areas of Focus" },
+      { "key": "years",    "unit": " ปี",  "cap": "รับใช้ชุมชนภูเก็ต" }
+    ],
+    "about": [
+      { "key": "projects", "unit": "",     "cap": "โครงการบำเพ็ญประโยชน์<br>ตลอด {years} ปี" },
+      { "key": "areas",    "unit": "",     "cap": "ด้านที่ลงมือทำ<br>(จาก 7 Areas + Safe Roads)" },
+      { "key": "youth",    "unit": "+",    "cap": "เยาวชนเข้าถึงดนตรี<br>Sound of Hope" },
+      { "key": "years",    "unit": " ปี",  "cap": "รับใช้ชุมชนภูเก็ต<br>charter 15 มี.ค. 2562" }
+    ]
+  }
+}

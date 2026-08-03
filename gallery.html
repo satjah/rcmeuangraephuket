@@ -114,11 +114,13 @@
   <h1>จากเวที สู่ชีวิต</h1>
   <p class="lead">กิจกรรมจริงของสโมสรตั้งแต่ก่อตั้ง 2562 — ทุกโครงการที่เราลงมือทำ เพื่อคนภูเก็ต</p>
   <div class="nums">
+<!-- STATS:START — inject จาก data/stats.json โดย pickup.py inject-stats · ห้ามแก้มือในบล็อกนี้ -->
     <div><div class="num">15</div><div class="cap">โครงการบำเพ็ญประโยชน์</div></div>
     <div><div class="num">2,000<span class="u">+</span></div><div class="cap">เยาวชนเข้าถึงดนตรี</div></div>
     <div><div class="num">6</div><div class="cap">ด้าน · Areas of Focus</div></div>
     <div><div class="num">7<span class="u"> ปี</span></div><div class="cap">รับใช้ชุมชนภูเก็ต</div></div>
-  </div>
+  <!-- STATS:END -->
+</div>
 </div></section>
 
 <div class="wrap">
@@ -151,6 +153,7 @@
 
 <script>
 /* ═══ PROJECTS — เพิ่มโครงการ = เพิ่ม object เดียว + วางรูป (หมวดตรงกับ P1) ═══ */
+/* PROJECTS:START — inject จาก data/gallery_manifest.json โดย pickup.py inject-gallery · ห้ามแก้มือในบล็อกนี้ */
 const PROJECTS = [
   { id:"save_underwater", title:"Save Underwater World", year:"2568", area:"สิ่งแวดล้อม",
     impact:"ฟื้นฟูระบบนิเวศทะเล ร่วม 19 สโมสร ภาค 3330/3600 — รักษ์อันดามัน",
@@ -231,8 +234,9 @@ const PROJECTS = [
     impact:"การประชุมสามัญครั้งแรกของสโมสร — วางรากฐานการทำงานของ People of Action ยุคเริ่มต้น",
     cover:"img/gallery/2020_first_meeting_01.jpg",
     photos:[{src:"img/gallery/2020_first_meeting_01.jpg", cap:"การประชุมครั้งแรก ปีบริหาร 2563–64"},
-            {src:"img/gallery/2020_first_meeting_02.jpg", cap:"สมาชิกร่วมวางแผนงานสโมสร"}] },
+            {src:"img/gallery/2020_first_meeting_02.jpg", cap:"สมาชิกร่วมวางแผนงานสโมสร"}] }
 ];
+/* PROJECTS:END */
 
 /* ── render cards ── */
 const grid=document.getElementById('grid');

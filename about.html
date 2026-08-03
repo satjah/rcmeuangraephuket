@@ -361,23 +361,19 @@
     <h2 style="margin:10px 0 6px">7 ปี สายกระเชอไม่หยุดหมุน</h2>
     <p style="max-width:600px;margin:0 auto;color:#5b6672;font-size:1rem;line-height:1.6">ทุกโครงการที่สโมสรลงมือทำ ถูกบันทึกไว้เป็นหลักฐาน — นี่คือยอดรวมที่ระบบทะเบียนโครงการสรุปให้</p>
   </div>
-  <div class="p1grid" id="p1grid"></div>
+  <div class="p1grid" id="p1grid">
+<!-- STATS:START — inject จาก data/stats.json โดย pickup.py inject-stats · ห้ามแก้มือในบล็อกนี้ -->
+<div><div class="num">15<span class="unit"></span></div><div class="uline"></div><div class="cap">โครงการบำเพ็ญประโยชน์<br>ตลอด 7 ปี</div></div>
+<div><div class="num">6<span class="unit"></span></div><div class="uline"></div><div class="cap">ด้านที่ลงมือทำ<br>(จาก 7 Areas + Safe Roads)</div></div>
+<div><div class="num">2,000<span class="unit">+</span></div><div class="uline"></div><div class="cap">เยาวชนเข้าถึงดนตรี<br>Sound of Hope</div></div>
+<div><div class="num">7<span class="unit"> ปี</span></div><div class="uline"></div><div class="cap">รับใช้ชุมชนภูเก็ต<br>charter 15 มี.ค. 2562</div></div>
+<!-- STATS:END -->
+</div>
   <p class="p1note"><span class="todo">ยอดผู้รับประโยชน์รวม · ชั่วโมงอาสา — รอทีมเติมข้อมูลใน P1</span> · ตัวเลขอัปเดตอัตโนมัติเมื่อระบบขึ้นบัญชีสโมสร</p>
 </div></section>
 <script>
-/* P1_ROLLUP = สรุปจากทะเบียนโครงการ P1 (club-systems/project-registry/registry.html) · live: Apps Script เขียนจาก Sheet `projects` */
-(function(){
-  var R={projects:15, areas:6, youth:2000, years:7};
-  var tiles=[
-    {n:R.projects, u:'', c:'โครงการบำเพ็ญประโยชน์<br>ตลอด 7 ปี'},
-    {n:R.areas, u:'', c:'ด้านที่ลงมือทำ<br>(จาก 7 Areas + Safe Roads)'},
-    {n:R.youth.toLocaleString('th-TH'), u:'+', c:'เยาวชนเข้าถึงดนตรี<br>Sound of Hope'},
-    {n:R.years, u:' ปี', c:'รับใช้ชุมชนภูเก็ต<br>charter 15 มี.ค. 2562'}
-  ];
-  document.getElementById('p1grid').innerHTML=tiles.map(function(t){
-    return '<div><div class="num">'+t.n+'<span class="unit">'+t.u+'</span></div><div class="uline"></div><div class="cap">'+t.c+'</div></div>';
-  }).join('');
-})();
+/* B-24 T1: ตัวเลขสรุปย้ายไป SoT เดียว `data/stats.json` แล้ว — pickup.py inject-stats เขียนให้ระหว่าง marker
+   (เดิม gen ด้วย JS ตรงนี้ ทำให้ตัวเลขชุดเดียวกันอยู่คนละที่กับ index/gallery = เพี้ยนกันได้) */
 </script>
 
 <!-- CTA -->
