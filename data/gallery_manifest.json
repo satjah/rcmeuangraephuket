@@ -10,7 +10,7 @@
       "year": "2568",
       "area": "สิ่งแวดล้อม",
       "impact": "ฟื้นฟูระบบนิเวศทะเล ร่วม 19 สโมสร ภาค 3330/3600 — รักษ์อันดามัน",
-      "cover": "img/gallery/2568_save_underwater_01.jpg",
+      "cover": "img/gallery/save_underwater_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2568_save_underwater_01.jpg",
@@ -36,7 +36,7 @@
       "year": "2568",
       "area": "ป้องกัน/รักษาโรค",
       "impact": "Global Grant ไทย–เกาหลี เครื่องเอกซเรย์ 630 mA — เพื่อผู้ป่วยถลางทุกคน",
-      "cover": "img/gallery/2025_xray_thalang_02.jpg",
+      "cover": "img/gallery/xray_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_xray_thalang_02.jpg",
@@ -62,7 +62,7 @@
       "year": "2569",
       "area": "สิ่งแวดล้อม",
       "impact": "พาเด็กพิเศษเข้าค่ายทะเล เปิดประสบการณ์ธรรมชาติและการเรียนรู้",
-      "cover": "img/gallery/2026_andaman_special_camp_01.jpg",
+      "cover": "img/gallery/andaman_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2026_andaman_special_camp_01.jpg",
@@ -84,7 +84,7 @@
       "year": "2569",
       "area": "เยาวชน",
       "impact": "มอบของเล่นวันเด็ก + ส่งต่อของขวัญแก่เด็กในโรงพยาบาล",
-      "cover": "img/gallery/2026_childrens_day_01.jpg",
+      "cover": "img/gallery/childrens_day_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2026_childrens_day_01.jpg",
@@ -106,7 +106,7 @@
       "year": "2568",
       "area": "ป้องกัน/รักษาโรค",
       "impact": "รณรงค์และร่วมบริจาคโลหิต ต่อชีวิตเพื่อนมนุษย์",
-      "cover": "img/gallery/2025_blood_donation_01.jpg",
+      "cover": "img/gallery/blood_donation_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_blood_donation_01.jpg",
@@ -128,7 +128,7 @@
       "year": "2568",
       "area": "บรรเทาทุกข์",
       "impact": "จัดและขนส่งน้ำดื่ม/สิ่งของช่วยเหลือผู้ประสบภัยน้ำท่วม",
-      "cover": "img/gallery/2025_flood_relief_01.jpg",
+      "cover": "img/gallery/flood_relief_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_flood_relief_01.jpg",
@@ -150,7 +150,7 @@
       "year": "2568",
       "area": "Safe Roads",
       "impact": "โครงการรณรงค์ความปลอดภัยบนถนน · Safe Roads Save Lives",
-      "cover": "img/gallery/2025_road_safety_01.jpg",
+      "cover": "img/gallery/road_safety_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_road_safety_01.jpg",
@@ -172,7 +172,7 @@
       "year": "2568",
       "area": "เศรษฐกิจชุมชน",
       "impact": "ฝึกทักษะอาชีพ สร้างโอกาสคืนสู่สังคมแก่ผู้ต้องขัง",
-      "cover": "img/gallery/2025_prison_vocational_01.jpg",
+      "cover": "img/gallery/prison_vocational_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_prison_vocational_01.jpg",
@@ -194,7 +194,7 @@
       "year": "2568",
       "area": "ระดมทุน",
       "impact": "คอนเสิร์ตการกุศล ศิลปินระดับตำนาน → ทุนจัดหาเครื่องมือแพทย์ให้ชุมชน",
-      "cover": "img/gallery/2025_legends_concert_01.jpg",
+      "cover": "img/gallery/concert_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2025_legends_concert_01.jpg",
@@ -220,7 +220,7 @@
       "year": "2563",
       "area": "สุขภาพแม่และเด็ก",
       "impact": "แจกนม + สเปรย์แอลกอฮอล์ช่วงโควิด — People of Action ยุคเริ่มต้นสโมสร",
-      "cover": "img/gallery/2020_milk_for_children_01.jpg",
+      "cover": "img/gallery/milk_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2020_milk_for_children_01.jpg",
@@ -246,7 +246,7 @@
       "year": "2566",
       "area": "สิ่งแวดล้อม",
       "impact": "สมาชิกลงพื้นที่กำจัดวัชพืช เปิดทางน้ำฝายคลองพระแทว — People of Action ดูแลระบบน้ำชุมชน",
-      "cover": "img/gallery/2023_khlong_phra_thaeo_01.jpg",
+      "cover": "img/gallery/khlong_phra_thaeo_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2023_khlong_phra_thaeo_01.jpg",
@@ -268,7 +268,7 @@
       "year": "2563",
       "area": "หมุดหมายสโมสร",
       "impact": "พิธีฉลองรับสารตราตั้งและสถาปนาคณะกรรมการบริหารชุดก่อตั้ง — วันแรกของสโมสรโรตารีเหมืองแร่ภูเก็ต",
-      "cover": "img/gallery/2020_founding_installation_01.jpg",
+      "cover": "img/gallery/founding_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2020_founding_installation_01.jpg",
@@ -286,7 +286,7 @@
       "year": "2563",
       "area": "หมุดหมายสโมสร",
       "impact": "การประชุมสามัญครั้งแรกของสโมสร — วางรากฐานการทำงานของ People of Action ยุคเริ่มต้น",
-      "cover": "img/gallery/2020_first_meeting_01.jpg",
+      "cover": "img/gallery/first_meeting_cover.webp",
       "photos": [
         {
           "src": "img/gallery/2020_first_meeting_01.jpg",
