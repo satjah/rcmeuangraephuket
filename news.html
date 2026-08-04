@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <!--
-  MOCKUP — www.rcmeuangraephuket.org (Phase 0 + WOW layer)
-  สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket · District 3330
-  Opus ตาม spec: website_design_fable.md + website_wow_design_fable.md · 3 ก.ค. 2569
-  🟡 ร่างเสนอทีม · โลโก้ทางการ swap แล้ว · วงล้อ = ไฟล์จริง (ห้าม animate)
-  wow: hero cinematic+kinetic · โซ่กระเชอเคลื่อนที่ · scroll reveal+count-up · heritage cinematic · video facade
-  หมายเหตุ: mockup ใช้ Google Fonts + YouTube thumbnail (external) — เว็บจริง self-host ส่วนที่เหลือ
+  news.html — อาร์ไคฟ์ข่าวกิจกรรมทั้งหมด (B-31 · design plan/news_click_design_fable.md)
+  🔴 header / <style> / footer = **ก๊อปจาก index.html ทั้งบล็อก** ตาม DESIGN_RULES §1 (canonical)
+     แก้ได้อย่างเดียวคือ active state ของ nav — เมนูต้องครบเท่า index เสมอ
+  🔴 การ์ดในบล็อก NEWSALL ถูก regen โดย pickup.py publish-web จาก news_manifest.json — ห้ามแก้มือ
 -->
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>สโมสรโรตารีเหมืองแร่ภูเก็ต — จากเวที สู่ชีวิต</title>
+<title>ข่าวกิจกรรม — สโมสรโรตารีเหมืองแร่ภูเก็ต</title>
 <link rel="icon" href="club_emblem.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -259,161 +257,45 @@
   .ncard[data-news-id]{cursor:pointer}
   .ncard[data-news-id]:focus-visible{outline:3px solid var(--rotary-gold,#F5A81C);outline-offset:3px}
 </style>
+<style>
+  .newshead{padding:120px 0 8px}
+  .newshead .kicker{font-family:'Open Sans';font-weight:700;font-size:12.5px;letter-spacing:.14em;color:var(--bronze-deep);text-transform:uppercase}
+  .newshead h1{font-size:clamp(28px,4vw,40px);margin:10px 0 8px}
+  .newshead p{color:#555;font-size:16px;max-width:640px}
+  .newswrap{padding:24px 0 70px}
+</style>
 </head>
 <body>
-
-<!-- SVG defs: กระเชอ seal -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="seal" viewBox="0 0 100 100">
-    <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-      <circle cx="50" cy="50" r="46"/><path d="M50 14 v10"/><ellipse cx="50" cy="27" rx="5" ry="3.5"/>
-      <path d="M30 36 L70 36 L62 66 L38 66 Z"/><path d="M38 66 l3 8 M46 66 l2 8 M54 66 l-2 8 M62 66 l-3 8"/>
-      <path d="M36 46 L64 46" stroke-width="2"/>
-    </g>
-  </symbol>
-</defs></svg>
-
-<!-- B1 HEADER -->
 <header>
   <div class="nav">
     <input type="checkbox" id="mtoggle">
-    <a href="#" class="logo"><img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img"></a>
+    <a href="index.html" class="logo"><img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" class="logo-img"></a>
     <label for="mtoggle" class="burger">☰</label>
     <nav class="menu">
-      <a href="#">หน้าแรก</a><a href="gallery.html">ผลงานของเรา</a><a href="about.html">เราคือใคร</a><a href="#news">ข่าว</a><a href="donate.html">สนับสนุนเรา</a>
+      <a href="index.html">หน้าแรก</a><a href="gallery.html">ผลงานของเรา</a><a href="about.html">เราคือใคร</a><a href="news.html" aria-current="page">ข่าว</a><a href="donate.html">สนับสนุนเรา</a>
       <a href="join.html" class="btn btn-gold" style="padding:9px 18px;font-size:14px">ร่วมกับเรา</a>
       <span class="lang">TH / EN</span>
     </nav>
   </div>
 </header>
 
-<!-- B2 HERO -->
-<div class="hero">
-  <div class="hero-media"><!-- swap <picture> H01 ทีหลัง --></div>
-  <img class="seal-bg" src="club_mark.png" alt="">
-  <div class="wrap">
-    <div class="label">Rotary Club of Meuang Rae Phuket · District 3330</div>
-    <h1 class="hero-h1">
-      <span class="line l1">จากเวที</span>
-      <svg class="chain-draw" viewBox="0 0 300 24" aria-hidden="true">
-        <path d="M0 12 H300"/><path class="bkt" d="M138 12 h24 l-5 10 h-14 Z"/>
-      </svg>
-      <span class="line l2">สู่ชีวิต</span>
-    </h1>
-    <div class="sub-en rise">From Stage to Lasting Impact</div>
-    <p class="lead rise">สโมสรเล็กๆ 36 คน ที่แปลงเสียงดนตรีเป็นเครื่องมือแพทย์ ทะเลที่ฟื้นคืน และอาชีพที่ยั่งยืน — ที่ภูเก็ต บ้านของเรา</p>
-    <div class="cta rise">
-      <a href="#feat" class="btn btn-gold">ดูผลงานของเรา →</a>
-      <a href="#join" class="btn btn-outline-white">ร่วมสร้าง impact</a>
-    </div>
-  </div>
-  <div class="scroll-cue"></div>
-  <svg class="divider chain-live gold" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track"></g></svg>
-</div>
-
-<!-- B3 IMPACT NUMBERS -->
-<section class="impact"><div class="wrap"><div class="grid">
-<!-- STATS:START — inject จาก data/stats.json โดย pickup.py inject-stats · ห้ามแก้มือในบล็อกนี้ -->
-  <div class="reveal" style="--d:0s"><div class="num"><span data-n="1.9">1.9</span><span class="unit">ล้าน฿</span></div><div class="uline"></div><div class="cap">เครื่องเอกซเรย์มอบ รพ.ถลาง<br>(Global Grant ร่วมสโมสรเกาหลี)</div></div>
-  <div class="reveal" style="--d:.08s"><div class="num"><span data-n="5">5</span><span class="unit">ล้าน฿</span></div><div class="uline"></div><div class="cap">Save Underwater World<br>ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></div></div>
-  <div class="reveal" style="--d:.16s"><div class="num"><span data-n="7">7</span><span class="unit"> ปี</span></div><div class="uline"></div><div class="cap">รับใช้ชุมชนภูเก็ต<br>(charter 15 มี.ค. 2562)</div></div>
-  <div class="reveal" style="--d:.24s"><div class="num"><span data-n="36">36</span></div><div class="uline"></div><div class="cap">สมาชิก<br>People of Action</div></div>
-<!-- STATS:END -->
-</div></div></section>
-
-<!-- B4 FEATURED -->
-<section class="feat" id="feat">
-  <svg class="divider chain-live" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true" style="margin-bottom:40px"><g class="chain-track"></g></svg>
-  <div class="wrap"><div class="row">
-    <div class="ph-32 reveal ph" style="border-radius:10px;overflow:hidden;--d:0s"><img src="img/2025_the_legends_concert_01.jpg" alt="คอนเสิร์ต Rotary Charity Live" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-    <div class="reveal" style="--d:.15s">
-      <div class="label">Signature Project</div>
-      <h2>Rotary Charity Live<br>คอนเสิร์ตที่จบ แต่ผลไม่จบ</h2>
-      <ul class="timeline">
-        <li data-n="1"><b>ปัญหา</b><span>รพ.ถลางขาดเครื่องมือแพทย์ที่จำเป็นต่อคนในพื้นที่</span></li>
-        <li data-n="2"><b>ลงมือ</b><span>คอนเสิร์ตการกุศล ศิลปินระดับตำนาน (2567 · Queens of Rock 2568) รวมพลังทั้งเมือง</span></li>
-        <li data-n="3"><b>ผลที่คงอยู่</b><span>เครื่องเอกซเรย์ 1.9 ล้านบาท ทำงานให้คนถลางทุกวัน <span class="todo">จำนวนผู้ป่วย/เดือน รอ รพ.</span></span></li>
-      </ul>
-      <a href="#" class="btn btn-outline">เรื่องเต็มของ Charity Live →</a>
-    </div>
-  </div></div>
-</section>
-
-<!-- B5 PROJECTS -->
-<section class="projects"><div class="wrap">
-  <div class="reveal" style="text-align:center"><div class="label" style="display:inline-block">โครงการของเรา</div>
-    <h2 style="margin:8px 0 40px">สร้างผลกระทบใน 7 ด้านของโรตารี</h2></div>
-  <div class="cards">
-    <a class="card reveal" href="#" style="--d:0s"><div class="ph-32 ph" style="overflow:hidden"><img src="img/2568_xray_thalang.jpg" alt="พิธีมอบเครื่องเอกซเรย์ รพ.ถลาง" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div>
-      <div class="body"><span class="tag">สุขภาพชุมชน</span><h3>เครื่องมือแพทย์ รพ.ถลาง</h3><p>Global Grant ไทย–เกาหลี เพื่อคนถลางทุกคน</p><span class="more">อ่านต่อ</span></div></a>
-    <a class="card reveal" href="#" style="--d:.09s"><div class="ph-32 ph" style="overflow:hidden"><img src="img/2568_save_underwater.jpg" alt="โครงการ Save Underwater World ฟื้นฟูระบบนิเวศทะเล" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div>
-      <div class="body"><span class="tag">สิ่งแวดล้อม</span><h3>Save Underwater World</h3><p>ฟื้นฟูระบบนิเวศอ่าวพังงา ร่วม 19 สโมสร <span class="todo">รอยืนยัน</span></p><span class="more">อ่านต่อ</span></div></a>
-    <a class="card reveal" href="#" style="--d:.18s"><div class="placeholder ph-32 ph"><span>ภาพ H05: อบรมตัดเย็บ ชุมชนกะทู้</span></div>
-      <div class="body"><span class="tag">เศรษฐกิจชุมชน</span><h3>สร้างอาชีพตัดเย็บ</h3><p>ทักษะที่อยู่กับผู้เรียนตลอดชีวิต ทั้งชุมชนกะทู้และผู้ต้องขังหญิง</p><span class="more">อ่านต่อ</span></div></a>
-  </div>
+<section class="newshead"><div class="wrap">
+  <div class="kicker">ข่าวกิจกรรม</div>
+  <h1>เพิ่งเกิดอะไรขึ้นบ้าง</h1>
+  <p>บันทึกกิจกรรมของสโมสรเรียงจากใหม่ไปเก่า — กดที่การ์ดเพื่อดูรูปทั้งชุดและเรื่องเต็ม</p>
 </div></section>
 
-<!-- B6 HERITAGE (cinematic) -->
-<div class="heritage" id="heritage">
-  <svg class="divider chain-live gold d-top" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track ore"></g></svg>
-  <img class="seal" src="club_mark.png" alt="">
-  <div class="wrap reveal">
-    <div class="label" style="display:inline-block">มรดกเหมืองแร่ภูเก็ต</div>
-    <div class="line-th">กระเชอที่เคย<em>ตักแร่</em>สร้างเมืองภูเก็ต<br>วันนี้<em>ตักน้ำใจ</em>สร้างชุมชนที่ยั่งยืน</div>
-    <div class="line-en">The dredge buckets that once mined tin to build Phuket now carry goodwill to build lasting impact.</div>
-    <a href="#">ทำไมเราชื่อ "เหมืองแร่" →</a>
-  </div>
-  <svg class="divider chain-live gold d-bot" viewBox="0 0 1200 26" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><g class="chain-track ore"></g></svg>
-</div>
-
-<!-- B7 PEOPLE OF ACTION -->
-<section class="people"><div class="wrap">
-  <div class="reveal"><h2>คนธรรมดา ที่รวมพลังทำสิ่งไม่ธรรมดา</h2>
-    <p class="intro">เราคือ "People of Action" ที่ลงมือทำจริง เพื่อสร้างความเปลี่ยนแปลงเชิงบวก จากภูเก็ต…สู่ชุมชน…สู่สากล</p></div>
-  <div class="profiles">
-    <div class="profile reveal" style="--d:0s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H06</span></div><div class="quote">"ผมอยากเห็นบ้านเกิดดีขึ้นด้วยมือของเราเอง"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
-    <div class="profile reveal" style="--d:.09s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H07</span></div><div class="quote">"โรตารีทำให้ผมได้ให้ในแบบที่ลงมือทำจริง"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
-    <div class="profile reveal" style="--d:.18s"><div class="placeholder ph-round"><span style="font-size:11px">ภาพ H08</span></div><div class="quote">"เสียงดนตรีของเรา กลายเป็นโอกาสของใครหลายคน"</div><div class="who">— ชื่อสมาชิก <span class="todo">รอสัมภาษณ์</span></div><div class="role">อาชีพ / บทบาทในสโมสร</div></div>
-  </div>
-  <div class="center-cta reveal"><a href="#" class="btn btn-outline">รู้จักเราทั้ง 36 คน →</a></div>
-</div></section>
-
-<!-- VIDEO -->
-<section class="video">
-  <div class="wrap">
-    <div class="reveal"><div class="label">หนังสั้น impact</div>
-      <h2>คนทำจริง — เรื่องจริงจากเหมืองแร่</h2>
-      <p class="vsub">ไม่ต้องเล่า…ดูเอง ว่า "People of Action" ลงมือเปลี่ยนชีวิตคนภูเก็ตอย่างไร</p></div>
-    <div class="lite-yt reveal" data-id="XmyPOZC4kf0" style="--d:.1s">
-      <img src="https://i.ytimg.com/vi/XmyPOZC4kf0/hqdefault.jpg" alt="วิดีโอ: คนทำจริง" loading="lazy">
-      <button class="yt-play" aria-label="เล่นวิดีโอ"></button>
-    </div>
-  </div>
-</section>
-
-<!-- B8 NEWS -->
-<section class="news" id="news"><div class="wrap">
-  <div class="top reveal"><h2>ข่าวล่าสุด</h2><a href="news.html" style="font-weight:600;color:var(--bronze-deep)">ข่าวทั้งหมด →</a></div>
+<section class="newswrap"><div class="wrap">
   <div class="ncards">
-    <!-- NCARDS:START — regen โดย pickup.py publish-web จาก news_manifest.json · ห้ามแก้มือในบล็อกนี้ -->
+    <!-- NEWSALL:START — regen โดย pickup.py publish-web จาก news_manifest.json · ห้ามแก้มือในบล็อกนี้ -->
     <div class="ncard reveal" style="--d:0s" data-news-id="20260801_1035" role="button" tabindex="0" aria-label="เปิดรายละเอียดข่าว งานปั้นประติมากรรมรายาร่วมกับกรมทะเลชายฝั่ง"><div class="ph-32 ph" style="overflow:hidden"><img src="img/news/20260801_1035.jpg" alt="งานปั้นประติมากรรมรายาร่วมกับกรมทะเลชายฝั่ง" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div><div class="body"><div class="date">1 สิงหาคม 2569</div><h3>งานปั้นประติมากรรมรายาร่วมกับกรมทะเลชายฝั่ง</h3><p>สโมสรโรตารี เหมืองแร่ภูเก็ต ร่วมติดตามความคืบหน้าประติมากรรมใต้ทะเลในโครงการรายาร่วมมือกับกรมทรัพยากรทางทะเลและชายฝั่ง และ สมาคมศิลป์</p></div></div>
     <div class="ncard reveal" style="--d:.09s" data-news-id="seed_gong_2569" role="button" tabindex="0" aria-label="เปิดรายละเอียดข่าว ประชุมเคาะฆ้อง ครั้งที่ 1 ปีบริหาร 2569–2570"><div class="ph-32 ph" style="overflow:hidden"><img src="img/2569_gong_meeting.jpg" alt="ประชุมเคาะฆ้อง ครั้งที่ 1" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div><div class="body"><div class="date">7 ก.ค. 2569</div><h3>ประชุมเคาะฆ้อง ครั้งที่ 1 ปีบริหาร 2569–2570</h3><p>เปิดปีบริหารใหม่ภายใต้ธีม "Create Lasting Impact"</p></div></div>
     <div class="ncard reveal" style="--d:.18s" data-news-id="seed_committee_2569" role="button" tabindex="0" aria-label="เปิดรายละเอียดข่าว เปิดปีบริหาร "Create Lasting Impact""><div class="ph-32 ph" style="overflow:hidden"><img src="img/2569_committee_122.jpg" alt="คณะกรรมการบริหารรุ่น 122" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div><div class="body"><div class="date">ก.ค. 2569</div><h3>เปิดปีบริหาร "Create Lasting Impact"</h3><p>คณะกรรมการบริหารรุ่น 122 พร้อมรับใช้ชุมชนภูเก็ต</p></div></div>
     <div class="ncard reveal" style="--d:.27s" data-news-id="seed_queens_2568" role="button" tabindex="0" aria-label="เปิดรายละเอียดข่าว สรุปคอนเสิร์ต Queens of Rock"><div class="ph-32 ph" style="overflow:hidden"><img src="img/2568_queens_of_rock.jpg" alt="คอนเสิร์ต Queens of Rock 2568" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s"></div><div class="body"><div class="date">2568</div><h3>สรุปคอนเสิร์ต Queens of Rock</h3><p>ระดมทุนเพื่อเครื่องมือแพทย์ รพ.ถลาง <span class="todo">ยอดรอเหรัญญิก</span></p></div></div>
-    <!-- NCARDS:END -->
+    <!-- NEWSALL:END -->
   </div>
 </div></section>
 
-<!-- B9 CTA -->
-<div class="ctaband" id="join"><div class="wrap reveal">
-  <div class="label">ร่วมเป็นส่วนหนึ่ง</div>
-  <h2>ร่วมสร้างผลกระทบที่ยั่งยืนไปกับเรา</h2>
-  <p class="lead">ไม่ว่าคุณจะอยากลงมือทำ สนับสนุนโครงการ หรือแค่อยากรู้จักเรา — เริ่มต้นได้ที่นี่</p>
-  <div class="btns"><a href="#" class="btn btn-gold">สมัครสมาชิก</a><a href="#" class="btn btn-outline-white">เป็น Sponsor</a><a href="#" class="btn btn-outline-white">ติดต่อสโมสร</a></div>
-  <div class="meet">📍 ประชุมทุกอังคารที่ 1 และ 3 · 19:00–20:00 น. · Happy Property Office กะทู้ ภูเก็ต</div>
-</div></div>
-
-<!-- B10 FOOTER -->
 <footer>
   <div class="cols">
     <div><div class="flogo"><img src="logo_official.png" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต — Rotary Club of Meuang Rae Phuket" style="height:64px;background:#fff;border-radius:8px;padding:9px 14px"></div>
@@ -428,36 +310,6 @@
     <span class="h-en">The dredge buckets that once mined tin to build Phuket now carry goodwill to build lasting impact.</span><br><br>
     © 2569 สโมสรโรตารีเหมืองแร่ภูเก็ต · Rotary Club of Meuang Rae Phuket, District 3330</div>
 </footer>
-
-<script>
-// build โซ่กระเชอ (chain-live) — เติมถังซ้ำ 60 หน่วย (48px) ให้ track
-document.querySelectorAll('.chain-live .chain-track').forEach(function(track){
-  var live=track.closest('.chain-live'), gold=live.classList.contains('gold'), ore=track.classList.contains('ore');
-  var col=gold?'#F5A81C':'#B08D57', op=gold?0.72:1, s='';
-  for(var n=0;n<60;n++){var x=n*48;
-    s+='<path d="M'+x+' 8 H'+(x+48)+'" stroke="'+col+'" stroke-width="2" opacity="'+op+'"/>';
-    s+='<circle cx="'+(x+24)+'" cy="8" r="2.6" fill="'+col+'" opacity="'+op+'"/>';
-    s+='<path d="M'+(x+15)+' 8 L'+(x+33)+' 8 L'+(x+29)+' 21 L'+(x+19)+' 21 Z" fill="none" stroke="'+col+'" stroke-width="2" opacity="'+op+'"/>';
-    if(ore && n%3===0) s+='<circle cx="'+(x+24)+'" cy="15" r="3" fill="#F5A81C"/>';
-  }
-  track.innerHTML=s;
-});
-// scroll reveal (ครั้งเดียวแล้ว unobserve)
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
-// count-up ตัวเลข impact
-var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-var ease=function(t){return 1-Math.pow(1-t,3)};
-function countUp(el){var end=parseFloat(el.dataset.n),dec=(el.dataset.n.split('.')[1]||'').length,t0=performance.now(),d=1400;
-  (function f(t){var p=Math.min((t-t0)/d,1);el.textContent=(end*ease(p)).toFixed(dec);if(p<1)requestAnimationFrame(f)})(t0)}
-if(!reduce){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){countUp(e.target);io2.unobserve(e.target)}})},{threshold:.6});
-  document.querySelectorAll('.num [data-n]').forEach(function(el){io2.observe(el)})}
-// header shadow on scroll
-var hd=document.querySelector('header');addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>4)},{passive:true});
-// lite youtube facade
-document.querySelectorAll('.lite-yt').forEach(function(el){el.addEventListener('click',function(){
-  var id=el.dataset.id;el.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="video" allow="autoplay;encrypted-media;fullscreen" allowfullscreen></iframe>'})});
-</script>
 <!-- B-31 lightbox ข่าว (ใช้ร่วมกับ news.html · JS อยู่ใน news-lightbox.js) -->
 <div class="nlb" id="nlb" role="dialog" aria-modal="true" aria-label="รายละเอียดข่าว">
   <div class="nlb-inner">
@@ -472,6 +324,14 @@ document.querySelectorAll('.lite-yt').forEach(function(el){el.addEventListener('
     <div class="nbody" id="nlbBody"></div>
   </div>
 </div>
+<script>
+/* 🔴 ก๊อปพฤติกรรมจาก index.html ไม่ใช่แค่ CSS — `.reveal` ใน CSS canonical เริ่มต้นที่ opacity:0
+   รอสคริปต์นี้ติด class .in ให้ · ก๊อป CSS อย่างเดียวแล้วลืมสคริปต์ = การ์ดหายทั้งหน้า (เจอจริง 4 ส.ค.)
+   + header shadow ตอน scroll ให้เหมือน index เป๊ะ */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+var hd=document.querySelector('header');addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>4)},{passive:true});
+</script>
 <script src="news-lightbox.js" defer></script>
 </body>
 </html>

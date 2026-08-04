@@ -277,14 +277,24 @@ fbox.addEventListener('click',e=>applyFilter(e.target.closest('.chip')));
 /* B-24 T5: เปิดหน้านี้พร้อมตัวกรองได้จาก URL — about.html ลิงก์ท้ายบทมาที่ #year=2568
    (เชื่อม "เราเป็นใคร" (เรื่องราว) → "เราทำอะไรสำเร็จ" (หลักฐาน) ตามกฎเจ้าของเนื้อหา design §1) */
 function filterFromHash(){
-  const m=(location.hash||'').match(/^#(year|area)=(.+)$/);
-  if(!m) return;
-  const v=decodeURIComponent(m[2]);
-  const b=[...fbox.children].find(c=>c.dataset.k===m[1] && c.dataset.v===v);
-  if(b){ applyFilter(b); b.scrollIntoView({block:'nearest',inline:'center'}); }
+  const h=location.hash||'';
+  const m=h.match(/^#(year|area)=(.+)$/);
+  if(m){
+    const v=decodeURIComponent(m[2]);
+    const b=[...fbox.children].find(c=>c.dataset.k===m[1] && c.dataset.v===v);
+    if(b){ applyFilter(b); b.scrollIntoView({block:'nearest',inline:'center'}); }
+    return;
+  }
+  /* B-31 N4: การ์ดข่าวลิงก์มาที่ gallery.html#<project-id> เพื่อเปิดโครงการนั้นเลย
+     เดิมรับแค่ #year=/#area= ⇒ ลิงก์จากข่าวพามาถึงหน้านี้แต่ไม่เปิดอะไร = ลิงก์ที่หลอกให้กด
+     (บั๊กชนิดเดียวกับที่ B-31 กำลังแก้อยู่ — ไม่ควรสร้างขึ้นใหม่ในงานเดียวกัน) */
+  const pid=decodeURIComponent(h.replace(/^#/,''));
+  if(pid && PROJECTS.some(p=>p.id===pid)) openLb(pid);
 }
-filterFromHash();
 addEventListener('hashchange',filterFromHash);
+/* 🔴 เรียกครั้งแรกไว้ "ท้ายสุด" ไม่ใช่ตรงนี้ — ตรงนี้ยังอยู่เหนือ `let curP` / openLb
+   ⇒ เปิดหน้าด้วย #<project-id> จะได้ ReferenceError (temporal dead zone) แล้วเงียบไปเฉย ๆ
+   (ของเดิมรอดเพราะ #year=/#area= ไม่ได้แตะ lightbox) */
 
 /* ── lightbox ── */
 let curP=null,curI=0;
@@ -302,6 +312,8 @@ function closeLb(){lb.classList.remove('on');document.body.style.overflow='';}
 lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
 addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;
   if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')nav(1);if(e.key==='ArrowLeft')nav(-1);});
+
+filterFromHash();   /* ← ต้องอยู่หลัง openLb/curP ถูกประกาศแล้วเท่านั้น */
 </script>
 </body>
 </html>
