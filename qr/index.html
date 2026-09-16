@@ -1,59 +1,89 @@
 <!DOCTYPE html>
 <!--
-  /qr/ — หน้าแยกทางสำหรับคนสแกน QR จากป้าย (B-97 · plan/qr_portal_design_fable.md Q3/Q4)
-  กติกาของหน้านี้ (ตั้งใจให้ต่างจากหน้าอื่นของเว็บ):
-   · ไฟล์เดียว · ไม่โหลด webfont · script เดียวคือ pixel ตัวนับ (3 บรรทัด) · ไม่มี animation — คนสแกนยืนริมถนนกลางแดดบน 4G ต้องถึงปุ่มใน 1 แตะ
-   · 4 ปุ่มเท่านั้น (เว็บ · สมัครสมาชิก · บริจาค · เฟซบุ๊ก) — ปุ่ม LINE รอใบ "โหมดผู้มาเยือน" ของน้องกระเชอ (B-98)
-   · ปุ่ม ①②③ เป็น relative link ในรีโปเดียวกัน ตายไม่ได้โดยลำพัง · ปุ่ม ④ เป็น URL นอก 1 บรรทัด → ตรวจในรอบ 6 เดือนตามใบส่งมอบ
-   · <img> ท้ายหน้า = ตัวนับสแกน (T5) นับครั้งไม่นับคน · ถ้า Worker ตาย รูปไม่ขึ้น หน้ายังใช้ได้เต็ม
-   · สี/บทบาทฟอนต์ตาม website/DESIGN_RULES.md §1 (system font fallback ตามที่ verdict อนุญาต)
-   · รหัสจุด ?s=b1 บนป้ายแรก · ป้ายถัดไป b2 · โปสเตอร์ p1 … (ของในหมึก จองตั้งแต่วันแรก)
+  /qr/ — หน้าแยกทางสำหรับคนสแกน QR จากป้าย (B-97 · plan/qr_portal_design_fable.md Q3/Q4) · ฉบับพื้นน้ำเงิน — Satja เคาะ 16 ก.ย. "สวยเลยครับ เอาตามนี้"
+  ต้นแบบ: plan/mockups/qr_portal_wow.html (แก้ที่นี่แล้วก๊อปกลับไปที่นั่นด้วย หรือกลับกัน — ให้ 2 ไฟล์ตรงกันเสมอ)
+  ภาษา design = M3 Meeting Kit หน้าปก (navy gradient · การ์ดโลโก้ขาว · kicker ทองเว้นวรรค · แถบฟันกระเชอทองขอบล่าง)
+  ยึด website_wow_design_fable.md §7 anti-patterns: โลโก้นิ่ง · ไม่มี particle · motion เล่นครั้งเดียว ≤.8s · reduced-motion ปิดสนิท · ทอง = CTA เดียว
+  ยึด qr_portal_design_fable.md T4: ไฟล์เดียว · ไม่โหลด webfont · ≤30KB · script เดียว = pixel · 4 ปุ่ม · noindex
+  โลโก้ในไฟล์นี้ชี้ไปที่รีโปเว็บ (../logo_official.png) — ตอนย้ายไปหน้าจริงเปลี่ยนเป็น ../logo_official.png
 -->
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F2A56">
 <title>สโมสรโรตารีเหมืองแร่ภูเก็ต — ช่องทางติดต่อ</title>
 <link rel="icon" href="../favicon.png">
 <style>
-  :root{--rotary-blue:#19468D;--azure:#0076C0;--gold:#F5A81C;--ink:#1F2933;--paper:#FAF8F4;--muted:#5b6672;--line:#e6e2da}
+  :root{--rotary-blue:#19468D;--azure:#0076C0;--gold:#F5A81C;--ink:#1F2933;--paper:#FAF8F4;--navy:#0F2A56;--navy-deep:#0a1a34;
+    --mist:#dbe6f5;--mist-dim:#9fb8d8}
   *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{font-family:'Sarabun','Noto Sans Thai','Thonburi',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);
-    min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 20px 24px;line-height:1.5}
+  html{-webkit-text-size-adjust:100%;background:var(--navy-deep)}
+  body{font-family:'Sarabun','Noto Sans Thai','Thonburi',system-ui,-apple-system,sans-serif;color:#fff;
+    min-height:100svh;display:flex;flex-direction:column;align-items:center;
+    padding:max(28px,env(safe-area-inset-top)) 20px 0;line-height:1.5;
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(0,118,192,.55) 0%, rgba(0,118,192,0) 60%),
+      linear-gradient(160deg,var(--navy) 0%,#122F5E 55%,var(--navy-deep) 100%);
+    background-attachment:fixed}
   .card{width:100%;max-width:420px;text-align:center}
-  .logo{width:min(72vw,300px);height:auto;display:block;margin:6px auto 14px}
-  h1{font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;font-size:1.35rem;font-weight:700;color:var(--rotary-blue);line-height:1.3}
-  .sub{font-size:.92rem;color:var(--muted);margin:4px 0 22px}
-  .rule{height:3px;border-radius:2px;margin:0 auto 22px;width:120px;
-    background:linear-gradient(90deg,var(--rotary-blue) 0 56%,var(--gold) 56% 100%)}
-  a.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;margin:0 0 12px;
-    padding:14px 18px;border-radius:14px;text-decoration:none;font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;
-    font-size:1.12rem;font-weight:600;color:#fff;background:var(--rotary-blue);border:2px solid var(--rotary-blue)}
-  a.btn.alt{background:#fff;color:var(--rotary-blue)}
-  a.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
-  a.btn:active{opacity:.85}
-  a.btn .ic{font-size:1.25rem;line-height:1}
-  .foot{margin-top:auto;padding-top:24px;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.55}
-  .foot b{color:var(--rotary-blue);font-weight:600}
+  /* การ์ดโลโก้ขาว — โลโก้นิ่ง คมชัด เสมอ (anti-pattern 1) */
+  .logo-c{display:inline-block;background:#fff;border-radius:16px;padding:14px 22px 12px;margin:4px auto 20px;
+    box-shadow:0 18px 40px -18px rgba(0,0,0,.6)}
+  .logo-c img{width:min(64vw,260px);height:auto;display:block}
+  .kicker{font-family:'Open Sans','Noto Sans Thai',system-ui,sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    font-size:.68rem;color:var(--gold);margin-bottom:6px}
+  h1{font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;font-size:1.5rem;font-weight:700;line-height:1.3;color:#fff}
+  .sub{font-size:.95rem;color:var(--mist);margin:6px 0 22px}
+  .sub b{color:#fff;font-weight:600}
+  /* ฟันกระเชอ — ลายเซ็นของสโมสร (เส้นเดียว ไม่ขยับ) */
+  .chain{height:6px;width:160px;margin:0 auto 24px;
+    background:repeating-linear-gradient(90deg,transparent 0 7px,var(--gold) 7px 8px);opacity:.85}
+  a.btn{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;margin:0 0 12px;padding:14px 18px;
+    border-radius:16px;text-decoration:none;text-align:left;
+    font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;font-size:1.08rem;font-weight:600;line-height:1.3;
+    color:#fff;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.28);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:transform .18s ease,background .18s ease}
+  a.btn small{display:block;font-family:'Sarabun','Thonburi',system-ui,sans-serif;font-weight:400;font-size:.82rem;color:var(--mist-dim);margin-top:2px}
+  a.btn .ic{flex:0 0 44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.12);color:#fff}
+  a.btn .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  a.btn .ic svg.fill{fill:currentColor;stroke:none}
+  a.btn:active{transform:scale(.985);background:rgba(255,255,255,.14)}
+  /* ทอง = CTA เดียว (วินัยสีเน้น §5.5) */
+  a.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--ink);box-shadow:0 14px 30px -14px rgba(245,168,28,.9)}
+  a.btn.primary small{color:rgba(31,41,51,.7)}
+  a.btn.primary .ic{background:rgba(255,255,255,.55);color:var(--rotary-blue)}
+  .foot{margin-top:auto;padding:26px 0 18px;font-size:.76rem;color:var(--mist-dim);text-align:center;line-height:1.55}
+  .foot b{color:var(--mist);font-weight:600}
+  .band{width:100vw;height:10px;margin-top:6px;
+    background:repeating-linear-gradient(90deg,transparent 0 12px,var(--gold) 12px 13px);opacity:.5}
   .px{width:1px;height:1px;border:0;position:absolute;left:-9999px}
+  /* entrance — เล่นครั้งเดียว ≤.8s · stagger ลึกสุด .5s (anti-pattern 4/5) */
+  .in{animation:up .7s cubic-bezier(.2,.7,.2,1) both}
+  .in.d1{animation-delay:.08s}.in.d2{animation-delay:.16s}.in.d3{animation-delay:.26s}.in.d4{animation-delay:.34s}.in.d5{animation-delay:.42s}.in.d6{animation-delay:.5s}
+  @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.in{animation:none}a.btn{transition:none}}
 </style>
 </head>
 <body>
 <main class="card">
-  <img class="logo" src="../logo_official.png" width="992" height="304" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต">
-  <h1>สโมสรโรตารีเหมืองแร่ภูเก็ต</h1>
-  <p class="sub">ภาค 3330 โรตารีสากล · People of Action</p>
-  <div class="rule"></div>
+  <div class="logo-c in"><img src="../logo_official.png" width="992" height="304" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต"></div>
+  <div class="kicker in d1">Rotary Club of Meuang Rae Phuket</div>
+  <h1 class="in d1">สโมสรโรตารีเหมืองแร่ภูเก็ต</h1>
+  <p class="sub in d2">ภาค 3330 โรตารีสากล · <b>People of Action</b></p>
+  <div class="chain in d2"></div>
 
-  <a class="btn" href="../"><span class="ic">🌐</span>เว็บไซต์สโมสร — ดูกิจกรรมและผลงาน</a>
-  <a class="btn alt" href="../join.html"><span class="ic">🤝</span>สนใจร่วมเป็นสมาชิก / ติดต่อเรา</a>
-  <a class="btn gold" href="../donate.html"><span class="ic">💛</span>ร่วมสนับสนุนโครงการ</a>
-  <a class="btn alt" href="https://www.facebook.com/rotarymeuangraephuket/"><span class="ic">📘</span>Facebook: Rotary Meuang Rae Phuket</a>
+  <a class="btn primary in d3" href="../"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span>เว็บไซต์สโมสร<small>กิจกรรม · ผลงาน · ข่าวล่าสุด</small></span></a>
+  <a class="btn in d4" href="../join.html"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 19.5a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2a5.2 5.2 0 0 1 6 5.3"/></svg></span><span>ร่วมเป็นสมาชิก / ติดต่อเรา<small>ฝากชื่อไว้ ทีมจะติดต่อกลับ</small></span></a>
+  <a class="btn in d5" href="../donate.html"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 8a4.2 4.2 0 0 1 7.5 2.5c0 5.4-7.5 10-7.5 10z"/></svg></span><span>สนับสนุนโครงการ<small>ทุกบาทถึงโครงการเพื่อชุมชน</small></span></a>
+  <a class="btn in d6" href="https://www.facebook.com/rotarymeuangraephuket/"><span class="ic"><svg viewBox="0 0 24 24" class="fill"><path d="M13.6 21v-7.4h2.5l.4-2.9h-2.9V8.9c0-.8.3-1.4 1.5-1.4h1.5V4.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.1H8.2v2.9h2.5V21h2.9z"/></svg></span><span>Facebook<small>Rotary Meuang Rae Phuket</small></span></a>
 </main>
 
-<p class="foot"><b>Rotary Club of Meuang Rae Phuket</b> · District 3330<br>ทุกช่องทางของสโมสรเริ่มจากหน้านี้</p>
+<p class="foot in d6"><b>สโมสรโรตารีเหมืองแร่ภูเก็ต</b> · ภาค 3330 โรตารีสากล<br>ทุกช่องทางของสโมสรเริ่มจากหน้านี้</p>
+<div class="band" aria-hidden="true"></div>
 <!-- T5: นับการเปิดหน้าจากป้าย — นับครั้ง ไม่นับคน (ไม่มี cookie/IP/UA) · รหัสจุดมาจาก ?s= ในหมึก (b1 = ป้ายแรก)
      script 3 บรรทัดนี้คือ script เดียวที่หน้านี้อนุญาต (verdict T4) · ที่อยู่ Worker อยู่หลังหน้า ไม่อยู่ในหมึก จึงเปลี่ยนได้
      ถ้า Worker ตาย/ไม่มี JS: รูปไม่ขึ้น หน้ายังใช้ได้เต็ม · ไม่มี JS → นับเป็น s=ns (no-script) ไม่ปลอมเป็นป้ายใด -->
