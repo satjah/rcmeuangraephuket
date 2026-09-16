@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+  /qr/ — หน้าแยกทางสำหรับคนสแกน QR จากป้าย (B-97 · plan/qr_portal_design_fable.md Q3/Q4)
+  กติกาของหน้านี้ (ตั้งใจให้ต่างจากหน้าอื่นของเว็บ):
+   · ไฟล์เดียว · ไม่โหลด webfont · script เดียวคือ pixel ตัวนับ (3 บรรทัด) · ไม่มี animation — คนสแกนยืนริมถนนกลางแดดบน 4G ต้องถึงปุ่มใน 1 แตะ
+   · 4 ปุ่มเท่านั้น (เว็บ · สมัครสมาชิก · บริจาค · เฟซบุ๊ก) — ปุ่ม LINE รอใบ "โหมดผู้มาเยือน" ของน้องกระเชอ (B-98)
+   · ปุ่ม ①②③ เป็น relative link ในรีโปเดียวกัน ตายไม่ได้โดยลำพัง · ปุ่ม ④ เป็น URL นอก 1 บรรทัด → ตรวจในรอบ 6 เดือนตามใบส่งมอบ
+   · <img> ท้ายหน้า = ตัวนับสแกน (T5) นับครั้งไม่นับคน · ถ้า Worker ตาย รูปไม่ขึ้น หน้ายังใช้ได้เต็ม
+   · สี/บทบาทฟอนต์ตาม website/DESIGN_RULES.md §1 (system font fallback ตามที่ verdict อนุญาต)
+   · รหัสจุด ?s=b1 บนป้ายแรก · ป้ายถัดไป b2 · โปสเตอร์ p1 … (ของในหมึก จองตั้งแต่วันแรก)
+-->
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>สโมสรโรตารีเหมืองแร่ภูเก็ต — ช่องทางติดต่อ</title>
+<link rel="icon" href="../favicon.png">
+<style>
+  :root{--rotary-blue:#19468D;--azure:#0076C0;--gold:#F5A81C;--ink:#1F2933;--paper:#FAF8F4;--muted:#5b6672;--line:#e6e2da}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Sarabun','Noto Sans Thai','Thonburi',system-ui,-apple-system,sans-serif;background:var(--paper);color:var(--ink);
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 20px 24px;line-height:1.5}
+  .card{width:100%;max-width:420px;text-align:center}
+  .logo{width:min(72vw,300px);height:auto;display:block;margin:6px auto 14px}
+  h1{font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;font-size:1.35rem;font-weight:700;color:var(--rotary-blue);line-height:1.3}
+  .sub{font-size:.92rem;color:var(--muted);margin:4px 0 22px}
+  .rule{height:3px;border-radius:2px;margin:0 auto 22px;width:120px;
+    background:linear-gradient(90deg,var(--rotary-blue) 0 56%,var(--gold) 56% 100%)}
+  a.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:60px;margin:0 0 12px;
+    padding:14px 18px;border-radius:14px;text-decoration:none;font-family:'Noto Sans Thai','Sarabun','Thonburi',system-ui,sans-serif;
+    font-size:1.12rem;font-weight:600;color:#fff;background:var(--rotary-blue);border:2px solid var(--rotary-blue)}
+  a.btn.alt{background:#fff;color:var(--rotary-blue)}
+  a.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  a.btn:active{opacity:.85}
+  a.btn .ic{font-size:1.25rem;line-height:1}
+  .foot{margin-top:auto;padding-top:24px;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.55}
+  .foot b{color:var(--rotary-blue);font-weight:600}
+  .px{width:1px;height:1px;border:0;position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<main class="card">
+  <img class="logo" src="../logo_official.png" width="992" height="304" alt="สโมสรโรตารีเหมืองแร่ภูเก็ต">
+  <h1>สโมสรโรตารีเหมืองแร่ภูเก็ต</h1>
+  <p class="sub">ภาค 3330 โรตารีสากล · People of Action</p>
+  <div class="rule"></div>
+
+  <a class="btn" href="../"><span class="ic">🌐</span>เว็บไซต์สโมสร — ดูกิจกรรมและผลงาน</a>
+  <a class="btn alt" href="../join.html"><span class="ic">🤝</span>สนใจร่วมเป็นสมาชิก / ติดต่อเรา</a>
+  <a class="btn gold" href="../donate.html"><span class="ic">💛</span>ร่วมสนับสนุนโครงการ</a>
+  <a class="btn alt" href="https://www.facebook.com/rotarymeuangraephuket/"><span class="ic">📘</span>Facebook: Rotary Meuang Rae Phuket</a>
+</main>
+
+<p class="foot"><b>Rotary Club of Meuang Rae Phuket</b> · District 3330<br>ทุกช่องทางของสโมสรเริ่มจากหน้านี้</p>
+<!-- T5: นับการเปิดหน้าจากป้าย — นับครั้ง ไม่นับคน (ไม่มี cookie/IP/UA) · รหัสจุดมาจาก ?s= ในหมึก (b1 = ป้ายแรก)
+     script 3 บรรทัดนี้คือ script เดียวที่หน้านี้อนุญาต (verdict T4) · ที่อยู่ Worker อยู่หลังหน้า ไม่อยู่ในหมึก จึงเปลี่ยนได้
+     ถ้า Worker ตาย/ไม่มี JS: รูปไม่ขึ้น หน้ายังใช้ได้เต็ม · ไม่มี JS → นับเป็น s=ns (no-script) ไม่ปลอมเป็นป้ายใด -->
+<script>
+(function(){var m=/[?&]s=([a-z0-9]{1,8})(?:&|$)/.exec(location.search);var s=m?m[1]:'x';
+var i=new Image(1,1);i.className='px';i.alt='';i.src='https://rotary-line-ingest.iamsatja.workers.dev/qr/hit?s='+s;document.body.appendChild(i);})();
+</script>
+<noscript><img class="px" src="https://rotary-line-ingest.iamsatja.workers.dev/qr/hit?s=ns" width="1" height="1" alt=""></noscript>
+</body>
+</html>
