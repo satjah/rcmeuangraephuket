@@ -27,6 +27,10 @@
   var body = document.getElementById('nlbBody');
   var dots = document.getElementById('nlbDots');
   var link = document.getElementById('nlbLink');
+  var linkText = link.textContent;   // ข้อความเดิม (ลิงก์ผลงาน) — คืนค่าเมื่อเปิดข่าวที่ไม่ใช่คลิป
+  // B-118 🧵(d) T6: ข่าวจากโพสต์คลิป — ลิงก์ไปดูคลิปบนเพจ (ตัวคลิปไม่ได้อยู่บนเว็บ)
+  // รับเฉพาะลิงก์ facebook.com (manifest มาจากท่อเราเอง แต่กันไว้อีกชั้นไม่ให้ลิงก์แปลกโผล่ในปุ่ม)
+  var FB_URL_RE = /^https:\/\/(www\.|m\.)?facebook\.com\//;
   var cur = null, idx = 0;
 
   function show() {
@@ -61,7 +65,16 @@
     dots.innerHTML = photos.map(function (_, k) {
       return '<i data-k="' + k + '"' + (k === 0 ? ' class="on"' : '') + '></i>';
     }).join('');
-    if (item.gallery_project) {
+    link.textContent = linkText;
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    if (item.video && FB_URL_RE.test(item.fb_url || '')) {
+      link.href = item.fb_url;
+      link.textContent = '▶ ดูคลิปเต็มบนเพจ Facebook →';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.style.display = '';
+    } else if (item.gallery_project) {
       link.href = 'gallery.html#' + encodeURIComponent(item.gallery_project);
       link.style.display = '';
     } else {
