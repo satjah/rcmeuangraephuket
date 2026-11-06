@@ -196,7 +196,16 @@
 
     <div class="field">
       <label for="f-source">รู้จักสโมสรจากไหน</label>
-      <input type="text" id="f-source" name="source" maxlength="200" placeholder="เช่น เพื่อนชวน · Facebook · งานกิจกรรม">
+      <select id="f-source" name="source">
+        <option value="" selected>— เลือก —</option>
+        <option>เพื่อนหรือสมาชิกชวน</option>
+        <option>Facebook</option>
+        <option>เว็บไซต์สโมสร</option>
+        <option>ป้ายริมถนน / QR</option>
+        <option>งานกิจกรรมหรือคอนเสิร์ต</option>
+        <option value="other">อื่น ๆ</option>
+      </select>
+      <input type="text" id="f-source-other" maxlength="200" placeholder="บอกเราสั้น ๆ" aria-label="รู้จักสโมสรจากช่องทางอื่น" hidden style="margin-top:8px">
     </div>
 
     <div class="field">
@@ -295,7 +304,7 @@
     var payload={
       name: form.name.value.trim(),
       contact: form.contact.value.trim(),
-      source: form.source.value.trim(),
+      source: form.source.value==='other'?document.getElementById('f-source-other').value.trim():form.source.value,
       interest: form.interest.value,
       website: form.website.value  // honeypot
     };
@@ -320,6 +329,7 @@
       errBox.scrollIntoView({behavior:'smooth',block:'center'});
     }
   });
+document.getElementById('f-source').addEventListener('change',function(){var o=document.getElementById('f-source-other');o.hidden=this.value!=='other';if(!o.hidden)o.focus()});
 </script>
 </body>
 </html>
