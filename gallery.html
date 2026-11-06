@@ -96,7 +96,9 @@
   .cta{text-align:center;padding:20px 0 60px}
   .btn{display:inline-block;font-family:'Noto Sans Thai';font-weight:600;padding:13px 26px;border-radius:8px;font-size:16px;cursor:pointer;border:2px solid transparent;transition:.25s}
   .btn-gold{background:var(--rotary-gold);color:#1F2933}.btn-gold:hover{background:#e0960a}
-  .btn-outline{border-color:var(--bronze);color:var(--bronze-deep);margin-left:10px}
+  .btn-outline{border-color:var(--bronze);color:var(--bronze-deep)}
+  .cta.wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  @media(max-width:520px){.cta.wrap{flex-direction:column;align-items:stretch;max-width:320px}.cta.wrap .btn{text-align:center}}
   footer{background:var(--paper-dark);color:#c9d8ee;padding:28px 0;font-size:14px}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   footer a{color:#fff}
